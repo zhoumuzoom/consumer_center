@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+mysql:
+  host: 119.23.9.44
+  port: 3306
+  database: iwhalecloud
+  username: bhome
+  password: bhome123
+
+spring:
+  application:
+    name: customer
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: 0
