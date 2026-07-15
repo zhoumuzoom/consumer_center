@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 在系统分析与单元测试中的实践 - 编码前与编码后的完整支持</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #c96442;
+            --secondary-color: #8b5a3c;
+            --accent-color: #d4a574;
+            --success-color: #6b9080;
+            --warning-color: #c96442;
+            --danger-color: #c94432;
+            --text-color: #1a1a1a;
+            --text-light: #6b6b6b;
+            --bg-color: #f5f0e8;
+            --bg-light: #ebe5d9;
+            --border-color: #d4cfc3;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-lg: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Georgia', 'Palatino', 'Times New Roman', serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background: var(--bg-color);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-color);
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-light);
+            color: var(--text-color);
+            padding: 80px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: normal;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: var(--text-light);
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-top: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* Main Content */
+        main {
+            padding: 60px 40px;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            color: var(--text-color);
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            font-weight: normal;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.6em;
+            margin: 40px 0 20px 0;
+            font-weight: normal;
+        }
+
+        /* Introduction */
+        .intro {
+            background: var(--bg-light);
+            padding: 40px;
+            border-left: 3px solid var(--primary-color);
+            margin-bottom: 40px;
+        }
+
+        .intro p {
+            font-size: 1.15em;
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--border-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: var(--bg-color);
+            border: 2px solid var(--primary-color);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 25px;
+            background-color: white;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-weight: normal;
+        }
+
+        .timeline-content .phase-tag {
+            display: inline-block;
+            background: var(--bg-light);
+            color: var(--primary-color);
+            padding: 5px 14px;
+            border: 1px solid var(--primary-color);
+            font-size: 0.85em;
+            margin-bottom: 12px;
+            font-family: -apple-system, sans-serif;
+        }
+
+        /* Skill Comparison */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .skill-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .skill-card.before {
+            border-top: 3px solid var(--success-color);
+        }
+
+        .skill-card.after {
+            border-top: 3px solid var(--warning-color);
+        }
+
+        .skill-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .skill-card.before .skill-icon {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .skill-card.after .skill-icon {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .skill-features {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .skill-features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .skill-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #2a2a2a;
+            color: #e8e3d8;
+            padding: 25px;
+            overflow-x: auto;
+            margin: 25px 0;
+            position: relative;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.1);
+            padding: 3px 10px;
+            font-size: 0.75em;
+            color: #999;
+            font-family: -apple-system, sans-serif;
+        }
+
+        .code-block code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border: 1px solid var(--border-color);
+        }
+
+        .comparison-table thead {
+            background: var(--bg-light);
+            color: var(--text-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: normal;
+            font-size: 1.05em;
+        }
+
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: var(--bg-color);
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: white;
+            color: var(--text-color);
+            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: normal;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            color: var(--text-light);
+        }
+
+        /* Workflow Steps */
+        .workflow {
+            background: var(--bg-light);
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .workflow-step {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .workflow-step h4 {
+            color: var(--text-color);
+            margin-bottom: 12px;
+            font-weight: normal;
+            font-size: 1.15em;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            margin-right: 12px;
+            font-family: -apple-system, sans-serif;
+            font-size: 0.9em;
+        }
+
+        /* Advantages */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .advantage-card {
+            background: white;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .advantage-card:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .advantage-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 18px;
+            font-size: 1.3em;
+            font-weight: normal;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: var(--bg-light);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .faq-item h4 {
+            color: var(--text-color);
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: normal;
+            font-size: 1.1em;
+        }
+
+        .faq-item h4::before {
+            content: 'Q';
+            background: var(--primary-color);
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-family: -apple-system, sans-serif;
+        }
+
+        .faq-answer {
+            margin-top: 12px;
+            padding-left: 38px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-light);
+            padding: 40px;
+            text-align: center;
+            color: var(--text-light);
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer p {
+            margin: 8px 0;
+            font-size: 0.95em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+            }
+
+            header {
+                padding: 40px 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .timeline::after {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 20px;
+            }
+
+            .timeline-item::after {
+                left: 10px;
+            }
+
+            .right {
+                left: 0;
+            }
+
+            .skill-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 18px;
+            font-size: 1.3em;
+            font-weight: normal;
+        }
+
+        /* Summary */
+        .summary {
+            background: var(--bg-light);
+            color: var(--text-color);
+            padding: 40px;
+            border: 2px solid var(--primary-color);
+            margin: 40px 0;
+        }
+
+        .summary h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-weight: normal;
+            font-size: 1.8em;
+        }
+
+        .summary ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .summary ul li {
+            padding: 10px 0;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .summary ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 1.3em;
+        }
+
+        /* Lifecycle Diagram */
+        .lifecycle-diagram {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 50px 30px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .lifecycle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .lifecycle-step {
+            flex: 1;
+            min-width: 180px;
+            max-width: 220px;
+            background: white;
+            border: 3px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .lifecycle-step:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Highlighted steps (文档编写, 单元测试) */
+        .lifecycle-step.highlighted {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(201, 100, 66, 0.3);
+            color: white;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 12px rgba(201, 100, 66, 0.3);
+            }
+            50% {
+                box-shadow: 0 6px 18px rgba(201, 100, 66, 0.4);
+            }
+        }
+
+        .lifecycle-step.highlighted .step-icon {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .lifecycle-step.highlighted .step-title {
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .lifecycle-step.highlighted .step-desc {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .lifecycle-step.highlighted .step-badge {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .lifecycle-step.highlighted .step-highlight {
+            background: var(--success-color);
+            color: white;
+        }
+
+        /* Secondary highlighted step (文档维护) */
+        .lifecycle-step.highlighted-secondary {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            box-shadow: 0 4px 12px rgba(107, 144, 128, 0.3);
+            color: white;
+        }
+
+        .lifecycle-step.highlighted-secondary .step-icon {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .lifecycle-step.highlighted-secondary .step-title {
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .lifecycle-step.highlighted-secondary .step-desc {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .lifecycle-step.highlighted-secondary .step-badge {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: 2px solid white;
+        }
+
+        /* Dimmed step (编码) */
+        .lifecycle-step.dimmed {
+            background: #f7fafc;
+            border-color: #cbd5e0;
+            opacity: 0.6;
+            filter: grayscale(50%);
+        }
+
+        .lifecycle-step.dimmed .step-icon {
+            background: #e2e8f0;
+            color: #a0aec0;
+        }
+
+        .lifecycle-step.dimmed .step-title {
+            color: #718096;
+        }
+
+        .lifecycle-step.dimmed .step-desc {
+            color: #a0aec0;
+        }
+
+        .lifecycle-step.dimmed .step-badge {
+            background: #e2e8f0;
+            color: #718096;
+            border: 2px solid #cbd5e0;
+        }
+
+        .step-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: var(--bg-light);
+        }
+
+        .step-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .step-desc {
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            font-weight: bold;
+            background: var(--bg-light);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            margin-bottom: 10px;
+        }
+
+        .step-highlight {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+            background: var(--warning-color);
+            color: white;
+            margin-top: 5px;
+        }
+
+        .lifecycle-arrow {
+            font-size: 2em;
+            color: var(--primary-color);
+            font-weight: normal;
+            flex-shrink: 0;
+        }
+
+        .loop-indicator {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .loop-arrow {
+            font-size: 3em;
+            color: var(--primary-color);
+            animation: rotate 3s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loop-text {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .diagram-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            border: 2px solid var(--border-color);
+        }
+
+        .legend-color.highlighted {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .legend-color.dimmed {
+            background: #f7fafc;
+            border-color: #cbd5e0;
+            opacity: 0.6;
+        }
+
+        .legend-item span {
+            font-size: 0.9em;
+            color: var(--text-light);
+        }
+
+        /* Screenshot */
+        .screenshot {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--border-color);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .screenshot-caption {
+            background: var(--bg-light);
+            padding: 12px 15px;
+            font-size: 0.85em;
+            color: var(--text-light);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .screenshot-caption::before {
+            content: '📸';
+        }
+
+        /* Document Structure */
+        .doc-structure {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .doc-chapter {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--primary-color);
+            padding: 25px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .doc-chapter:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .doc-chapter h3 {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 1.3em;
+            font-weight: normal;
+        }
+
+        .doc-chapter p {
+            color: var(--text-light);
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+
+        .doc-chapter ul {
+            margin-left: 20px;
+            color: var(--text-color);
+        }
+
+        .doc-chapter ul li {
+            padding: 6px 0;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .lifecycle-container {
+                flex-direction: column;
+            }
+
+            .lifecycle-step {
+                max-width: 100%;
+            }
+
+            .lifecycle-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI 在系统分析与单元测试中的实践</h1>
+            <p>编码前系统分析文档 + 编码后单元测试 = 完整开发生命周期支持</p>
+        </header>
+
+        <main>
+            <!-- 引言 -->
+            <section class="intro">
+                <h2>📖 引言</h2>
+                <p>
+                    在使用AI Agent的软件开发中，<strong>文档编写</strong>和<strong>单元测试</strong>是两个至关重要但往往被忽视的环节。
+                    传统方式下，这两个步骤耗时耗力，且质量难以保证。
+                </p>
+                <p>
+                    通过 <strong>Codex</strong> 和定制化 <strong>Skill</strong>，我们可以将这两个环节自动化，
+                    实现<strong>编码前的系统分析文档生成</strong>和<strong>编码后的单元测试生成</strong>，
+                    大幅提升开发效率和代码质量。
+                </p>
+            </section>
+
+            <!-- 开发生命周期示意图 -->
+            <section>
+                <h2>🔄 AI Agent 辅助开发闭环</h2>
+                <div class="lifecycle-diagram">
+                    <div class="lifecycle-container">
+                        <!-- 文档编写 -->
+                        <div class="lifecycle-step highlighted">
+                            <div class="step-icon">📋</div>
+                            <div class="step-title">文档编写</div>
+                            <div class="step-desc">AI 自动生成系统分析文档</div>
+                            <div class="step-badge">30 分钟</div>
+                            <div class="step-highlight">编码前</div>
+                        </div>
+
+                        <!-- 连接线 -->
+                        <div class="lifecycle-arrow">→</div>
+
+                        <!-- 编码 -->
+                        <div class="lifecycle-step dimmed">
+                            <div class="step-icon">💻</div>
+                            <div class="step-title">编码开发</div>
+                            <div class="step-desc">AI 辅助代码生成与开发</div>
+                            <div class="step-badge">AI 辅助</div>
+                        </div>
+
+                        <!-- 连接线 -->
+                        <div class="lifecycle-arrow">→</div>
+
+                        <!-- 单元测试 -->
+                        <div class="lifecycle-step highlighted">
+                            <div class="step-icon">🧪</div>
+                            <div class="step-title">单元测试</div>
+                            <div class="step-desc">AI 自动生成全分支测试</div>
+                            <div class="step-badge">30 分钟</div>
+                            <div class="step-highlight">编码后</div>
+                        </div>
+                    </div>
+
+                    <!-- 闭环指示 -->
+                    <div class="loop-indicator">
+                        <div class="loop-arrow">↻</div>
+                        <div class="loop-text">持续迭代闭环</div>
+                    </div>
+
+                    <!-- 说明文字 -->
+                    <div class="diagram-legend">
+                        <div class="legend-item">
+                            <div class="legend-color highlighted"></div>
+                            <span>AI 重点辅助环节（文档 & 测试）</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color dimmed"></div>
+                            <span>AI 辅助的标准化环节（编码）</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 核心理念 -->
+            <section>
+                <h2>🎯 核心理念</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <span class="phase-tag">编码前</span>
+                            <h3>系统分析文档生成</h3>
+                            <p>在编码开始前，自动生成符合企业标准的系统分析文档，包括架构图、流程图、数据库设计、接口定义等。</p>
+                            <p><strong>核心价值：</strong>确保设计完整、规范统一、节省时间</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <span class="phase-tag">编码后</span>
+                            <h3>单元测试生成</h3>
+                            <p>在编码完成后，自动生成全面的单元测试，覆盖所有分支路径，包括正常流程和异常处理。</p>
+                            <p><strong>核心价值：</strong>保证质量、全分支覆盖、快速反馈</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 两大 SKILL 对比 -->
+            <section>
+                <h2>⚡ 两大核心 SKILL</h2>
+                <div class="skill-grid">
+                    <div class="skill-card before">
+                        <h3>
+                            <span class="skill-icon">📋</span>
+                            system-analysis-doc
+                        </h3>
+                        <p><strong>用途：</strong>生成系统分析文档</p>
+                        <p><strong>阶段：</strong>编码前</p>
+                        <ul class="skill-features">
+                            <li>9 个标准章节结构</li>
+                            <li>自动生成 Mermaid 图表</li>
+                            <li>数据库表详细设计</li>
+                            <li>RESTful API 接口定义</li>
+                            <li>测试用例规划</li>
+                            <li>一键生成飞书云文档</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card after">
+                        <h3>
+                            <span class="skill-icon">🧪</span>
+                            java-unit-test-generation
+                        </h3>
+                        <p><strong>用途：</strong>生成 Java 单元测试</p>
+                        <p><strong>阶段：</strong>编码后</p>
+                        <ul class="skill-features">
+                            <li>双层测试架构（Controller + Service）</li>
+                            <li>全分支覆盖（每个 if 分支独立测试）</li>
+                            <li>异常测试清晰标注</li>
+                            <li>Mock 策略和 ArgumentCaptor</li>
+                            <li>@Nested 分组组织</li>
+                            <li>MyBatis-Plus 分页支持</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 使用流程 -->
+            <section>
+                <h2>🚀 使用流程</h2>
+
+                <h3>编码前：系统分析文档生成</h3>
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <h4><span class="step-number">1</span>安装飞书 CLI 工具</h4>
+                        <p>配置 lark-cli 并完成认证授权</p>
+                        <p style="margin-top: 8px;">📎 飞书 CLI 工具官网地址：<a href="https://open.feishu.cn/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">https://open.feishu.cn/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu</a></p>
+                        <div class="screenshot">
+                            <img src="../pic/飞书CLI权限配置.png" alt="飞书CLI权限配置">
+                            <div class="screenshot-caption">运行 <code>lark-cli auth login</code> 后，选择需要授权的业务域（勾选 docs）</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <h4><span class="step-number">2</span>确认 SKILL 可用</h4>
+                        <p>检查 .claude/skills/ 目录下的 system-analysis-doc</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4><span class="step-number">3</span>发起对话</h4>
+                        <div class="code-block" data-lang="bash">
+                            <code>使用 system-analysis-doc 这个 SKILL 和飞书的 MCP，为这个系统按照格式要求生成系统分析文档的飞书云文档。</code>
+                        </div>
+                        <div class="screenshot">
+                            <img src="../pic/Claude Code调用.png" alt="Claude Code调用">
+                            <div class="screenshot-caption">Claude Code 自动调用 system-analysis-doc 技能，探索代码结构并生成文档</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <h4><span class="step-number">4</span>AI 自动处理</h4>
+                        <p>分析项目 → 提取架构 → 生成图表 → 创建文档</p>
+                    </div>
+                </div>
+
+                <h3>编码后：单元测试生成</h3>
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <h4><span class="step-number">1</span>确认 SKILL 可用</h4>
+                        <p>检查 .claude/skills/ 目录下的 java-unit-test-generation</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4><span class="step-number">2</span>发起对话</h4>
+                        <div class="code-block" data-lang="bash">
+                            <code>请为 CustomerController 和 CustomerServiceImpl 生成单元测试，要求全分支覆盖。</code>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <h4><span class="step-number">3</span>AI 自动处理</h4>
+                        <p>分析代码 → 识别分支 → 生成测试用例 → 组织测试类</p>
+                        <div class="screenshot">
+                            <img src="../pic/测试用例.png" alt="允许测试用例">
+                            <div class="screenshot-caption">运行 <code>java-unit-test-generation</code> 后，生成的测试用例</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <h4><span class="step-number">4</span>获取测试文件</h4>
+                        <p>直接生成 CustomerControllerTest.java 和 CustomerServiceImplTest.java</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4><span class="step-number">5</span>运行测试</h4>
+                        <div class="code-block" data-lang="bash">
+                            <code>mvn test -Dtest=CustomerControllerTest,CustomerServiceImplTest</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 实际案例 -->
+            <section>
+                <h2>📝 实际案例</h2>
+
+                <div class="highlight-box">
+                    <h4>案例：CMI要客运营平台-客户管理模块</h4>
+
+                    <h4 style="margin-top: 20px;">编码前：系统分析文档</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>生成了完整的 9 章节系统分析文档</li>
+                        <li>包含 4 个飞书画板（架构图、2 个流程图、ER 图）</li>
+                        <li>定义了 11 张数据库表的详细设计</li>
+                        <li>规范了 51 个 RESTful API 接口</li>
+                        <li>规划了 16 个测试用例</li>
+                        <li><strong>耗时：5 分钟（传统方式 4-8 小时）</strong></li>
+                    </ul>
+
+                    <h4 style="margin-top: 20px;">编码后：单元测试</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>生成了 CustomerControllerTest.java（13 个测试用例）</li>
+                        <li>生成了 CustomerServiceImplTest.java（24 个测试用例）</li>
+                        <li>实现了 100% 分支覆盖率</li>
+                        <li>所有异常测试都清晰标注"异常测试-"前缀</li>
+                        <li>使用 @Nested 按方法分组，结构清晰</li>
+                        <li><strong>耗时：3 分钟（传统方式 2-4 小时）</strong></li>
+                    </ul>
+
+                    <h4 style="margin-top: 20px;">总体效果</h4>
+                    <div class="stats-grid" style="margin-top: 15px;">
+                        <div class="stat-card">
+                            <div class="stat-number">8 min</div>
+                            <div class="stat-label">总耗时（文档+测试）</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">12h+</div>
+                            <div class="stat-label">传统方式耗时</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">99%</div>
+                            <div class="stat-label">时间节省</div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 20px;">文档链接</h4>
+                    <p style="margin-top: 10px;">
+                        <strong>飞书云文档：</strong>
+                        <a href="https://xcnphx2dcltg.feishu.cn/docx/T1Cpd78aHoKVq8xPoBVcX1fcnke" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">
+                            CMI 要客运营平台-客户管理模块系统分析文档
+                        </a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- 文档结构详细说明 -->
+            <section>
+                <h2>📋 系统分析文档结构详解</h2>
+                <p style="margin-bottom: 20px; color: var(--text-light);">
+                    system-analysis-doc SKILL 定义了标准的 9 个章节，确保文档格式统一、内容完整：
+                </p>
+
+                <div class="doc-structure">
+                    <div class="doc-chapter">
+                        <h3>一、项目背景</h3>
+                        <p>说明项目的业务背景和起因</p>
+                        <ul>
+                            <li>业务增长需求</li>
+                            <li>现有系统痛点</li>
+                            <li>新业务场景挑战</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-chapter">
+                        <h3>二、当前现状</h3>
+                        <p>描述当前系统的现状和问题</p>
+                        <ul>
+                            <li>人工操作依赖</li>
+                            <li>系统性能瓶颈</li>
+                            <li>数据一致性问题</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-chapter">
+                        <h3>三、开发目标</h3>
+                        <p>明确业务目标和技术目标</p>
+                        <ul>
+                            <li><strong>业务目标：</strong>流程自动化、用户体验提升、成本降低</li>
+                            <li><strong>技术目标：</strong>技术栈升级、性能优化、架构改进</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-chapter">
+                        <h3>四、系统架构图</h3>
+                        <p>使用飞书画板（whiteboard）展示</p>
+                        <ul>
+                            <li>系统模块划分</li>
+                            <li>模块间调用关系</li>
+                            <li>技术栈选型</li>
+                            <li>部署架构</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-chapter">
+                        <h3>五、业务流程图/时序图</h3>
+                        <p>展示业务流转过程或系统交互时序</p>
+                        <ul>
+                            <li>流程图（flowchart）</li>
+                            <li>时序图（sequenceDiagram）</li>
+                            <li>泳道图</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-chapter">
+                        <h3>六、数据库改造</h3>
+                        <p>详细的数据库设计</p>
+                        <ul>
+                            <li><strong>6-1. ER图：</strong>表结构和关联关系</li>
+                            <li><strong>6-2. 详细设计：</strong>字段名、类型、说明、约束</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-chapter">
+                        <h3>七、前后端联调接口</h3>
+                        <p>完整的 RESTful API 定义</p>
+                        <ul>
+                            <li>接口地址和请求方法</li>
+                            <li>请求参数（类型、必填、默认值、说明）</li>
+                            <li>响应数据结构</li>
+                            <li>业务说明</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-chapter">
+                        <h3>八、测试用例</h3>
+                        <p>核心功能的测试用例规划</p>
+                        <ul>
+                            <li>用例编号</li>
+                            <li>测试场景</li>
+                            <li>前置条件</li>
+                            <li>测试步骤</li>
+                            <li>预期结果</li>
+                        </ul>
+                    </div>
+
+                    <div class="doc-chapter">
+                        <h3>九、部署说明</h3>
+                        <p>部署步骤和异常处理</p>
+                        <ul>
+                            <li><strong>9-1. 升级说明：</strong>数据库脚本、配置修改、代码部署</li>
+                            <li><strong>9-2. 异常说明：</strong>回滚方案、应急处理</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 单元测试架构详解 -->
+            <section>
+                <h2>🧪 单元测试架构详解</h2>
+
+                <div class="highlight-box">
+                    <h4>双层测试架构</h4>
+                    <p>java-unit-test-generation SKILL 采用双层测试架构，确保测试的全面性：</p>
+                </div>
+
+                <div class="skill-grid" style="margin-top: 30px;">
+                    <div class="skill-card before">
+                        <h3>🎯 第一层：Controller 测试</h3>
+                        <p><strong>框架：</strong>@WebMvcTest + MockMvc</p>
+                        <ul class="skill-features">
+                            <li>测试请求路由</li>
+                            <li>测试参数绑定</li>
+                            <li>测试校验逻辑</li>
+                            <li>测试响应结构</li>
+                            <li>测试异常处理</li>
+                            <li>Mock Service 层</li>
+                        </ul>
+                        <div class="code-block" data-lang="java" style="margin-top: 15px; font-size: 0.85em;">
+                            <code>@WebMvcTest(MyController.class)
+@Import(GlobalExceptionHandler.class)
+class MyControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private MyService myService;
+
+    @Test
+    void methodName_success() {
+        when(myService.method(any()))
+            .thenReturn(result);
+        mockMvc.perform(get("/api/..."))
+            .andExpect(status().isOk());
+    }
+}</code>
+                        </div>
+                    </div>
+
+                    <div class="skill-card after">
+                        <h3>🎯 第二层：Service 测试</h3>
+                        <p><strong>框架：</strong>@ExtendWith(MockitoExtension)</p>
+                        <ul class="skill-features">
+                            <li>测试所有业务逻辑</li>
+                            <li>测试分支路径</li>
+                            <li>测试异常处理</li>
+                            <li>Mock Mapper 层</li>
+                            <li>验证数据操作</li>
+                            <li>全分支覆盖</li>
+                        </ul>
+                        <div class="code-block" data-lang="java" style="margin-top: 15px; font-size: 0.85em;">
+                            <code>@ExtendWith(MockitoExtension.class)
+class MyServiceImplTest {
+    @InjectMocks
+    private MyServiceImpl service;
+
+    @Mock
+    private MyMapper mapper;
+
+    @Test
+    void method_success() {
+        when(mapper.selectById(1L))
+            .thenReturn(entity);
+        Result result = service.method(1L);
+        assertNotNull(result);
+    }
+}</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h4>🔑 关键特性</h4>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h4>✅ 全分支覆盖</h4>
+                            <p>每个 if 分支都有独立测试用例，确保 100% 覆盖率</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>🎯 异常测试标注</h4>
+                            <p>所有异常测试用"异常测试-"前缀清晰标注</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>📦 @Nested 分组</h4>
+                            <p>按方法分组测试，结构清晰，便于维护</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>🔧 ArgumentCaptor</h4>
+                            <p>验证写操作传入的参数是否正确</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 常见问题 -->
+            <section>
+                <h2>❓ 常见问题</h2>
+
+                <div class="faq-item">
+                    <h4>两个 SKILL 可以同时使用吗？</h4>
+                    <div class="faq-answer">
+                        可以，但建议按顺序使用：先用 system-analysis-doc 生成设计文档，开发完成后再用 java-unit-test-generation 生成测试。
+                        这样可以形成完整的开发生命周期支持。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h4>生成的测试代码需要手动调整吗？</h4>
+                    <div class="faq-answer">
+                        通常不需要大量调整。AI 会分析代码结构，自动生成符合规范的测试代码。但复杂业务逻辑可能需要补充额外的测试用例，
+                        或者根据实际运行情况微调 Mock 策略。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h4>如果项目不是 Spring Boot 怎么办？</h4>
+                    <div class="faq-answer">
+                        java-unit-test-generation SKILL 是针对 Spring Boot 优化的，但可以根据项目实际情况调整。
+                        修改 SKILL 文件中的测试模板和 Mock 策略，适配其他框架即可。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h4>如何自定义文档模板？</h4>
+                    <div class="faq-answer">
+                        编辑 .claude/skills/system-analysis-doc/SKILL.md 文件，可以调整章节结构、内容要求、表格格式等。
+                        修改后立即生效，下次生成文档时会使用新模板。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h4>飞书文档创建失败怎么办？</h4>
+                    <div class="faq-answer">
+                        检查 lark-cli 认证状态：lark-cli auth status --json --verify。如果认证过期，重新执行 lark-cli auth login --domain all。
+                        确保已授权 docs 业务域权限。
+                    </div>
+                </div>
+            </section>
+
+            <!-- 总结 -->
+            <section class="summary">
+                <h3>🎉 总结</h3>
+                <p>通过 AI Agent 和定制化 Skill，我们实现了开发全生命周期的自动化支持：</p>
+                <ul>
+                    <li><strong>编码前：</strong>system-analysis-doc 自动生成系统分析文档，确保设计完整规范</li>
+                    <li><strong>编码后：</strong>java-unit-test-generation 自动生成单元测试，保证代码质量</li>
+                    <li><strong>效率提升：</strong>从传统方式的 12+ 小时缩短到 8 分钟，效率提升 99%</li>
+                    <li><strong>质量保证：</strong>100% 格式标准化 + 100% 分支覆盖率</li>
+                    <li><strong>知识沉淀：</strong>文档和测试都符合企业标准，便于团队协作</li>
+                </ul>
+                <p style="margin-top: 20px; font-size: 1.2em;">
+                    <strong>立即开始使用，让 AI 成为你的开发助手！</strong>
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>相关资源</strong></p>
+            <p>system-analysis-doc SKILL: .claude/skills/system-analysis-doc/SKILL.md</p>
+            <p>java-unit-test-generation SKILL: .claude/skills/java-unit-test-generation/SKILL.md</p>
+            <p>飞书文档 Skill: .claude/skills/lark-doc/SKILL.md</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">© 2026 AI Agent Development Sharing | v1.0</p>
+        </footer>
+    </div>
+</body>
+</html>
