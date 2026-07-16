@@ -12,7 +12,6 @@ import com.iwhalecloud.customer.mvc.pojo.entity.Customer;
 import com.iwhalecloud.customer.mvc.pojo.vo.customer.CustomerDetailVO;
 import com.iwhalecloud.customer.mvc.pojo.vo.customer.CustomerVO;
 import com.iwhalecloud.customer.mvc.service.OperationLogService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,6 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
