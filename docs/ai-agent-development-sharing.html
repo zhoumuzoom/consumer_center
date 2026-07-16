@@ -195,7 +195,7 @@
         /* Skill Comparison */
         .skill-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin: 40px 0;
         }
@@ -217,6 +217,10 @@
 
         .skill-card.after {
             border-top: 3px solid var(--warning-color);
+        }
+
+        .skill-card.platform {
+            border-top: 3px solid var(--primary-color);
         }
 
         .skill-card h3 {
@@ -243,6 +247,11 @@
 
         .skill-card.after .skill-icon {
             background: var(--warning-color);
+            color: white;
+        }
+
+        .skill-card.platform .skill-icon {
+            background: var(--primary-color);
             color: white;
         }
 
@@ -953,8 +962,9 @@
                     传统方式下，这两个步骤耗时耗力，且质量难以保证。
                 </p>
                 <p>
-                    通过 <strong>Codex</strong> 和定制化 <strong>Skill</strong>，我们可以将这两个环节自动化，
-                    实现<strong>编码前的系统分析文档生成</strong>和<strong>编码后的单元测试生成</strong>，
+                    通过 <strong>Codex</strong> 和定制化 <strong>Skill</strong>，我们围绕三大核心能力构建完整闭环：
+                    <strong>编码前的系统分析文档生成</strong>、<strong>编码后的单元测试生成</strong>，
+                    以及<strong>飞书 CLI 平台自动化交付</strong>——让 AI 的产出直接落地到协作平台，
                     大幅提升开发效率和代码质量。
                 </p>
             </section>
@@ -1040,9 +1050,9 @@
                 </div>
             </section>
 
-            <!-- 两大 SKILL 对比 -->
+            <!-- 三大 SKILL 对比 -->
             <section>
-                <h2>⚡ 两大核心 SKILL</h2>
+                <h2>⚡ 三大核心 SKILL</h2>
                 <div class="skill-grid">
                     <div class="skill-card before">
                         <h3>
@@ -1058,6 +1068,21 @@
                             <li>RESTful API 接口定义</li>
                             <li>测试用例规划</li>
                             <li>一键生成飞书云文档</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card before">
+                        <h3>
+                            <span class="skill-icon">🐦</span>
+                            lark-cli (飞书 CLI)
+                        </h3>
+                        <p><strong>用途：</strong>飞书平台自动化操作</p>
+                        <p><strong>阶段：</strong>编码前</p>
+                        <ul class="skill-features">
+                            <li>创建 / 编辑飞书云文档</li>
+                            <li>插入画板、表格、多维表格</li>
+                            <li>管理文档权限与分享</li>
+                            <li>转换成word文档</li>
+                            <li>让 AI 产出直接落地到协作平台</li>
                         </ul>
                     </div>
                     <div class="skill-card after">
@@ -1104,8 +1129,8 @@
                             <code>使用 system-analysis-doc 这个 SKILL 和飞书的 MCP，为这个系统按照格式要求生成系统分析文档的飞书云文档。</code>
                         </div>
                         <div class="screenshot">
-                            <img src="../pic/Claude Code调用.png" alt="Claude Code调用">
-                            <div class="screenshot-caption">Claude Code 自动调用 system-analysis-doc 技能，探索代码结构并生成文档</div>
+                            <img src="../pic/Codex调用.png" alt="Codex调用">
+                            <div class="screenshot-caption">Codex 自动调用 system-analysis-doc 和飞书 lark skill 技能，探索代码结构并生成文档</div>
                         </div>
                     </div>
                     <div class="workflow-step">
@@ -1161,7 +1186,7 @@
                         <li>定义了 11 张数据库表的详细设计</li>
                         <li>规范了 51 个 RESTful API 接口</li>
                         <li>规划了 16 个测试用例</li>
-                        <li><strong>耗时：5 分钟（传统方式 4-8 小时）</strong></li>
+                        <li><strong>耗时：60 分钟（传统方式 4-8 小时）</strong></li>
                     </ul>
 
                     <h4 style="margin-top: 20px;">编码后：单元测试</h4>
@@ -1171,21 +1196,21 @@
                         <li>实现了 100% 分支覆盖率</li>
                         <li>所有异常测试都清晰标注"异常测试-"前缀</li>
                         <li>使用 @Nested 按方法分组，结构清晰</li>
-                        <li><strong>耗时：3 分钟（传统方式 2-4 小时）</strong></li>
+                        <li><strong>耗时：60 分钟（传统方式 3-6 小时）</strong></li>
                     </ul>
 
                     <h4 style="margin-top: 20px;">总体效果</h4>
                     <div class="stats-grid" style="margin-top: 15px;">
                         <div class="stat-card">
-                            <div class="stat-number">8 min</div>
+                            <div class="stat-number">120 min</div>
                             <div class="stat-label">总耗时（文档+测试）</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">12h+</div>
+                            <div class="stat-number">10h+</div>
                             <div class="stat-label">传统方式耗时</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">99%</div>
+                            <div class="stat-number">75%</div>
                             <div class="stat-label">时间节省</div>
                         </div>
                     </div>
@@ -1403,10 +1428,10 @@ class MyServiceImplTest {
                 <h2>❓ 常见问题</h2>
 
                 <div class="faq-item">
-                    <h4>两个 SKILL 可以同时使用吗？</h4>
+                    <h4>三个 SKILL 可以同时使用吗？</h4>
                     <div class="faq-answer">
-                        可以，但建议按顺序使用：先用 system-analysis-doc 生成设计文档，开发完成后再用 java-unit-test-generation 生成测试。
-                        这样可以形成完整的开发生命周期支持。
+                        可以，三者协同形成完整闭环：<strong>lark-cli（飞书 CLI）</strong>提供平台执行能力，<strong>system-analysis-doc</strong> 生成设计文档并通过飞书 CLI 落地为云文档，开发完成后再用 <strong>java-unit-test-generation</strong> 生成测试。
+                        三者配合，从设计到交付全链路自动化。
                     </div>
                 </div>
 
@@ -1446,11 +1471,12 @@ class MyServiceImplTest {
             <!-- 总结 -->
             <section class="summary">
                 <h3>🎉 总结</h3>
-                <p>通过 AI Agent 和定制化 Skill，我们实现了开发全生命周期的自动化支持：</p>
+                <p>通过 AI Agent 和三大核心 Skill，我们实现了开发全生命周期的自动化支持：</p>
                 <ul>
                     <li><strong>编码前：</strong>system-analysis-doc 自动生成系统分析文档，确保设计完整规范</li>
                     <li><strong>编码后：</strong>java-unit-test-generation 自动生成单元测试，保证代码质量</li>
-                    <li><strong>效率提升：</strong>从传统方式的 12+ 小时缩短到 8 分钟，效率提升 99%</li>
+                    <li><strong>平台交付：</strong>lark-cli（飞书 CLI）让 AI 产出直接落地飞书云文档，打通最后一公里</li>
+                    <li><strong>效率提升：</strong>从传统方式的 12+ 小时缩短到 2 小时，效率提升 80%+</li>
                     <li><strong>质量保证：</strong>100% 格式标准化 + 100% 分支覆盖率</li>
                     <li><strong>知识沉淀：</strong>文档和测试都符合企业标准，便于团队协作</li>
                 </ul>
@@ -1464,7 +1490,7 @@ class MyServiceImplTest {
             <p><strong>相关资源</strong></p>
             <p>system-analysis-doc SKILL: .claude/skills/system-analysis-doc/SKILL.md</p>
             <p>java-unit-test-generation SKILL: .claude/skills/java-unit-test-generation/SKILL.md</p>
-            <p>飞书文档 Skill: .claude/skills/lark-doc/SKILL.md</p>
+            <p>飞书 CLI (lark-cli)：lark-cli 官方文档 + lark-doc SKILL: .claude/skills/lark-doc/SKILL.md</p>
             <p style="margin-top: 15px; font-size: 0.9em;">© 2026 AI Agent Development Sharing | v1.0</p>
         </footer>
     </div>
