@@ -866,10 +866,65 @@
             border: 2px solid var(--border-color);
         }
 
+        .screenshot-trigger {
+            display: block;
+            width: 100%;
+            padding: 0;
+            border: 0;
+            background: none;
+            cursor: zoom-in;
+        }
+
+        .screenshot-trigger:focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: -3px;
+        }
+
         .screenshot img {
             width: 100%;
             height: auto;
             display: block;
+        }
+
+        .image-preview-dialog {
+            width: min(96vw, 1400px);
+            max-width: none;
+            max-height: 96vh;
+            padding: 20px;
+            border: 0;
+            border-radius: 12px;
+            background: var(--bg-light);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .image-preview-dialog::backdrop {
+            background: rgba(0, 0, 0, 0.75);
+        }
+
+        .image-preview-close {
+            display: block;
+            margin: 0 0 15px auto;
+            padding: 8px 14px;
+            border: 0;
+            border-radius: 6px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .image-preview-dialog img {
+            display: block;
+            max-width: 100%;
+            max-height: calc(96vh - 110px);
+            margin: 0 auto;
+            object-fit: contain;
+        }
+
+        .image-preview-caption {
+            margin: 15px 0 0;
+            color: var(--text-light);
+            text-align: center;
         }
 
         .screenshot-caption {
@@ -949,75 +1004,61 @@
 <body>
     <div class="container">
         <header>
-            <h1>AI 在系统分析与单元测试中的实践</h1>
-            <p>编码前系统分析文档 + 编码后单元测试 = 完整开发生命周期支持</p>
+            <h1>AI Agent 驱动的开发状态共享实践</h1>
+            <p>从系统分析、协作沉淀到单元测试，让设计、代码与质量状态在团队中持续共享</p>
         </header>
 
         <main>
-            <!-- 引言 -->
+            <!-- 分享主题 -->
             <section class="intro">
-                <h2>📖 引言</h2>
+                <h2>📖 本次分享主题：让开发状态可共享、可复用</h2>
                 <p>
-                    在使用AI Agent的软件开发中，<strong>文档编写</strong>和<strong>单元测试</strong>是两个至关重要但往往被忽视的环节。
-                    传统方式下，这两个步骤耗时耗力，且质量难以保证。
+                    在使用 AI Agent 的软件开发中，系统分析、协作交付和单元测试往往分散在个人理解、代码仓库和临时沟通中，
+                    团队难以持续复用同一份设计与质量信息。
                 </p>
                 <p>
-                    通过 <strong>Codex</strong> 和定制化 <strong>Skill</strong>，我们围绕三大核心能力构建完整闭环：
-                    <strong>编码前的系统分析文档生成</strong>、<strong>编码后的单元测试生成</strong>，
-                    以及<strong>飞书 CLI 平台自动化交付</strong>——让 AI 的产出直接落地到协作平台，
-                    大幅提升开发效率和代码质量。
+                    本次分享关注的不只是“让 AI 生成内容”，而是通过 <strong>Codex</strong> 和定制化 <strong>Skill</strong>，
+                    将<strong>系统分析结论</strong>、<strong>飞书协作交付物</strong>和<strong>单元测试结果</strong>沉淀为团队可访问、
+                    可评审、可持续更新的开发状态。
                 </p>
             </section>
 
             <!-- 开发生命周期示意图 -->
             <section>
-                <h2>🔄 AI Agent 辅助开发闭环</h2>
+                <h2>🔄 AI Agent 辅助开发共享闭环</h2>
                 <div class="lifecycle-diagram">
                     <div class="lifecycle-container">
-                        <!-- 文档编写 -->
                         <div class="lifecycle-step highlighted">
                             <div class="step-icon">📋</div>
-                            <div class="step-title">文档编写</div>
-                            <div class="step-desc">AI 自动生成系统分析文档</div>
-                            <div class="step-badge">30 分钟</div>
-                            <div class="step-highlight">编码前</div>
+                            <div class="step-title">分析与文档</div>
+                            <div class="step-desc">AI 生成系统分析文档并沉淀设计基线</div>
+                            <div class="step-badge">编码前</div>
+                            <div class="step-highlight">可共享</div>
                         </div>
-
-                        <!-- 连接线 -->
                         <div class="lifecycle-arrow">→</div>
-
-                        <!-- 编码 -->
                         <div class="lifecycle-step dimmed">
                             <div class="step-icon">💻</div>
                             <div class="step-title">编码开发</div>
-                            <div class="step-desc">AI 辅助代码生成与开发</div>
+                            <div class="step-desc">基于共享设计进行 AI 辅助开发</div>
                             <div class="step-badge">AI 辅助</div>
                         </div>
-
-                        <!-- 连接线 -->
                         <div class="lifecycle-arrow">→</div>
-
-                        <!-- 单元测试 -->
                         <div class="lifecycle-step highlighted">
                             <div class="step-icon">🧪</div>
                             <div class="step-title">单元测试</div>
-                            <div class="step-desc">AI 自动生成全分支测试</div>
-                            <div class="step-badge">30 分钟</div>
-                            <div class="step-highlight">编码后</div>
+                            <div class="step-desc">AI 生成测试并固化质量验证结果</div>
+                            <div class="step-badge">编码后</div>
+                            <div class="step-highlight">可验证</div>
                         </div>
                     </div>
-
-                    <!-- 闭环指示 -->
                     <div class="loop-indicator">
                         <div class="loop-arrow">↻</div>
-                        <div class="loop-text">持续迭代闭环</div>
+                        <div class="loop-text">团队可共享、可追溯的持续迭代闭环</div>
                     </div>
-
-                    <!-- 说明文字 -->
                     <div class="diagram-legend">
                         <div class="legend-item">
                             <div class="legend-color highlighted"></div>
-                            <span>AI 重点辅助环节（文档 & 测试）</span>
+                            <span>AI 重点辅助环节（分析文档、协作交付与测试）</span>
                         </div>
                         <div class="legend-item">
                             <div class="legend-color dimmed"></div>
@@ -1029,157 +1070,44 @@
 
             <!-- 核心理念 -->
             <section>
-                <h2>🎯 核心理念</h2>
+                <h2>🎯 核心理念：让开发状态可共享、可验证、可沉淀</h2>
                 <div class="timeline">
                     <div class="timeline-item left">
                         <div class="timeline-content">
-                            <span class="phase-tag">编码前</span>
-                            <h3>系统分析文档生成</h3>
-                            <p>在编码开始前，自动生成符合企业标准的系统分析文档，包括架构图、流程图、数据库设计、接口定义等。</p>
-                            <p><strong>核心价值：</strong>确保设计完整、规范统一、节省时间</p>
+                            <span class="phase-tag">第一步</span>
+                            <h3>分析状态沉淀</h3>
+                            <p><strong>system-analysis-doc</strong> 将代码结构、业务目标和技术约束转化为统一的系统分析文档。</p>
+                            <p><strong>核心价值：</strong>形成团队可评审的设计基线</p>
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-content">
-                            <span class="phase-tag">编码后</span>
-                            <h3>单元测试生成</h3>
-                            <p>在编码完成后，自动生成全面的单元测试，覆盖所有分支路径，包括正常流程和异常处理。</p>
-                            <p><strong>核心价值：</strong>保证质量、全分支覆盖、快速反馈</p>
+                            <span class="phase-tag">第二步</span>
+                            <h3>协作状态共享</h3>
+                            <p><strong>lark-cli / lark-doc</strong> 将文档、画板和表格发布到飞书，让产出进入团队协作空间。</p>
+                            <p><strong>核心价值：</strong>统一入口、可链接、可授权、可持续更新</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <span class="phase-tag">第三步</span>
+                            <h3>质量状态验证</h3>
+                            <p><strong>java-unit-test-generation</strong> 将实现行为、分支和异常预期转化为可重复执行的单元测试。</p>
+                            <p><strong>核心价值：</strong>让质量要求成为可执行的验证基线</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 三大 SKILL 对比 -->
+            <!-- 三项能力带来的效果 -->
             <section>
-                <h2>⚡ 三大核心 SKILL</h2>
-                <div class="skill-grid">
-                    <div class="skill-card before">
-                        <h3>
-                            <span class="skill-icon">📋</span>
-                            system-analysis-doc
-                        </h3>
-                        <p><strong>用途：</strong>生成系统分析文档</p>
-                        <p><strong>阶段：</strong>编码前</p>
-                        <ul class="skill-features">
-                            <li>9 个标准章节结构</li>
-                            <li>自动生成 Mermaid 图表</li>
-                            <li>数据库表详细设计</li>
-                            <li>RESTful API 接口定义</li>
-                            <li>测试用例规划</li>
-                            <li>一键生成飞书云文档</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card before">
-                        <h3>
-                            <span class="skill-icon">🐦</span>
-                            lark-cli (飞书 CLI)
-                        </h3>
-                        <p><strong>用途：</strong>飞书平台自动化操作</p>
-                        <p><strong>阶段：</strong>编码前</p>
-                        <ul class="skill-features">
-                            <li>创建 / 编辑飞书云文档</li>
-                            <li>插入画板、表格、多维表格</li>
-                            <li>管理文档权限与分享</li>
-                            <li>转换成word文档</li>
-                            <li>让 AI 产出直接落地到协作平台</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card after">
-                        <h3>
-                            <span class="skill-icon">🧪</span>
-                            java-unit-test-generation
-                        </h3>
-                        <p><strong>用途：</strong>生成 Java 单元测试</p>
-                        <p><strong>阶段：</strong>编码后</p>
-                        <ul class="skill-features">
-                            <li>双层测试架构（Controller + Service）</li>
-                            <li>全分支覆盖（每个 if 分支独立测试）</li>
-                            <li>异常测试清晰标注</li>
-                            <li>Mock 策略和 ArgumentCaptor</li>
-                            <li>@Nested 分组组织</li>
-                            <li>MyBatis-Plus 分页支持</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 使用流程 -->
-            <section>
-                <h2>🚀 使用流程</h2>
-
-                <h3>编码前：系统分析文档生成</h3>
-                <div class="workflow">
-                    <div class="workflow-step">
-                        <h4><span class="step-number">1</span>安装飞书 CLI 工具</h4>
-                        <p>配置 lark-cli 并完成认证授权</p>
-                        <p style="margin-top: 8px;">📎 飞书 CLI 工具官网地址：<a href="https://open.feishu.cn/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">https://open.feishu.cn/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu</a></p>
-                        <div class="screenshot">
-                            <img src="../pic/飞书CLI权限配置.png" alt="飞书CLI权限配置">
-                            <div class="screenshot-caption">运行 <code>lark-cli auth login</code> 后，选择需要授权的业务域（勾选 docs）</div>
-                        </div>
-                    </div>
-                    <div class="workflow-step">
-                        <h4><span class="step-number">2</span>确认 SKILL 可用</h4>
-                        <p>检查 .claude/skills/ 目录下的 system-analysis-doc</p>
-                    </div>
-                    <div class="workflow-step">
-                        <h4><span class="step-number">3</span>发起对话</h4>
-                        <div class="code-block" data-lang="bash">
-                            <code>使用 system-analysis-doc 这个 SKILL 和飞书的 MCP，为这个系统按照格式要求生成系统分析文档的飞书云文档。</code>
-                        </div>
-                        <div class="screenshot">
-                            <img src="../pic/Codex调用.png" alt="Codex调用">
-                            <div class="screenshot-caption">Codex 自动调用 system-analysis-doc 和飞书 lark skill 技能，探索代码结构并生成文档</div>
-                        </div>
-                    </div>
-                    <div class="workflow-step">
-                        <h4><span class="step-number">4</span>AI 自动处理</h4>
-                        <p>分析项目 → 提取架构 → 生成图表 → 创建文档</p>
-                    </div>
-                </div>
-
-                <h3>编码后：单元测试生成</h3>
-                <div class="workflow">
-                    <div class="workflow-step">
-                        <h4><span class="step-number">1</span>确认 SKILL 可用</h4>
-                        <p>检查 .claude/skills/ 目录下的 java-unit-test-generation</p>
-                    </div>
-                    <div class="workflow-step">
-                        <h4><span class="step-number">2</span>发起对话</h4>
-                        <div class="code-block" data-lang="bash">
-                            <code>请为 CustomerController 和 CustomerServiceImpl 生成单元测试，要求全分支覆盖。</code>
-                        </div>
-                    </div>
-                    <div class="workflow-step">
-                        <h4><span class="step-number">3</span>AI 自动处理</h4>
-                        <p>分析代码 → 识别分支 → 生成测试用例 → 组织测试类</p>
-                        <div class="screenshot">
-                            <img src="../pic/测试用例.png" alt="允许测试用例">
-                            <div class="screenshot-caption">运行 <code>java-unit-test-generation</code> 后，生成的测试用例</div>
-                        </div>
-                    </div>
-                    <div class="workflow-step">
-                        <h4><span class="step-number">4</span>获取测试文件</h4>
-                        <p>直接生成 CustomerControllerTest.java 和 CustomerServiceImplTest.java</p>
-                    </div>
-                    <div class="workflow-step">
-                        <h4><span class="step-number">5</span>运行测试</h4>
-                        <div class="code-block" data-lang="bash">
-                            <code>mvn test -Dtest=CustomerControllerTest,CustomerServiceImplTest</code>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 实际案例 -->
-            <section>
-                <h2>📝 实际案例</h2>
-
+                <h2>📈 三项能力带来的实际效果</h2>
+                <p style="margin-bottom: 20px; color: var(--text-light);">
+                    以下 CMI 要客运营平台客户管理模块案例，展示了设计信息、协作交付物和质量验证结果如何被串联为团队可复用的共同上下文。
+                </p>
                 <div class="highlight-box">
                     <h4>案例：CMI要客运营平台-客户管理模块</h4>
-
-                    <h4 style="margin-top: 20px;">编码前：系统分析文档</h4>
+                    <h4 style="margin-top: 20px;">分析与协作交付</h4>
                     <ul style="margin-left: 20px; margin-top: 10px;">
                         <li>生成了完整的 9 章节系统分析文档</li>
                         <li>包含 4 个飞书画板（架构图、2 个流程图、ER 图）</li>
@@ -1188,48 +1116,73 @@
                         <li>规划了 16 个测试用例</li>
                         <li><strong>耗时：60 分钟（传统方式 4-8 小时）</strong></li>
                     </ul>
-
-                    <h4 style="margin-top: 20px;">编码后：单元测试</h4>
+                    <h4 style="margin-top: 20px;">质量验证</h4>
                     <ul style="margin-left: 20px; margin-top: 10px;">
                         <li>生成了 CustomerControllerTest.java（13 个测试用例）</li>
                         <li>生成了 CustomerServiceImplTest.java（24 个测试用例）</li>
-                        <li>实现了 100% 分支覆盖率</li>
-                        <li>所有异常测试都清晰标注"异常测试-"前缀</li>
+                        <li>在该案例中实现了 100% 分支覆盖率</li>
+                        <li>所有异常测试都清晰标注“异常测试-”前缀</li>
                         <li>使用 @Nested 按方法分组，结构清晰</li>
                         <li><strong>耗时：60 分钟（传统方式 3-6 小时）</strong></li>
                     </ul>
-
                     <h4 style="margin-top: 20px;">总体效果</h4>
                     <div class="stats-grid" style="margin-top: 15px;">
-                        <div class="stat-card">
-                            <div class="stat-number">120 min</div>
-                            <div class="stat-label">总耗时（文档+测试）</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">10h+</div>
-                            <div class="stat-label">传统方式耗时</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">75%</div>
-                            <div class="stat-label">时间节省</div>
-                        </div>
+                        <div class="stat-card"><div class="stat-number">120 min</div><div class="stat-label">总耗时（文档+测试）</div></div>
+                        <div class="stat-card"><div class="stat-number">10h+</div><div class="stat-label">传统方式耗时</div></div>
+                        <div class="stat-card"><div class="stat-number">75%</div><div class="stat-label">该案例的时间节省</div></div>
                     </div>
-
                     <h4 style="margin-top: 20px;">文档链接</h4>
-                    <p style="margin-top: 10px;">
-                        <strong>飞书云文档：</strong>
-                        <a href="https://xcnphx2dcltg.feishu.cn/docx/T1Cpd78aHoKVq8xPoBVcX1fcnke" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">
-                            CMI 要客运营平台-客户管理模块系统分析文档
-                        </a>
-                    </p>
+                    <p style="margin-top: 10px;"><strong>飞书云文档：</strong><a href="https://xcnphx2dcltg.feishu.cn/docx/T1Cpd78aHoKVq8xPoBVcX1fcnke" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">CMI 要客运营平台-客户管理模块系统分析文档</a></p>
                 </div>
             </section>
 
+            <!-- 三项能力总览 -->
+            <section>
+                <h2>⚡ 三项能力如何共同形成共享闭环</h2>
+                <div class="skill-grid">
+                    <div class="skill-card before">
+                        <h3><span class="skill-icon">📋</span>system-analysis-doc</h3>
+                        <p><strong>作用：</strong>创建标准化、可评审的共享设计基线</p>
+                        <p><strong>阶段：</strong>编码前</p>
+                        <ul class="skill-features"><li>9 个标准章节结构</li><li>自动生成 Mermaid 图表</li><li>数据库表详细设计</li><li>RESTful API 接口定义</li><li>测试用例规划</li><li>一键生成飞书云文档</li></ul>
+                    </div>
+                    <div class="skill-card platform">
+                        <h3><span class="skill-icon">🐦</span>lark-cli / lark-doc（飞书协作交付）</h3>
+                        <p><strong>作用：</strong>将 AI 产出发布并维护在飞书协作空间</p>
+                        <p><strong>阶段：</strong>贯穿分析、评审与交付</p>
+                        <ul class="skill-features"><li>创建 / 编辑飞书云文档</li><li>插入画板、表格、多维表格</li><li>管理文档权限与分享</li><li>转换成 Word 文档</li><li>将设计与交付状态沉淀为团队共享资产</li></ul>
+                    </div>
+                    <div class="skill-card after">
+                        <h3><span class="skill-icon">🧪</span>java-unit-test-generation</h3>
+                        <p><strong>作用：</strong>生成可重复执行的质量验证证据</p>
+                        <p><strong>阶段：</strong>编码后</p>
+                        <ul class="skill-features"><li>双层测试架构（Controller + Service）</li><li>全分支覆盖（每个 if 分支独立测试）</li><li>异常测试清晰标注</li><li>Mock 策略和 ArgumentCaptor</li><li>@Nested 分组组织</li><li>MyBatis-Plus 分页支持</li></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 三项能力的原理与具体操作 -->
+            <section>
+                <h2>🛠 三项能力的原理与具体操作</h2>
+                <p style="margin-bottom: 20px; color: var(--text-light);">以下按每项能力依次说明其解决的问题、实现原理和实际操作方式。</p>
+            </section>
+
+                <section>
+                    <h2>📋 system-analysis-doc：原理与具体操作</h2>
+                    <div class="highlight-box"><h4>原理：先沉淀设计基线，再进入编码</h4><p>将代码结构、业务目标和技术约束转化为统一的系统分析文档，避免设计信息只停留在个人理解或零散沟通中。</p></div>
+                    <h3>具体操作</h3>
+                    <div class="workflow">
+                        <div class="workflow-step"><h4><span class="step-number">1</span>确认 SKILL 可用</h4><p>检查 .claude/skills/ 目录下的 system-analysis-doc。</p></div>
+                        <div class="workflow-step"><h4><span class="step-number">2</span>发起对话</h4><div class="code-block" data-lang="bash"><code>使用 system-analysis-doc 这个 SKILL 和飞书的 MCP，为这个系统按照格式要求生成系统分析文档的飞书云文档。</code></div><div class="screenshot"><button type="button" class="screenshot-trigger" aria-label="放大查看：Codex调用"><img src="../pic/Codex调用.png" alt="Codex调用"></button><div class="screenshot-caption">Codex 自动调用 system-analysis-doc 和飞书 lark skill，探索代码结构并生成文档</div></div></div>
+                        <div class="workflow-step"><h4><span class="step-number">3</span>AI 自动处理</h4><p>分析项目 → 提取架构 → 生成图表 → 形成可评审的系统分析文档。</p></div>
+                    </div>
+                </section>
+
             <!-- 文档结构详细说明 -->
             <section>
-                <h2>📋 系统分析文档结构详解</h2>
+                <h2>📋 system-analysis-doc 的设计基线结构</h2>
                 <p style="margin-bottom: 20px; color: var(--text-light);">
-                    system-analysis-doc SKILL 定义了标准的 9 个章节，确保文档格式统一、内容完整：
+                    system-analysis-doc 通过标准的 9 个章节沉淀关键设计决策，确保团队在编码、评审和维护阶段访问同一份设计基线：
                 </p>
 
                 <div class="doc-structure">
@@ -1326,13 +1279,37 @@
                 </div>
             </section>
 
+                <section>
+                    <h2>🐦 lark-cli / lark-doc：原理与具体操作</h2>
+                    <div class="highlight-box"><h4>原理：把个人产出转化为团队共享状态</h4><p>lark-cli 是执行飞书资源操作的 CLI，lark-doc 是指导 AI 使用该能力处理飞书文档的 Skill。它们共同完成设计产出进入协作空间的“最后一公里”。</p></div>
+                    <h3>具体操作</h3>
+                    <div class="workflow">
+                        <div class="workflow-step"><h4><span class="step-number">1</span>安装并认证飞书 CLI</h4><p>配置 lark-cli 并完成认证授权。</p><p style="margin-top: 8px;">📎 飞书 CLI 工具官网地址：<a href="https://open.feishu.cn/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">https://open.feishu.cn/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu</a></p><div class="screenshot"><button type="button" class="screenshot-trigger" aria-label="放大查看：飞书CLI权限配置"><img src="../pic/飞书CLI权限配置.png" alt="飞书CLI权限配置"></button><div class="screenshot-caption">运行 <code>lark-cli auth login</code> 后，选择需要授权的业务域（勾选 docs）</div></div></div>
+                        <div class="workflow-step"><h4><span class="step-number">2</span>发布或更新协作产物</h4><p>通过飞书 MCP 与 lark-doc 创建或更新云文档，并按需插入画板、表格、权限和分享链接。</p></div>
+                        <div class="workflow-step"><h4><span class="step-number">3</span>在团队协作中持续使用</h4><p>在评审、开发和后续变更讨论中，以同一份飞书文档作为设计事实来源。</p></div>
+                    </div>
+                    <div class="highlight-box"><h4>协作状态的价值</h4><p><strong>共享对象：</strong>云文档、画板、表格、多维表格和导出的 Word 文档。</p><p><strong>协作作用：</strong>统一入口、可链接、可评审、可授权、可持续更新。</p><p><strong>状态价值：</strong>系统分析不再只是本地生成结果，而成为团队在实现和维护阶段持续引用的共同事实来源。</p></div>
+                </section>
+
+                <section>
+                    <h2>🧪 java-unit-test-generation：原理与具体操作</h2>
+                    <div class="highlight-box"><h4>原理：把质量要求固化为可执行状态</h4><p>单元测试不仅验证当前代码，还将分支行为、异常预期和依赖交互沉淀为可持续执行的质量验证基线。</p></div>
+                    <h3>具体操作</h3>
+                    <div class="workflow">
+                        <div class="workflow-step"><h4><span class="step-number">1</span>确认 SKILL 可用</h4><p>检查 .claude/skills/ 目录下的 java-unit-test-generation。</p></div>
+                        <div class="workflow-step"><h4><span class="step-number">2</span>发起对话</h4><div class="code-block" data-lang="bash"><code>请为 CustomerController 和 CustomerServiceImpl 生成单元测试，要求全分支覆盖。</code></div></div>
+                        <div class="workflow-step"><h4><span class="step-number">3</span>AI 自动处理</h4><p>分析代码 → 识别分支 → 生成测试用例 → 组织测试类。</p><div class="screenshot"><button type="button" class="screenshot-trigger" aria-label="放大查看：生成的测试用例"><img src="../pic/测试用例.png" alt="生成的测试用例"></button><div class="screenshot-caption">运行 <code>java-unit-test-generation</code> 后，生成的测试用例</div></div></div>
+                        <div class="workflow-step"><h4><span class="step-number">4</span>获取并执行测试文件</h4><p>生成 CustomerControllerTest.java 和 CustomerServiceImplTest.java，并执行测试验证结果。</p><div class="code-block" data-lang="bash"><code>mvn test -Dtest=CustomerControllerTest,CustomerServiceImplTest</code></div></div>
+                    </div>
+                </section>
+
             <!-- 单元测试架构详解 -->
             <section>
-                <h2>🧪 单元测试架构详解</h2>
+                <h2>🧪 java-unit-test-generation 的质量验证结构</h2>
 
                 <div class="highlight-box">
                     <h4>双层测试架构</h4>
-                    <p>java-unit-test-generation SKILL 采用双层测试架构，确保测试的全面性：</p>
+                    <p>java-unit-test-generation 采用双层测试架构，将接口行为、业务分支和异常预期固化为可重复执行的质量验证基线：</p>
                 </div>
 
                 <div class="skill-grid" style="margin-top: 30px;">
@@ -1428,10 +1405,9 @@ class MyServiceImplTest {
                 <h2>❓ 常见问题</h2>
 
                 <div class="faq-item">
-                    <h4>三个 SKILL 可以同时使用吗？</h4>
+                    <h4>三个能力可以协同使用吗？</h4>
                     <div class="faq-answer">
-                        可以，三者协同形成完整闭环：<strong>lark-cli（飞书 CLI）</strong>提供平台执行能力，<strong>system-analysis-doc</strong> 生成设计文档并通过飞书 CLI 落地为云文档，开发完成后再用 <strong>java-unit-test-generation</strong> 生成测试。
-                        三者配合，从设计到交付全链路自动化。
+                        可以，三者协同形成“<strong>分析状态生成 → 协作状态共享 → 质量状态验证</strong>”的完整闭环：<strong>system-analysis-doc</strong> 生成设计基线，<strong>lark-cli / lark-doc</strong> 将其发布为团队共享的飞书协作产物，开发完成后再用 <strong>java-unit-test-generation</strong> 将质量要求固化为可执行测试。
                     </div>
                 </div>
 
@@ -1471,18 +1447,15 @@ class MyServiceImplTest {
             <!-- 总结 -->
             <section class="summary">
                 <h3>🎉 总结</h3>
-                <p>通过 AI Agent 和三大核心 Skill，我们实现了开发全生命周期的自动化支持：</p>
+                <p>本次分享围绕“让开发状态可共享、可验证、可沉淀”，通过三项能力形成完整闭环：</p>
                 <ul>
-                    <li><strong>编码前：</strong>system-analysis-doc 自动生成系统分析文档，确保设计完整规范</li>
-                    <li><strong>编码后：</strong>java-unit-test-generation 自动生成单元测试，保证代码质量</li>
-                    <li><strong>平台交付：</strong>lark-cli（飞书 CLI）让 AI 产出直接落地飞书云文档，打通最后一公里</li>
-                    <li><strong>效率提升：</strong>从传统方式的 12+ 小时缩短到 2 小时，效率提升 80%+</li>
-                    <li><strong>质量保证：</strong>100% 格式标准化 + 100% 分支覆盖率</li>
-                    <li><strong>知识沉淀：</strong>文档和测试都符合企业标准，便于团队协作</li>
+                    <li><strong>分析状态：</strong>system-analysis-doc 自动生成系统分析文档，形成团队共享的设计基线</li>
+                    <li><strong>协作状态：</strong>lark-cli / lark-doc 将 AI 产出落地到飞书云文档，支持评审、授权和持续更新</li>
+                    <li><strong>质量状态：</strong>java-unit-test-generation 自动生成单元测试，将关键行为与分支要求固化为可执行验证</li>
+                    <li><strong>案例效果：</strong>在客户管理模块案例中，文档与测试总耗时从传统方式 10 小时以上缩短至约 2 小时</li>
+                    <li><strong>知识沉淀：</strong>设计文档和测试结果成为团队协作与后续维护可复用的共同资产</li>
                 </ul>
-                <p style="margin-top: 20px; font-size: 1.2em;">
-                    <strong>立即开始使用，让 AI 成为你的开发助手！</strong>
-                </p>
+                <p style="margin-top: 20px; font-size: 1.2em;"><strong>让 AI 不只生成内容，更持续沉淀团队可复用的开发状态！</strong></p>
             </section>
         </main>
 
@@ -1494,5 +1467,47 @@ class MyServiceImplTest {
             <p style="margin-top: 15px; font-size: 0.9em;">© 2026 AI Agent Development Sharing | v1.0</p>
         </footer>
     </div>
+
+    <dialog id="image-preview-dialog" class="image-preview-dialog" aria-labelledby="image-preview-caption">
+        <button type="button" class="image-preview-close" aria-label="关闭放大图片">关闭</button>
+        <img id="image-preview" src="" alt="">
+        <p id="image-preview-caption" class="image-preview-caption"></p>
+    </dialog>
+
+    <script>
+        const imagePreviewDialog = document.getElementById('image-preview-dialog');
+        const imagePreview = document.getElementById('image-preview');
+        const imagePreviewCaption = document.getElementById('image-preview-caption');
+        const imagePreviewClose = imagePreviewDialog.querySelector('.image-preview-close');
+        let activeScreenshotTrigger;
+
+        document.querySelectorAll('.screenshot-trigger').forEach((trigger) => {
+            trigger.addEventListener('click', () => {
+                const image = trigger.querySelector('img');
+                const caption = trigger.parentElement.querySelector('.screenshot-caption');
+
+                activeScreenshotTrigger = trigger;
+                imagePreview.src = image.src;
+                imagePreview.alt = image.alt;
+                imagePreviewCaption.textContent = caption.textContent.trim();
+                imagePreviewDialog.showModal();
+                imagePreviewClose.focus();
+            });
+        });
+
+        imagePreviewClose.addEventListener('click', () => imagePreviewDialog.close());
+
+        imagePreviewDialog.addEventListener('click', (event) => {
+            if (event.target === imagePreviewDialog) {
+                imagePreviewDialog.close();
+            }
+        });
+
+        imagePreviewDialog.addEventListener('close', () => {
+            imagePreview.removeAttribute('src');
+            imagePreview.alt = '';
+            activeScreenshotTrigger?.focus();
+        });
+    </script>
 </body>
 </html>
