@@ -7,6 +7,27 @@ spring:
     username: ${mysql.username}
     password: ${mysql.password}
 
+# sa-token认证配置
+sa-token:
+  # token名称（同时是请求头名称）
+  token-name: token
+  # 全局默认有效期（秒），登录时按会话单独指定
+  timeout: 2592000
+  # 全局最低活跃频率（秒），-1代表不限制，按会话单独指定
+  active-timeout: -1
+  # 启用动态active-timeout（允许每个会话单独设置activeTimeout）
+  dynamic-active-timeout: true
+  # 同一账号允许并发登录（access与refresh双会话共存）
+  is-concurrent: true
+  # 每次登录生成独立token
+  is-share: false
+  # token风格
+  token-style: uuid
+  # 前后端分离，不读写Cookie，仅从请求头读取
+  is-read-cookie: false
+  # 是否输出操作日志
+  is-log: false
+
 # MyBatis配置
 mybatis-plus:
   configuration:

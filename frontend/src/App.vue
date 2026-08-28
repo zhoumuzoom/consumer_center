@@ -20,7 +20,7 @@ const themeConfig = {
     colorTextSecondary: '#6b7280',
     colorTextTertiary: '#9ca3af',
     colorTextQuaternary: '#d1d5db',
-    borderRadius: 6,
+    borderRadius: 8,
     colorLink: '#6366f1',
     colorLinkHover: '#818cf8',
     colorSuccess: '#10b981',
@@ -32,10 +32,10 @@ const themeConfig = {
   components: {
     Table: {
       colorBgContainer: '#ffffff',
-      headerBg: '#f9fafb',
-      borderColor: '#e5e7eb',
+      headerBg: '#f7f8fc',
+      borderColor: '#eef0f5',
       headerColor: '#6b7280',
-      rowHoverBg: '#f9fafb',
+      rowHoverBg: '#f5f6ff',
     },
     Card: {
       colorBgContainer: '#ffffff',
@@ -76,8 +76,30 @@ const themeConfig = {
 html, body, #app {
   height: 100%;
   font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
-  background: #f5f7fa;
+  background: #f7f8fc;
   color: #1f2937;
+}
+
+/* 卡片：大圆角、柔和投影，与登录页质感统一 */
+.ant-card {
+  border-radius: 12px;
+  border-color: #e8eaf2;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.ant-card-small {
+  border-radius: 10px;
+}
+.ant-card .ant-card-head {
+  border-bottom-color: #eef0f5;
+}
+.ant-card .ant-card-head-title {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* 弹窗圆角 */
+.ant-modal .ant-modal-content {
+  border-radius: 14px;
 }
 
 /* 自定义滚动条 */

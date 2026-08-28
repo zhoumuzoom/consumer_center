@@ -1,13 +1,13 @@
 <template>
-  <a-card>
-    <template #title>
-      <div style="display: flex; justify-content: space-between; align-items: center">
-        <span>决策链管理</span>
+  <div>
+    <PageHeader eyebrow="DECISION CHAIN" title="决策链管理">
+      <template #actions>
         <a-button type="primary" @click="showCreateDialog">建立决策链</a-button>
-      </div>
-    </template>
+      </template>
+    </PageHeader>
 
-    <a-form layout="inline" style="margin-bottom: 20px">
+    <a-card>
+      <a-form layout="inline" style="margin-bottom: 20px">
       <a-form-item label="客户名称">
         <a-input v-model:value="query.customerName" allow-clear />
       </a-form-item>
@@ -85,13 +85,15 @@
         </a-form-item>
       </a-form>
     </a-modal>
-  </a-card>
+    </a-card>
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { getDecisionChains, createDecisionChain, updateDecisionChain, deleteDecisionChain } from '../../api/decisionMaker'
+import PageHeader from '../../components/PageHeader.vue'
 
 const tableData = ref([])
 const total = ref(0)

@@ -1,13 +1,17 @@
 package com.iwhalecloud.consumercenter.mvc.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iwhalecloud.consumercenter.common.error.GlobalExceptionHandler;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerStatisticsVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.DrillDownVO;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerOverviewService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -18,7 +22,9 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,6 +45,23 @@ class CustomerOverviewControllerTest {
 
     @MockitoBean
     private CustomerOverviewService customerOverviewService;
+
+    private MockedStatic<StpUtil> stpUtilMockedStatic;
+
+    /**
+     * 模拟登录态，使认证拦截器放行
+     */
+    @BeforeEach
+    void mockLoginState() {
+        stpUtilMockedStatic = mockStatic(StpUtil.class);
+        stpUtilMockedStatic.when(StpUtil::getTokenValue).thenReturn("test-token");
+        stpUtilMockedStatic.when(() -> StpUtil.getLoginDeviceTypeByToken(anyString())).thenReturn("access");
+    }
+
+    @AfterEach
+    void closeLoginStateMock() {
+        stpUtilMockedStatic.close();
+    }
 
     // ==================== getStatistics ====================
 

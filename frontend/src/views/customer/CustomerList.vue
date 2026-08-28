@@ -1,13 +1,13 @@
 <template>
-  <a-card>
-    <template #title>
-      <div style="display: flex; justify-content: space-between; align-items: center">
-        <span>客户列表</span>
+  <div>
+    <PageHeader eyebrow="CUSTOMER" title="客户列表">
+      <template #actions>
         <a-button type="primary" @click="showCreateDialog">新增客户</a-button>
-      </div>
-    </template>
+      </template>
+    </PageHeader>
 
-    <a-form layout="inline" :model="queryForm" style="margin-bottom: 20px">
+    <a-card>
+      <a-form layout="inline" :model="queryForm" style="margin-bottom: 20px">
       <a-form-item label="关键词">
         <a-input v-model:value="queryForm.keyword" placeholder="客户名称/编号" allow-clear />
       </a-form-item>
@@ -108,13 +108,15 @@
         </a-form-item>
       </a-form>
     </a-modal>
-  </a-card>
+    </a-card>
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { getCustomerList, createCustomer, updateCustomer, deleteCustomer } from '../../api/customer'
+import PageHeader from '../../components/PageHeader.vue'
 
 const loading = ref(false)
 const tableData = ref([])

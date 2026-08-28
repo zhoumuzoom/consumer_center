@@ -1,6 +1,6 @@
 <template>
   <a-spin :spinning="loading">
-    <a-page-header title="客户360度画像" @back="$router.back()" style="margin-bottom: 20px" />
+    <PageHeader back eyebrow="PROFILE" title="客户360度画像" />
 
     <!-- 基础信息 -->
     <a-card v-if="profile" style="margin-bottom: 20px">
@@ -266,6 +266,7 @@ import {
   createOrder, deleteOrder,
   createProduct, deleteProduct
 } from '../../api/customerProfile'
+import PageHeader from '../../components/PageHeader.vue'
 
 const route = useRoute()
 const loading = ref(false)

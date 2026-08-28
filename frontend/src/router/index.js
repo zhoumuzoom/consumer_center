@@ -1,7 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '../views/Layout.vue'
+import { getAccessToken } from '../utils/token'
 
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/auth/Login.vue'),
+    meta: { title: '登录', public: true }
+  },
   {
     path: '/',
     component: Layout,
@@ -23,6 +30,21 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+// 全局守卫：未登录跳转登录页，已登录访问登录页跳转首页
+router.beforeEach((to) => {
+  const loggedIn = !!getAccessToken()
+  if (to.meta.public) {
+    if (loggedIn && to.path === '/login') {
+      return '/'
+    }
+    return true
+  }
+  if (!loggedIn) {
+    return { path: '/login', query: to.fullPath !== '/' ? { redirect: to.fullPath } : {} }
+  }
+  return true
 })
 
 export default router

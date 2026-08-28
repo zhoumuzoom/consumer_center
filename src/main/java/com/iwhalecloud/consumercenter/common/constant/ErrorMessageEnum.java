@@ -19,7 +19,8 @@ public enum ErrorMessageEnum {
     AUTH_TOKEN_EXPIRED(4003, "认证令牌已过期"),
     AUTH_TOKEN_INVALID(4004, "认证令牌无效"),
     AUTH_REFRESH_TOKEN_INVALID(4005, "刷新令牌无效"),
-    AUTH_REFRESH_TOKEN_EXPIRED(4006, "刷新令牌已过期");
+    AUTH_REFRESH_TOKEN_EXPIRED(4006, "刷新令牌已过期"),
+    AUTH_USER_DISABLED(4007, "账号已被禁用");
 
     private final int code;
 

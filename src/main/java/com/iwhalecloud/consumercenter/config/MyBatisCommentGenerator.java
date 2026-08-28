@@ -68,7 +68,8 @@ public class MyBatisCommentGenerator extends PluginAdapter implements CommentGen
             "task",
             "operation_log",
             "group_report_record",
-            "report_schedule_config"
+            "report_schedule_config",
+            "system_user"
     };
 
     /**

@@ -1,19 +1,19 @@
 <template>
-  <a-card>
-    <template #title>
-      <div style="display: flex; justify-content: space-between; align-items: center">
-        <span>决策关键人管理</span>
+  <div>
+    <PageHeader eyebrow="DECISION" title="决策关键人管理">
+      <template #actions>
         <a-button type="primary" @click="showCreateDialog">新增决策人</a-button>
-      </div>
-    </template>
+      </template>
+    </PageHeader>
 
-    <a-table
-      :columns="columns"
-      :data-source="tableData"
-      row-key="id"
-      :pagination="false"
-      :scroll="{ x: 1100 }"
-    >
+    <a-card>
+      <a-table
+        :columns="columns"
+        :data-source="tableData"
+        row-key="id"
+        :pagination="false"
+        :scroll="{ x: 1100 }"
+      >
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <a-space>
@@ -47,13 +47,15 @@
         <a-form-item label="邮箱"><a-input v-model:value="form.email" /></a-form-item>
       </a-form>
     </a-modal>
-  </a-card>
+    </a-card>
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { getDecisionChains, createDecisionMaker, updateDecisionMaker, deleteDecisionMaker } from '../../api/decisionMaker'
+import PageHeader from '../../components/PageHeader.vue'
 
 const tableData = ref([])
 const dialogVisible = ref(false)

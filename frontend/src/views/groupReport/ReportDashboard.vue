@@ -1,5 +1,11 @@
 <template>
   <div>
+    <PageHeader
+      eyebrow="REPORT"
+      title="集团数据上报"
+      description="139系统对接状态、手动同步与上报记录"
+    />
+
     <a-row :gutter="20" style="margin-bottom: 20px">
       <a-col :span="6">
         <a-card hoverable>
@@ -74,6 +80,7 @@
 import { ref, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { getReportOverview, manualReport, getReportRecords, getGroup139Status } from '../../api/groupReport'
+import PageHeader from '../../components/PageHeader.vue'
 
 const overview = ref({})
 const systemStatus = ref({})

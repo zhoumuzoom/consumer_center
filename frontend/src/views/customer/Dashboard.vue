@@ -1,5 +1,11 @@
 <template>
   <div>
+    <PageHeader
+      eyebrow="OVERVIEW"
+      title="客户规模总览"
+      description="要客规模、看管进度与行业区域分布"
+    />
+
     <a-row :gutter="20" style="margin-bottom: 20px">
       <a-col :span="8">
         <a-card class="stat-card">
@@ -50,6 +56,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { getStatistics } from '../../api/customer'
+import PageHeader from '../../components/PageHeader.vue'
 
 const stats = ref({})
 

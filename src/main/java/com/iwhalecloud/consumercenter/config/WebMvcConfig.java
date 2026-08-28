@@ -38,6 +38,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
+                        "/api/auth/login",
+                        "/api/auth/refresh",
                         "/doc.html",
                         "/webjars/**",
                         "/v3/api-docs/**",

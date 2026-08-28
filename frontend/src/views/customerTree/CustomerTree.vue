@@ -1,15 +1,15 @@
 <template>
-  <a-card>
-    <template #title>
-      <div style="display: flex; justify-content: space-between; align-items: center">
-        <span>客户树管理</span>
+  <div>
+    <PageHeader eyebrow="CUSTOMER TREE" title="客户树管理">
+      <template #actions>
         <a-button type="primary" @click="showCreateDialog">新增节点</a-button>
-      </div>
-    </template>
+      </template>
+    </PageHeader>
 
-    <a-row :gutter="20">
-      <a-col :span="10">
-        <a-tree
+    <a-card>
+      <a-row :gutter="20">
+        <a-col :span="10">
+          <a-tree
           v-if="treeData.length"
           :tree-data="treeData"
           :field-names="{ key: 'id', title: 'nodeName', children: 'children' }"
@@ -72,13 +72,15 @@
         </a-form-item>
       </a-form>
     </a-modal>
-  </a-card>
+    </a-card>
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { getCustomerTree, createTreeNode, updateTreeNode, deleteTreeNode } from '../../api/customerTree'
+import PageHeader from '../../components/PageHeader.vue'
 
 const treeData = ref([])
 const selectedNode = ref(null)
