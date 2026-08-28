@@ -5,6 +5,7 @@ import 'ant-design-vue/dist/reset.css'
 import * as AntdIconsVue from '@ant-design/icons-vue'
 import App from './App.vue'
 import router from './router'
+import i18n from './locales'
 
 const app = createApp(App)
 
@@ -15,6 +16,7 @@ for (const [key, component] of Object.entries(AntdIconsVue)) {
 
 app.use(createPinia())
 app.use(router)
+app.use(i18n)
 app.use(Antd)
 
 app.mount('#app')

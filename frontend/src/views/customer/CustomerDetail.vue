@@ -1,37 +1,37 @@
 <template>
   <div>
-    <PageHeader eyebrow="CUSTOMER" title="客户详情">
+    <PageHeader eyebrow="CUSTOMER" :title="$t('menu.customerDetail')">
       <template #actions>
         <a-space v-if="detail">
-          <a-button type="primary" @click="$router.push(`/profile/${detail.id}`)">查看360画像</a-button>
-          <a-button @click="$router.back()">返回</a-button>
+          <a-button type="primary" @click="$router.push(`/profile/${detail.id}`)">{{ $t('customer.viewProfile') }}</a-button>
+          <a-button @click="$router.back()">{{ $t('common.back') }}</a-button>
         </a-space>
       </template>
     </PageHeader>
 
     <a-card v-if="detail" :loading="loading">
       <a-descriptions :column="3">
-        <a-descriptions-item label="客户编号">{{ detail.customerCode }}</a-descriptions-item>
-        <a-descriptions-item label="客户名称">{{ detail.customerName }}</a-descriptions-item>
-        <a-descriptions-item label="英文名称">{{ detail.customerNameEn }}</a-descriptions-item>
-        <a-descriptions-item label="行业">{{ detail.industry }}</a-descriptions-item>
-        <a-descriptions-item label="区域">{{ detail.region }}</a-descriptions-item>
-        <a-descriptions-item label="规模">{{ detail.scale }}</a-descriptions-item>
-        <a-descriptions-item label="状态">
+        <a-descriptions-item :label="$t('customer.code')">{{ detail.customerCode }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('common.customerName')">{{ detail.customerName }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('customer.nameEn')">{{ detail.customerNameEn }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('common.industry')">{{ detail.industry }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('common.region')">{{ detail.region }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('common.scale')">{{ detail.scale }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('common.status')">
           <a-tag :color="detail.status === 1 ? 'success' : 'default'">{{ detail.statusDesc }}</a-tag>
         </a-descriptions-item>
-        <a-descriptions-item label="客户经理">{{ detail.managerName }}</a-descriptions-item>
-        <a-descriptions-item label="联系人">{{ detail.contactPerson }}</a-descriptions-item>
-        <a-descriptions-item label="联系电话">{{ detail.contactPhone }}</a-descriptions-item>
-        <a-descriptions-item label="联系邮箱">{{ detail.contactEmail }}</a-descriptions-item>
-        <a-descriptions-item label="地址" :span="2">{{ detail.address }}</a-descriptions-item>
-        <a-descriptions-item label="备注" :span="3">{{ detail.remark }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('customer.managerName')">{{ detail.managerName }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('customer.contactPerson')">{{ detail.contactPerson }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('customer.contactPhone')">{{ detail.contactPhone }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('customer.contactEmail')">{{ detail.contactEmail }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('customer.address')" :span="2">{{ detail.address }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('common.remark')" :span="3">{{ detail.remark }}</a-descriptions-item>
       </a-descriptions>
 
       <a-row :gutter="20" style="margin-top: 20px">
-        <a-col :span="8"><a-statistic title="分支机构" :value="detail?.branchCount || 0" /></a-col>
-        <a-col :span="8"><a-statistic title="关联决策人" :value="detail?.decisionMakerCount || 0" /></a-col>
-        <a-col :span="8"><a-statistic title="交互记录" :value="detail?.interactionCount || 0" /></a-col>
+        <a-col :span="8"><a-statistic :title="$t('customer.branchCount')" :value="detail?.branchCount || 0" /></a-col>
+        <a-col :span="8"><a-statistic :title="$t('customer.decisionMakerCount')" :value="detail?.decisionMakerCount || 0" /></a-col>
+        <a-col :span="8"><a-statistic :title="$t('customer.interactionCount')" :value="detail?.interactionCount || 0" /></a-col>
       </a-row>
     </a-card>
   </div>

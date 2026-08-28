@@ -4,13 +4,14 @@
     <section class="brand-panel">
       <header class="brand-top">
         <div class="brand-logo">C</div>
-        <span class="brand-name">CMI 要客运营平台</span>
+        <span class="brand-name">{{ $t('app.name') }}</span>
+        <LangSwitcher dark class="brand-lang" />
       </header>
 
       <div class="brand-center">
         <p class="eyebrow">CMI · KEY ACCOUNT OPERATION</p>
-        <h1 class="headline">连接要客网络，<br />洞见决策链路</h1>
-        <p class="sub">客户全景、决策关键人与集团协同，都在同一个工作台。</p>
+        <h1 class="headline">{{ $t('app.headline1') }}<br />{{ $t('app.headline2') }}</h1>
+        <p class="sub">{{ $t('app.brandSub') }}</p>
       </div>
 
       <svg
@@ -74,7 +75,7 @@
         </g>
 
         <!-- 枢纽标注 -->
-        <text class="node-label" x="222" y="452">要客</text>
+        <text class="node-label" x="222" y="452">{{ $t('app.keyAccount') }}</text>
 
         <!-- 沿线光脉冲 -->
         <g fill="#a5b4fc">
@@ -90,14 +91,14 @@
         </g>
       </svg>
 
-      <footer class="brand-foot">CMI 要客运营平台 · 内部系统，仅限授权人员使用</footer>
+      <footer class="brand-foot">{{ $t('app.footNote') }}</footer>
     </section>
 
     <!-- 右侧登录表单 -->
     <section class="form-panel">
       <div class="form-inner">
-        <h2 class="form-title">登录工作台</h2>
-        <p class="form-desc">使用您的账号进入要客运营工作台</p>
+        <h2 class="form-title">{{ $t('login.title') }}</h2>
+        <p class="form-desc">{{ $t('login.desc') }}</p>
 
         <a-alert
           v-if="errorMsg"
@@ -110,13 +111,13 @@
         <a-form class="login-form" layout="vertical" :model="form" @finish="handleSubmit">
           <a-form-item
             name="username"
-            label="用户名"
-            :rules="[{ required: true, message: '请输入用户名' }]"
+            :label="$t('login.username')"
+            :rules="[{ required: true, message: $t('login.usernameRequired') }]"
           >
             <a-input
               v-model:value="form.username"
               size="large"
-              placeholder="请输入用户名"
+              :placeholder="$t('login.usernamePlaceholder')"
               autocomplete="username"
               allow-clear
             >
@@ -126,13 +127,13 @@
 
           <a-form-item
             name="password"
-            label="密码"
-            :rules="[{ required: true, message: '请输入密码' }]"
+            :label="$t('login.password')"
+            :rules="[{ required: true, message: $t('login.passwordRequired') }]"
           >
             <a-input-password
               v-model:value="form.password"
               size="large"
-              placeholder="请输入密码"
+              :placeholder="$t('login.passwordPlaceholder')"
               autocomplete="current-password"
             >
               <template #prefix><LockOutlined class="input-icon" /></template>
@@ -148,12 +149,12 @@
               :loading="loading"
               class="login-btn"
             >
-              {{ loading ? '正在登录…' : '登 录' }}
+              {{ loading ? $t('login.loggingIn') : $t('login.submit') }}
             </a-button>
           </a-form-item>
         </a-form>
 
-        <p class="form-hint">忘记密码？请联系系统管理员</p>
+        <p class="form-hint">{{ $t('login.forgotHint') }}</p>
       </div>
     </section>
   </div>
@@ -162,9 +163,12 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '../../stores/auth'
 import { getLastUsername, setLastUsername } from '../../utils/token'
+import LangSwitcher from '../../components/LangSwitcher.vue'
 
+const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
@@ -193,7 +197,7 @@ async function handleSubmit() {
     await authStore.fetchUserInfo().catch(() => null)
     router.push(safeRedirect(route.query.redirect))
   } catch (error) {
-    errorMsg.value = error?.message || '登录失败，请重试'
+    errorMsg.value = error?.message || t('login.failDefault')
   } finally {
     loading.value = false
   }
@@ -254,10 +258,19 @@ async function handleSubmit() {
 }
 
 .brand-name {
+  flex: 1;
+  min-width: 0;
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #e7ebff;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.brand-lang {
+  margin-left: auto;
+  margin-right: -6px;
 }
 
 .brand-center {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader eyebrow="INDUSTRY TREE" title="行业树管理" />
+    <PageHeader eyebrow="INDUSTRY TREE" :title="$t('menu.industryTree')" />
 
     <a-card>
       <a-row :gutter="20">
@@ -13,25 +13,25 @@
           @select="handleNodeSelect"
         >
           <template #title="{ nodeName, customerCount }">
-            <span>{{ nodeName }} <a-tag>{{ customerCount || 0 }}家</a-tag></span>
+            <span>{{ nodeName }} <a-tag>{{ $t('industryTree.companyUnit', { n: customerCount || 0 }) }}</a-tag></span>
           </template>
         </a-tree>
       </a-col>
       <a-col :span="14">
         <a-card v-if="selectedNode">
-          <template #title>{{ selectedNode.nodeName }} - 聚合数据</template>
+          <template #title>{{ selectedNode.nodeName }} - {{ $t('industryTree.aggregation') }}</template>
           <a-row :gutter="20">
-            <a-col :span="8"><a-statistic title="客户数量" :value="aggregation?.customerCount || 0" /></a-col>
-            <a-col :span="8"><a-statistic title="看管率" :value="aggregation?.managementRate || 0" suffix="%" /></a-col>
-            <a-col :span="8"><a-statistic title="集团客户" :value="aggregation?.groupCount || 0" /></a-col>
+            <a-col :span="8"><a-statistic :title="$t('industryTree.customerCount')" :value="aggregation?.customerCount || 0" /></a-col>
+            <a-col :span="8"><a-statistic :title="$t('industryTree.managementRate')" :value="aggregation?.managementRate || 0" suffix="%" /></a-col>
+            <a-col :span="8"><a-statistic :title="$t('industryTree.groupCount')" :value="aggregation?.groupCount || 0" /></a-col>
           </a-row>
           <a-divider />
           <a-row :gutter="20">
-            <a-col :span="12"><a-statistic title="战略要客" :value="aggregation?.strategicCount || 0" /></a-col>
-            <a-col :span="12"><a-statistic title="重点客户" :value="aggregation?.keyCount || 0" /></a-col>
+            <a-col :span="12"><a-statistic :title="$t('industryTree.strategicCount')" :value="aggregation?.strategicCount || 0" /></a-col>
+            <a-col :span="12"><a-statistic :title="$t('industryTree.keyCount')" :value="aggregation?.keyCount || 0" /></a-col>
           </a-row>
         </a-card>
-        <a-empty v-else description="请选择一个行业节点" />
+        <a-empty v-else :description="$t('industryTree.selectNodeTip')" />
       </a-col>
     </a-row>
     </a-card>

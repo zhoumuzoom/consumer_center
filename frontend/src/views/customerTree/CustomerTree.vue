@@ -1,8 +1,8 @@
 <template>
   <div>
-    <PageHeader eyebrow="CUSTOMER TREE" title="客户树管理">
+    <PageHeader eyebrow="CUSTOMER TREE" :title="$t('menu.customerTree')">
       <template #actions>
-        <a-button type="primary" @click="showCreateDialog">新增节点</a-button>
+        <a-button type="primary" @click="showCreateDialog">{{ $t('customerTree.addNode') }}</a-button>
       </template>
     </PageHeader>
 
@@ -20,8 +20,8 @@
             <span style="display: flex; justify-content: space-between; width: 100%; align-items: center">
               <span>{{ nodeName }} <a-tag>{{ nodeType }}</a-tag></span>
               <span>
-                <a-button size="small" type="link" @click.stop="showEditDialog({ nodeName, nodeType, id })">编辑</a-button>
-                <a-button size="small" type="link" danger @click.stop="handleDelete({ id })">删除</a-button>
+                <a-button size="small" type="link" @click.stop="showEditDialog({ nodeName, nodeType, id })">{{ $t('common.edit') }}</a-button>
+                <a-button size="small" type="link" danger @click.stop="handleDelete({ id })">{{ $t('common.delete') }}</a-button>
               </span>
             </span>
           </template>
@@ -29,45 +29,45 @@
       </a-col>
       <a-col :span="14">
         <a-card v-if="selectedNode">
-          <template #title>节点详情 - {{ selectedNode.nodeName }}</template>
+          <template #title>{{ $t('customerTree.nodeDetail') }} - {{ selectedNode.nodeName }}</template>
           <a-descriptions :column="2">
-            <a-descriptions-item label="节点名称">{{ selectedNode.nodeName }}</a-descriptions-item>
-            <a-descriptions-item label="节点类型">{{ selectedNode.nodeType }}</a-descriptions-item>
-            <a-descriptions-item label="层级">{{ selectedNode.level }}</a-descriptions-item>
-            <a-descriptions-item label="责任人">{{ selectedNode.managerName }}</a-descriptions-item>
-            <a-descriptions-item label="职责描述" :span="2">{{ selectedNode.responsibility }}</a-descriptions-item>
-            <a-descriptions-item label="客户数量">{{ selectedNode.customerCount }}</a-descriptions-item>
+            <a-descriptions-item :label="$t('customerTree.nodeName')">{{ selectedNode.nodeName }}</a-descriptions-item>
+            <a-descriptions-item :label="$t('customerTree.nodeType')">{{ selectedNode.nodeType }}</a-descriptions-item>
+            <a-descriptions-item :label="$t('customerTree.level')">{{ selectedNode.level }}</a-descriptions-item>
+            <a-descriptions-item :label="$t('customerTree.managerName')">{{ selectedNode.managerName }}</a-descriptions-item>
+            <a-descriptions-item :label="$t('customerTree.responsibility')" :span="2">{{ selectedNode.responsibility }}</a-descriptions-item>
+            <a-descriptions-item :label="$t('customerTree.customerCount')">{{ selectedNode.customerCount }}</a-descriptions-item>
           </a-descriptions>
         </a-card>
-        <a-empty v-else description="请选择一个节点" />
+        <a-empty v-else :description="$t('customerTree.selectNodeTip')" />
       </a-col>
     </a-row>
 
     <a-modal
       v-model:open="dialogVisible"
-      :title="isEdit ? '编辑节点' : '新增节点'"
+      :title="isEdit ? $t('customerTree.editNode') : $t('customerTree.addNode')"
       width="500px"
       @ok="handleSave"
       @cancel="dialogVisible = false"
     >
       <a-form :model="form" :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
-        <a-form-item label="节点名称" required>
+        <a-form-item :label="$t('customerTree.nodeName')" required>
           <a-input v-model:value="form.nodeName" />
         </a-form-item>
-        <a-form-item label="父节点ID">
+        <a-form-item :label="$t('customerTree.parentId')">
           <a-input-number v-model:value="form.parentId" :min="0" style="width: 100%" />
         </a-form-item>
-        <a-form-item label="节点类型">
-          <a-select v-model:value="form.nodeType" placeholder="请选择">
-            <a-select-option value="集团">集团</a-select-option>
-            <a-select-option value="区域">区域</a-select-option>
-            <a-select-option value="部门">部门</a-select-option>
+        <a-form-item :label="$t('customerTree.nodeType')">
+          <a-select v-model:value="form.nodeType" :placeholder="$t('common.selectPlease')">
+            <a-select-option value="集团">{{ $t('customerTree.typeGroup') }}</a-select-option>
+            <a-select-option value="区域">{{ $t('customerTree.typeRegion') }}</a-select-option>
+            <a-select-option value="部门">{{ $t('customerTree.typeDepartment') }}</a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item label="责任人">
+        <a-form-item :label="$t('customerTree.managerName')">
           <a-input v-model:value="form.managerName" />
         </a-form-item>
-        <a-form-item label="职责描述">
+        <a-form-item :label="$t('customerTree.responsibility')">
           <a-textarea v-model:value="form.responsibility" :rows="3" />
         </a-form-item>
       </a-form>
@@ -79,8 +79,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
+import { useI18n } from 'vue-i18n'
 import { getCustomerTree, createTreeNode, updateTreeNode, deleteTreeNode } from '../../api/customerTree'
 import PageHeader from '../../components/PageHeader.vue'
+
+const { t } = useI18n()
 
 const treeData = ref([])
 const selectedNode = ref(null)
@@ -115,19 +118,19 @@ const handleSave = async () => {
   } else {
     await createTreeNode(form.value)
   }
-  message.success('保存成功')
+  message.success(t('customerTree.saveSuccess'))
   dialogVisible.value = false
   loadData()
 }
 
 const handleDelete = (data) => {
   Modal.confirm({
-    title: '确认删除该节点？子节点将一并删除',
-    okText: '确定',
-    cancelText: '取消',
+    title: t('customerTree.deleteConfirm'),
+    okText: t('common.confirm'),
+    cancelText: t('common.cancel'),
     onOk: async () => {
       await deleteTreeNode(data.id)
-      message.success('删除成功')
+      message.success(t('common.deleteSuccess'))
       loadData()
     },
   })

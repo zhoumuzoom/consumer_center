@@ -2,30 +2,30 @@
   <div>
     <PageHeader
       eyebrow="OVERVIEW"
-      title="客户规模总览"
-      description="要客规模、看管进度与行业区域分布"
+      :title="$t('menu.dashboard')"
+      :description="$t('dashboard.desc')"
     />
 
     <a-row :gutter="20" style="margin-bottom: 20px">
       <a-col :span="8">
         <a-card class="stat-card">
-          <div class="stat-label">客户总量</div>
+          <div class="stat-label">{{ $t('dashboard.totalCustomers') }}</div>
           <div class="stat-value stat-primary">{{ stats.totalCustomers || 0 }}</div>
-          <div class="stat-desc">要客总数</div>
+          <div class="stat-desc">{{ $t('dashboard.totalCustomersDesc') }}</div>
         </a-card>
       </a-col>
       <a-col :span="8">
         <a-card class="stat-card">
-          <div class="stat-label">已看管客户</div>
+          <div class="stat-label">{{ $t('dashboard.managedCustomers') }}</div>
           <div class="stat-value stat-success">{{ stats.managedCustomers || 0 }}</div>
-          <div class="stat-desc">已分配客户经理</div>
+          <div class="stat-desc">{{ $t('dashboard.managedCustomersDesc') }}</div>
         </a-card>
       </a-col>
       <a-col :span="8">
         <a-card class="stat-card">
-          <div class="stat-label">客户看管率</div>
+          <div class="stat-label">{{ $t('dashboard.managementRate') }}</div>
           <div class="stat-value stat-warning">{{ stats.managementRate || 0 }}%</div>
-          <div class="stat-desc">已看管/总量</div>
+          <div class="stat-desc">{{ $t('dashboard.managementRateDesc') }}</div>
         </a-card>
       </a-col>
     </a-row>
@@ -33,19 +33,19 @@
     <a-row :gutter="20">
       <a-col :span="12">
         <a-card>
-          <template #title>行业分布</template>
+          <template #title>{{ $t('dashboard.industryDistribution') }}</template>
           <div v-for="item in stats.industryDistribution" :key="item.name" class="dist-row">
             <span>{{ item.name }}</span>
-            <a-tag color="rgba(99,102,241,0.15)" style="color: #818cf8">{{ item.count }} 家</a-tag>
+            <a-tag color="rgba(99,102,241,0.15)" style="color: #818cf8">{{ $t('dashboard.companyUnit', { n: item.count }) }}</a-tag>
           </div>
         </a-card>
       </a-col>
       <a-col :span="12">
         <a-card>
-          <template #title>区域分布</template>
+          <template #title>{{ $t('dashboard.regionDistribution') }}</template>
           <div v-for="item in stats.regionDistribution" :key="item.name" class="dist-row">
             <span>{{ item.name }}</span>
-            <a-tag color="rgba(34,197,94,0.15)" style="color: #22c55e">{{ item.count }} 家</a-tag>
+            <a-tag color="rgba(34,197,94,0.15)" style="color: #22c55e">{{ $t('dashboard.companyUnit', { n: item.count }) }}</a-tag>
           </div>
         </a-card>
       </a-col>

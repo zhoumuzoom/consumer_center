@@ -1,7 +1,7 @@
 <template>
   <div class="page-header">
     <div class="page-header-left">
-      <a-button v-if="back" type="text" class="back-btn" aria-label="返回" @click="goBack">
+      <a-button v-if="back" type="text" class="back-btn" :aria-label="$t('common.back')" @click="goBack">
         <ArrowLeftOutlined />
       </a-button>
       <div class="page-header-text">

@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { message } from 'ant-design-vue'
 import { getAccessToken, getRefreshToken, setTokens, clearTokens } from './token'
+import i18n from '../locales'
+
+const t = (key) => i18n.global.t(key)
 
 const request = axios.create({
   baseURL: '/api',
@@ -38,7 +41,7 @@ async function refreshTokens() {
   })
   const body = response.data
   if (!body || body.code !== 200) {
-    throw new Error(body?.message || '刷新令牌失败')
+    throw new Error(body?.message || t('msg.refreshFail'))
   }
   setTokens(body.data.accessToken, body.data.refreshToken)
   return body.data
@@ -65,7 +68,7 @@ request.interceptors.response.use(
     if ((res.code === 4003 || res.code === 4004) && !config._retried) {
       if (!getRefreshToken()) {
         redirectToLogin()
-        return Promise.reject(new Error(res.message || '登录已失效'))
+        return Promise.reject(new Error(res.message || t('msg.tokenExpired')))
       }
       config._retried = true
       try {
@@ -77,17 +80,17 @@ request.interceptors.response.use(
         return request(config)
       } catch {
         redirectToLogin()
-        return Promise.reject(new Error(res.message || '登录已失效'))
+        return Promise.reject(new Error(res.message || t('msg.tokenExpired')))
       }
     }
     if (!config.skipErrorToast) {
-      message.error(res.message || '请求失败')
+      message.error(res.message || t('msg.requestFail'))
     }
-    return Promise.reject(new Error(res.message || '请求失败'))
+    return Promise.reject(new Error(res.message || t('msg.requestFail')))
   },
   error => {
     if (!error.config || !error.config.skipErrorToast) {
-      message.error(error.message || '网络错误')
+      message.error(error.message || t('msg.networkError'))
     }
     return Promise.reject(error)
   }

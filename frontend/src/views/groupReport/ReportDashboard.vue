@@ -2,29 +2,29 @@
   <div>
     <PageHeader
       eyebrow="REPORT"
-      title="集团数据上报"
-      description="139系统对接状态、手动同步与上报记录"
+      :title="$t('menu.groupReport')"
+      :description="$t('groupReport.desc')"
     />
 
     <a-row :gutter="20" style="margin-bottom: 20px">
       <a-col :span="6">
         <a-card hoverable>
-          <a-statistic title="总上报次数" :value="overview.totalReports || 0" />
+          <a-statistic :title="$t('groupReport.totalReports')" :value="overview.totalReports || 0" />
         </a-card>
       </a-col>
       <a-col :span="6">
         <a-card hoverable>
-          <a-statistic title="成功上报" :value="overview.successReports || 0" />
+          <a-statistic :title="$t('groupReport.successReports')" :value="overview.successReports || 0" />
         </a-card>
       </a-col>
       <a-col :span="6">
         <a-card hoverable>
-          <a-statistic title="失败上报" :value="overview.failReports || 0" />
+          <a-statistic :title="$t('groupReport.failReports')" :value="overview.failReports || 0" />
         </a-card>
       </a-col>
       <a-col :span="6">
         <a-card hoverable>
-          <a-statistic title="异常数据" :value="overview.abnormalDataCount || 0" />
+          <a-statistic :title="$t('groupReport.abnormalData')" :value="overview.abnormalDataCount || 0" />
         </a-card>
       </a-col>
     </a-row>
@@ -32,22 +32,22 @@
     <a-card style="margin-bottom: 20px">
       <template #title>
         <div style="display: flex; justify-content: space-between; align-items: center">
-          <span>集团139系统对接状态</span>
-          <a-tag :color="systemStatus.connected ? 'success' : 'error'">{{ systemStatus.connected ? '已连接' : '未连接' }}</a-tag>
+          <span>{{ $t('groupReport.systemStatus') }}</span>
+          <a-tag :color="systemStatus.connected ? 'success' : 'error'">{{ systemStatus.connected ? $t('groupReport.connected') : $t('groupReport.disconnected') }}</a-tag>
         </div>
       </template>
       <a-descriptions :column="3">
-        <a-descriptions-item label="系统名称">{{ systemStatus.systemName }}</a-descriptions-item>
-        <a-descriptions-item label="同步状态">{{ systemStatus.syncStatus }}</a-descriptions-item>
-        <a-descriptions-item label="最后同步时间">{{ systemStatus.lastSyncTime }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('groupReport.systemName')">{{ systemStatus.systemName }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('groupReport.syncStatus')">{{ systemStatus.syncStatus }}</a-descriptions-item>
+        <a-descriptions-item :label="$t('groupReport.lastSyncTime')">{{ systemStatus.lastSyncTime }}</a-descriptions-item>
       </a-descriptions>
       <div style="margin-top: 20px">
-        <a-button type="primary" @click="handleManualReport" :loading="reporting">手动同步上报</a-button>
+        <a-button type="primary" @click="handleManualReport" :loading="reporting">{{ $t('groupReport.manualReport') }}</a-button>
       </div>
     </a-card>
 
     <a-card>
-      <template #title>上报记录</template>
+      <template #title>{{ $t('groupReport.records') }}</template>
       <a-table
         :columns="recordColumns"
         :data-source="records"
@@ -68,7 +68,7 @@
           :total="recordTotal"
           :page-size="query.size"
           show-quick-jumper
-          :show-total="(total) => `共 ${total} 条`"
+          :show-total="(total) => $t('common.totalItems', { total })"
           @change="loadRecords"
         />
       </div>
@@ -77,11 +77,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
+import { useI18n } from 'vue-i18n'
 import { getReportOverview, manualReport, getReportRecords, getGroup139Status } from '../../api/groupReport'
 import PageHeader from '../../components/PageHeader.vue'
 
+const { t } = useI18n()
 const overview = ref({})
 const systemStatus = ref({})
 const records = ref([])
@@ -89,15 +91,15 @@ const recordTotal = ref(0)
 const query = ref({ page: 1, size: 10 })
 const reporting = ref(false)
 
-const recordColumns = [
-  { title: '批次号', dataIndex: 'reportBatch', key: 'reportBatch', width: 200 },
-  { title: '类型', dataIndex: 'reportType', key: 'reportType', width: 100 },
-  { title: '总量', dataIndex: 'totalCount', key: 'totalCount', width: 100 },
-  { title: '成功', dataIndex: 'successCount', key: 'successCount', width: 100 },
-  { title: '失败', dataIndex: 'failCount', key: 'failCount', width: 100 },
-  { title: '状态', dataIndex: 'status', key: 'status', width: 120 },
-  { title: '上报时间', dataIndex: 'reportTime', key: 'reportTime' },
-]
+const recordColumns = computed(() => [
+  { title: t('groupReport.reportBatch'), dataIndex: 'reportBatch', key: 'reportBatch', width: 200 },
+  { title: t('common.type'), dataIndex: 'reportType', key: 'reportType', width: 100 },
+  { title: t('common.total'), dataIndex: 'totalCount', key: 'totalCount', width: 100 },
+  { title: t('common.success'), dataIndex: 'successCount', key: 'successCount', width: 100 },
+  { title: t('common.fail'), dataIndex: 'failCount', key: 'failCount', width: 100 },
+  { title: t('common.status'), dataIndex: 'status', key: 'status', width: 120 },
+  { title: t('groupReport.reportTime'), dataIndex: 'reportTime', key: 'reportTime' },
+])
 
 const loadData = async () => {
   const [overviewRes, statusRes] = await Promise.all([getReportOverview(), getGroup139Status()])
@@ -114,7 +116,11 @@ const loadRecords = async () => {
 const handleManualReport = async () => {
   reporting.value = true
   const res = await manualReport({ includeAbnormal: false })
-  message.success(`上报完成，批次号：${res.data.reportBatch}，成功：${res.data.successCount}，失败：${res.data.failCount}`)
+  message.success(t('groupReport.reportDone', {
+    batch: res.data.reportBatch,
+    success: res.data.successCount,
+    fail: res.data.failCount,
+  }))
   reporting.value = false
   loadData()
   loadRecords()

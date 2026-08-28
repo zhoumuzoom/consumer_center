@@ -9,7 +9,11 @@
     >
       <div class="logo-area">
         <div class="logo-icon">C</div>
-        <span v-if="!collapsed" class="logo-text">CMI 要客运营平台</span>
+        <span v-if="!collapsed" class="logo-text">{{ $t('app.name') }}</span>
+        <LangSwitcher v-if="!collapsed" dark class="logo-lang" />
+      </div>
+      <div v-if="collapsed" class="lang-collapsed-wrap">
+        <LangSwitcher dark />
       </div>
       <a-menu
         :selected-keys="[route.path]"
@@ -20,31 +24,31 @@
       >
         <a-menu-item key="/dashboard">
           <template #icon><DashboardOutlined /></template>
-          <span>客户规模总览</span>
+          <span>{{ $t('menu.dashboard') }}</span>
         </a-menu-item>
         <a-menu-item key="/customers">
           <template #icon><UserOutlined /></template>
-          <span>客户列表</span>
+          <span>{{ $t('menu.customers') }}</span>
         </a-menu-item>
         <a-menu-item key="/customer-tree">
           <template #icon><ApartmentOutlined /></template>
-          <span>客户树管理</span>
+          <span>{{ $t('menu.customerTree') }}</span>
         </a-menu-item>
         <a-menu-item key="/industry-tree">
           <template #icon><AppstoreOutlined /></template>
-          <span>行业树管理</span>
+          <span>{{ $t('menu.industryTree') }}</span>
         </a-menu-item>
         <a-menu-item key="/decision-makers">
           <template #icon><TeamOutlined /></template>
-          <span>决策关键人</span>
+          <span>{{ $t('menu.decisionMakers') }}</span>
         </a-menu-item>
         <a-menu-item key="/decision-chains">
           <template #icon><DeploymentUnitOutlined /></template>
-          <span>决策链管理</span>
+          <span>{{ $t('menu.decisionChains') }}</span>
         </a-menu-item>
         <a-menu-item key="/group-report">
           <template #icon><CloudUploadOutlined /></template>
-          <span>集团数据上报</span>
+          <span>{{ $t('menu.groupReport') }}</span>
         </a-menu-item>
       </a-menu>
       <div v-if="!collapsed" class="sider-foot">CMI · KEY ACCOUNT</div>
@@ -57,22 +61,22 @@
             <MenuFoldOutlined v-else />
           </span>
           <a-breadcrumb separator="/">
-            <a-breadcrumb-item><router-link to="/">首页</router-link></a-breadcrumb-item>
-            <a-breadcrumb-item>{{ route.meta.title || '页面' }}</a-breadcrumb-item>
+            <a-breadcrumb-item><router-link to="/">{{ $t('common.home') }}</router-link></a-breadcrumb-item>
+            <a-breadcrumb-item>{{ route.meta.titleKey ? $t(route.meta.titleKey) : $t('common.page') }}</a-breadcrumb-item>
           </a-breadcrumb>
         </div>
         <div class="header-right">
           <a-dropdown placement="bottomRight">
             <div class="user-chip">
               <UserOutlined style="font-size: 14px; color: #6b7280" />
-              <span class="user-name">{{ authStore.displayName || '当前用户' }}</span>
+              <span class="user-name">{{ authStore.displayName || $t('common.currentUser') }}</span>
               <DownOutlined style="font-size: 10px; color: #9ca3af" />
             </div>
             <template #overlay>
               <a-menu @click="handleUserMenu">
                 <a-menu-item key="logout">
                   <LogoutOutlined />
-                  <span style="margin-left: 6px">退出登录</span>
+                  <span style="margin-left: 6px">{{ $t('common.logout') }}</span>
                 </a-menu-item>
               </a-menu>
             </template>
@@ -90,6 +94,7 @@
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import LangSwitcher from '../components/LangSwitcher.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -146,12 +151,25 @@ async function handleUserMenu({ key }) {
 }
 
 .logo-text {
+  flex: 1;
+  min-width: 0;
   color: #e7ebff;
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.02em;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.logo-lang {
+  margin-left: auto;
+  margin-right: -8px;
+}
+
+.lang-collapsed-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 2px 0 6px;
 }
 
 .app-menu {

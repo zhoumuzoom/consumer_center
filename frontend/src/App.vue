@@ -1,11 +1,18 @@
 <template>
-  <a-config-provider :theme="themeConfig">
+  <a-config-provider :theme="themeConfig" :locale="antdLocale">
     <router-view />
   </a-config-provider>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { theme } from 'ant-design-vue'
+import { useI18n } from 'vue-i18n'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import enUS from 'ant-design-vue/es/locale/en_US'
+
+const { locale } = useI18n()
+const antdLocale = computed(() => (locale.value === 'zh-CN' ? zhCN : enUS))
 
 const themeConfig = {
   algorithm: theme.defaultAlgorithm,
