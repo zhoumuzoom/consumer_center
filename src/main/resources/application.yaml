@@ -30,7 +30,7 @@ springdoc:
   group-configs:
     - group: 'default'
       paths-to-match: '/**'
-      packages-to-scan: com.iwhalecloud.customer.mvc.controller
+      packages-to-scan: com.iwhalecloud.consumercenter.mvc.controller
 # Knife4j增强配置
 knife4j:
   enable: true

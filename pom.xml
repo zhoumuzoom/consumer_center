@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.iwhalecloud</groupId>
-    <artifactId>customer</artifactId>
+    <artifactId>consumer_center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>customer</name>
-    <description>customer</description>
+    <name>consumer_center</name>
+    <description>consumer_center</description>
     <url/>
     <licenses>
         <license/>

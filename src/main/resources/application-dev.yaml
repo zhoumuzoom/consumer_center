@@ -10,7 +10,7 @@ mysql:
 
 spring:
   application:
-    name: customer
+    name: consumer_center
   data:
     redis:
       host: ${REDIS_HOST:127.0.0.1}
