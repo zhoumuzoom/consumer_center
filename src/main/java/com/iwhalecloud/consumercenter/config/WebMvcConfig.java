@@ -32,19 +32,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * 拦截器配置
+     * 仅拦截/api/**业务接口，文档、静态资源等天然放行
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
-                .addPathPatterns("/**")
+                .addPathPatterns("/api/**")
                 .excludePathPatterns(
                         "/api/auth/login",
-                        "/api/auth/refresh",
-                        "/doc.html",
-                        "/webjars/**",
-                        "/v3/api-docs/**",
-                        "/swagger-ui/**",
-                        "/swagger-resources/**"
+                        "/api/auth/refresh"
                 );
     }
 

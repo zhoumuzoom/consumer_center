@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Result<T> implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4279126773454959902L;
 
     @Schema(description = "响应码")
     private Integer code;

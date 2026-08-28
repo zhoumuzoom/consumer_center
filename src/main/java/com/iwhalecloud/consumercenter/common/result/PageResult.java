@@ -15,7 +15,7 @@ import java.util.List;
 public class PageResult<T> implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1769398851949433381L;
 
     @Schema(description = "总数")
     private Long total;
