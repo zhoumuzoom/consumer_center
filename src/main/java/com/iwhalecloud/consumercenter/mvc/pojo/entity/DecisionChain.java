@@ -2,7 +2,6 @@ package com.iwhalecloud.consumercenter.mvc.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.Version;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -63,12 +62,6 @@ public class DecisionChain implements Serializable {
      */
     @TableLogic
     private Byte deleted;
-
-    /**
-     * 乐观锁版本号
-     */
-    @Version
-    private Integer version;
 
     /**
      * 创建时间

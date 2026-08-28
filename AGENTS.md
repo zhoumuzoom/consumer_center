@@ -35,6 +35,7 @@
 - Service/Mapper：Service类不要继承Mybatis-Plus的IService类，Mapper类要继承Mybatis-Plus的BaseMapper类。
 - 数据库操作：尽量使用单表操作，直接通过对象Mapper调用BaseMapper的方法。单表操作无法实现的才写SQL，SQL用MyBatis的XML模式书写。
 - 方法返回：新增和修改方法返回操作后的对象，删除方法返回void。
+- 数据库实体类必须要有Long类型的id(主键)、LocalDateTime类型的createTime(创建时间)和updateTime(修改时间)、Integer类型的deleted(逻辑删除)，生产的建表sql也要包含这些必备字段。
 
 ## 代码结构说明
 - aspect包：存放切面类。
