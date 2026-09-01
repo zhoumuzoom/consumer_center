@@ -1,25 +1,30 @@
 {
-  "name": "frontend",
+  "name": "consumer-center-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "max dev",
+    "build": "max build",
+    "start": "max dev",
+    "format": "biome format --write .",
+    "lint": "biome check ."
   },
   "dependencies": {
-    "@ant-design/icons-vue": "^7.0.1",
-    "ant-design-vue": "^4.2.6",
+    "@ant-design/icons": "^6.0.0",
+    "@ant-design/pro-components": "3.1.14-7",
+    "@tanstack/react-query": "^5.90.0",
+    "@umijs/max": "^4.6.49",
+    "antd": "^6.0.0",
+    "antd-style": "^4.0.0",
     "axios": "^1.18.1",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.23",
-    "pinia": "^3.0.4",
-    "vue": "^3.5.39",
-    "vue-i18n": "^11.4.2",
-    "vue-router": "^4.6.4"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.7",
-    "vite": "^8.1.1"
+    "@biomejs/biome": "^2.4.13",
+    "tailwindcss": "^4.1.12"
   }
 }

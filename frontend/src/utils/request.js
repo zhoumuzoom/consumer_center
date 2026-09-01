@@ -1,9 +1,11 @@
 import axios from 'axios'
-import { message } from 'ant-design-vue'
+import { message } from 'antd'
 import { getAccessToken, getRefreshToken, setTokens, clearTokens } from './token'
-import i18n from '../locales'
-
-const t = (key) => i18n.global.t(key)
+const translations = {
+  'zh-CN': { 'msg.refreshFail': '刷新令牌失败', 'msg.tokenExpired': '登录已失效', 'msg.requestFail': '请求失败', 'msg.networkError': '网络错误' },
+  'en-US': { 'msg.refreshFail': 'Failed to refresh token', 'msg.tokenExpired': 'Session expired', 'msg.requestFail': 'Request failed', 'msg.networkError': 'Network error' }
+}
+const t = (key) => translations[typeof window !== 'undefined' ? localStorage.getItem('cmi-lang') || 'zh-CN' : 'zh-CN']?.[key] || key
 
 const request = axios.create({
   baseURL: '/api',

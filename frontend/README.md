@@ -1,5 +1,7 @@
-# Vue 3 + Vite
+# CMI 要客运营平台前端
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+基于 React 19、Ant Design 6、Ant Design ProComponents 3 与 Umi Max 4 构建，样式使用 antd Design Token 与 Tailwind CSS。
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+- 开发：`npm run dev`
+- 构建：`npm run build`
+- 代码检查：`npm run lint`
