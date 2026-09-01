@@ -2,6 +2,8 @@ import request from '../utils/request'
 
 export const login = (data) => request.post('/auth/login', data, { skipErrorToast: true })
 
+export const ssoLogin = (externalToken) => request.post('/auth/sso-login', { externalToken }, { skipErrorToast: true })
+
 export const logout = (refreshToken) => request.post('/auth/logout', null, {
   headers: refreshToken ? { 'refresh-token': refreshToken } : {},
   skipErrorToast: true

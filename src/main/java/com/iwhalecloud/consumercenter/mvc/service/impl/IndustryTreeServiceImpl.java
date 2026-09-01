@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerIndustryTagMapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerMapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.IndustryTreeNodeMapper;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerIndustryTagConvert;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.IndustryTreeNodeConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.industry.BatchTagDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.industry.CustomerIndustryTagDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.industry.IndustryTreeNodeCreateDTO;
@@ -16,7 +18,6 @@ import com.iwhalecloud.consumercenter.mvc.pojo.vo.industry.IndustryTreeNodeVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.industry.ResourceAnalysisVO;
 import com.iwhalecloud.consumercenter.mvc.service.IndustryTreeService;
 import com.iwhalecloud.consumercenter.mvc.service.OperationLogService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,13 +78,12 @@ public class IndustryTreeServiceImpl implements IndustryTreeService {
                 new LambdaQueryWrapper<IndustryTreeNode>()
                         .eq(IndustryTreeNode::getParentId, nodeId)
                         .orderByAsc(IndustryTreeNode::getSortOrder));
-        return children.stream().map(this::convertToVO).collect(Collectors.toList());
+        return children.stream().map(IndustryTreeNodeConvert::entity2vo).collect(Collectors.toList());
     }
 
     @Override
     public IndustryTreeNodeVO createNode(IndustryTreeNodeCreateDTO createDTO) {
-        IndustryTreeNode node = new IndustryTreeNode();
-        BeanUtils.copyProperties(createDTO, node);
+        IndustryTreeNode node = IndustryTreeNodeConvert.dto2entity(createDTO);
 
         // 计算层级
         if (createDTO.getParentId() != null && createDTO.getParentId() > 0) {
@@ -97,7 +97,7 @@ public class IndustryTreeServiceImpl implements IndustryTreeService {
         operationLogService.log(node.getId(), "industry_tree_node", "CREATE",
                 "新增行业节点: " + node.getNodeName());
 
-        return convertToVO(node);
+        return IndustryTreeNodeConvert.entity2vo(node);
     }
 
     @Override
@@ -187,7 +187,7 @@ public class IndustryTreeServiceImpl implements IndustryTreeService {
         return allNodes.stream()
                 .filter(n -> parentId.equals(n.getParentId()))
                 .map(n -> {
-                    IndustryTreeNodeVO vo = convertToVO(n);
+                    IndustryTreeNodeVO vo = IndustryTreeNodeConvert.entity2vo(n);
                     vo.setChildren(buildTree(allNodes, n.getId()));
                     // 统计客户数
                     long count = customerIndustryTagMapper.selectCount(
@@ -198,15 +198,8 @@ public class IndustryTreeServiceImpl implements IndustryTreeService {
                 .collect(Collectors.toList());
     }
 
-    private IndustryTreeNodeVO convertToVO(IndustryTreeNode node) {
-        IndustryTreeNodeVO vo = new IndustryTreeNodeVO();
-        BeanUtils.copyProperties(node, vo);
-        return vo;
-    }
-
     private CustomerIndustryTagVO convertToTagVO(CustomerIndustryTag tag, Long customerId) {
-        CustomerIndustryTagVO vo = new CustomerIndustryTagVO();
-        BeanUtils.copyProperties(tag, vo);
+        CustomerIndustryTagVO vo = CustomerIndustryTagConvert.entity2vo(tag);
         vo.setCustomerId(customerId);
 
         Customer customer = customerMapper.selectById(customerId);

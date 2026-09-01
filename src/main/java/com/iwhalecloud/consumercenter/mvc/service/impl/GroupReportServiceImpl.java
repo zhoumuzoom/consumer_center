@@ -6,6 +6,8 @@ import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerMapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.GroupReportRecordMapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.ReportScheduleConfigMapper;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.GroupReportRecordConvert;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.ReportScheduleConfigConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.report.ManualReportDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.report.ReportQueryDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.report.ScheduleConfigUpdateDTO;
@@ -16,7 +18,6 @@ import com.iwhalecloud.consumercenter.mvc.pojo.vo.report.*;
 import com.iwhalecloud.consumercenter.mvc.service.GroupReportService;
 import com.iwhalecloud.consumercenter.mvc.service.MockDataService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -123,9 +124,7 @@ public class GroupReportServiceImpl implements GroupReportService {
 
         ScheduleConfigVO vo = new ScheduleConfigVO();
         if (config != null) {
-            BeanUtils.copyProperties(config, vo);
-            vo.setEnabled(config.getEnabled() != null && config.getEnabled() == (byte) 1);
-            vo.setIncludeAbnormal(config.getIncludeAbnormal() != null && config.getIncludeAbnormal() == (byte) 1);
+            vo = ReportScheduleConfigConvert.entity2vo(config);
             vo.setCronDescription(parseCron(config.getCronExpression()));
         } else {
             vo.setEnabled(false);
@@ -185,9 +184,7 @@ public class GroupReportServiceImpl implements GroupReportService {
 
         List<GroupReportRecordVO> voList = result.getRecords().stream()
                 .map(r -> {
-                    GroupReportRecordVO vo = new GroupReportRecordVO();
-                    BeanUtils.copyProperties(r, vo);
-                    return vo;
+                    return GroupReportRecordConvert.entity2vo(r);
                 })
                 .collect(Collectors.toList());
 

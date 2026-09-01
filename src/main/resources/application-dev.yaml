@@ -17,3 +17,22 @@ spring:
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD:}
       database: 0
+  # Nacos配置
+  cloud:
+    nacos:
+      # 注册中心
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:47.102.144.58:8848}
+        group: DEFAULT_GROUP
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:zhoumu666}
+      # 配置中心
+      config:
+        server-addr: ${NACOS_SERVER_ADDR:47.102.144.58:8848}
+        group: DEFAULT_GROUP
+        file-extension: yaml
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:zhoumu666}
+  config:
+    import:
+      - optional:nacos:consumer_center-dev.yaml?refresh=true

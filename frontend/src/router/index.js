@@ -11,6 +11,12 @@ const routes = [
     meta: { titleKey: 'menu.login', public: true }
   },
   {
+    path: '/sso/callback',
+    name: 'SsoCallback',
+    component: () => import('../views/auth/SsoCallback.vue'),
+    meta: { titleKey: 'menu.login', public: true }
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/dashboard',

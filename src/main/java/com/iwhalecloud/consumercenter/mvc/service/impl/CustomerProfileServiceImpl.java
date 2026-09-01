@@ -2,11 +2,15 @@ package com.iwhalecloud.consumercenter.mvc.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.*;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerBranchConvert;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerOrderConvert;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerPolicyConvert;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerProductConvert;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerProfileConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.profile.*;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.*;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.profile.*;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerProfileService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,9 +55,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         CustomerProfileVO profile = new CustomerProfileVO();
 
         // ---- 基础信息 ----
-        CustomerProfileVO.BasicInfo basicInfo = new CustomerProfileVO.BasicInfo();
-        BeanUtils.copyProperties(customer, basicInfo);
-        basicInfo.setCustomerId(customer.getId());
+        CustomerProfileVO.BasicInfo basicInfo = CustomerProfileConvert.entity2basicInfo(customer);
         profile.setBasicInfo(basicInfo);
 
         // ---- 看管信息 ----
@@ -158,10 +160,10 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         profile.setPolicies(listPolicies(customerId));
 
         // ---- 历史订单/项目 ----
-        profile.setOrders(orders.stream().map(this::convertToOrderVO).collect(Collectors.toList()));
+        profile.setOrders(orders.stream().map(CustomerOrderConvert::entity2vo).collect(Collectors.toList()));
 
         // ---- 产品与方案 ----
-        profile.setProducts(products.stream().map(this::convertToProductVO).collect(Collectors.toList()));
+        profile.setProducts(products.stream().map(CustomerProductConvert::entity2vo).collect(Collectors.toList()));
 
         return profile;
     }
@@ -181,12 +183,11 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
 
     @Override
     public CustomerBranchVO createBranch(Long customerId, CustomerBranchCreateDTO createDTO) {
-        CustomerBranch branch = new CustomerBranch();
-        BeanUtils.copyProperties(createDTO, branch);
+        CustomerBranch branch = CustomerBranchConvert.dto2entity(createDTO);
         branch.setCustomerId(customerId);
         if (branch.getBranchType() == null) branch.setBranchType("总部");
         customerBranchMapper.insert(branch);
-        return convertToBranchVO(branch);
+        return CustomerBranchConvert.entity2vo(branch);
     }
 
     @Override
@@ -195,9 +196,9 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         if (branch == null || !branch.getCustomerId().equals(customerId)) {
             throw new RuntimeException("分支不存在");
         }
-        BeanUtils.copyProperties(updateDTO, branch);
+        CustomerBranchConvert.dto2entity(updateDTO, branch);
         customerBranchMapper.updateById(branch);
-        return convertToBranchVO(branch);
+        return CustomerBranchConvert.entity2vo(branch);
     }
 
     @Override
@@ -319,17 +320,16 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
                 new LambdaQueryWrapper<CustomerPolicy>()
                         .eq(CustomerPolicy::getCustomerId, customerId)
                         .orderByDesc(CustomerPolicy::getPublishDate))
-                .stream().map(this::convertToPolicyVO).collect(Collectors.toList());
+                .stream().map(CustomerPolicyConvert::entity2vo).collect(Collectors.toList());
     }
 
     @Override
     public PolicyVO createPolicy(Long customerId, PolicyCreateDTO createDTO) {
-        CustomerPolicy policy = new CustomerPolicy();
-        BeanUtils.copyProperties(createDTO, policy);
+        CustomerPolicy policy = CustomerPolicyConvert.dto2entity(createDTO);
         policy.setCustomerId(customerId);
         policy.setStatus("有效");
         customerPolicyMapper.insert(policy);
-        return convertToPolicyVO(policy);
+        return CustomerPolicyConvert.entity2vo(policy);
     }
 
     @Override
@@ -345,20 +345,19 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
                 new LambdaQueryWrapper<CustomerOrder>()
                         .eq(CustomerOrder::getCustomerId, customerId)
                         .orderByDesc(CustomerOrder::getContractDate))
-                .stream().map(this::convertToOrderVO).collect(Collectors.toList());
+                .stream().map(CustomerOrderConvert::entity2vo).collect(Collectors.toList());
     }
 
     @Override
     public CustomerOrderVO createOrder(Long customerId, CustomerOrderCreateDTO createDTO) {
-        CustomerOrder order = new CustomerOrder();
-        BeanUtils.copyProperties(createDTO, order);
+        CustomerOrder order = CustomerOrderConvert.dto2entity(createDTO);
         order.setCustomerId(customerId);
         if (order.getOrderStatus() == null) order.setOrderStatus("洽谈中");
         if (order.getOrderNo() == null) {
             order.setOrderNo("ORD-" + System.currentTimeMillis());
         }
         customerOrderMapper.insert(order);
-        return convertToOrderVO(order);
+        return CustomerOrderConvert.entity2vo(order);
     }
 
     @Override
@@ -374,17 +373,16 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
                 new LambdaQueryWrapper<CustomerProduct>()
                         .eq(CustomerProduct::getCustomerId, customerId)
                         .orderByDesc(CustomerProduct::getStartDate))
-                .stream().map(this::convertToProductVO).collect(Collectors.toList());
+                .stream().map(CustomerProductConvert::entity2vo).collect(Collectors.toList());
     }
 
     @Override
     public CustomerProductVO createProduct(Long customerId, CustomerProductCreateDTO createDTO) {
-        CustomerProduct product = new CustomerProduct();
-        BeanUtils.copyProperties(createDTO, product);
+        CustomerProduct product = CustomerProductConvert.dto2entity(createDTO);
         product.setCustomerId(customerId);
         if (product.getUsageStatus() == null) product.setUsageStatus("使用中");
         customerProductMapper.insert(product);
-        return convertToProductVO(product);
+        return CustomerProductConvert.entity2vo(product);
     }
 
     @Override
@@ -395,7 +393,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
     // ==================== 私有方法 ====================
 
     private CustomerBranchVO buildBranchTree(CustomerBranch branch, Long customerId) {
-        CustomerBranchVO vo = convertToBranchVO(branch);
+        CustomerBranchVO vo = CustomerBranchConvert.entity2vo(branch);
         List<CustomerBranch> children = customerBranchMapper.selectList(
                 new LambdaQueryWrapper<CustomerBranch>()
                         .eq(CustomerBranch::getCustomerId, customerId)
@@ -403,30 +401,6 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         vo.setChildren(children.stream()
                 .map(c -> buildBranchTree(c, customerId))
                 .collect(Collectors.toList()));
-        return vo;
-    }
-
-    private CustomerBranchVO convertToBranchVO(CustomerBranch branch) {
-        CustomerBranchVO vo = new CustomerBranchVO();
-        BeanUtils.copyProperties(branch, vo);
-        return vo;
-    }
-
-    private PolicyVO convertToPolicyVO(CustomerPolicy policy) {
-        PolicyVO vo = new PolicyVO();
-        BeanUtils.copyProperties(policy, vo);
-        return vo;
-    }
-
-    private CustomerOrderVO convertToOrderVO(CustomerOrder order) {
-        CustomerOrderVO vo = new CustomerOrderVO();
-        BeanUtils.copyProperties(order, vo);
-        return vo;
-    }
-
-    private CustomerProductVO convertToProductVO(CustomerProduct product) {
-        CustomerProductVO vo = new CustomerProductVO();
-        BeanUtils.copyProperties(product, vo);
         return vo;
     }
 

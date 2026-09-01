@@ -1,6 +1,7 @@
 package com.iwhalecloud.consumercenter.mvc.service;
 
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.auth.LoginDTO;
+import com.iwhalecloud.consumercenter.mvc.pojo.dto.auth.SsoLoginDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.auth.LoginVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.auth.SystemUserVO;
 
@@ -16,6 +17,14 @@ public interface AuthService {
      * @return 登录结果（含双token）
      */
     LoginVO login(LoginDTO loginDTO);
+
+    /**
+     * OAuth2 SSO登录
+     *
+     * @param ssoLoginDTO SSO登录请求
+     * @return 登录结果（含双token）
+     */
+    LoginVO ssoLogin(SsoLoginDTO ssoLoginDTO);
 
     /**
      * 刷新accessToken

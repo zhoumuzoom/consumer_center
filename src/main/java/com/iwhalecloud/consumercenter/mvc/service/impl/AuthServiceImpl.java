@@ -5,22 +5,24 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iwhalecloud.consumercenter.common.constant.ErrorMessageEnum;
 import com.iwhalecloud.consumercenter.common.error.BusinessException;
 import com.iwhalecloud.consumercenter.mvc.mapper.SystemUserMapper;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.SystemUserConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.auth.LoginDTO;
+import com.iwhalecloud.consumercenter.mvc.pojo.dto.auth.SsoLoginDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.SystemUser;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.auth.LoginVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.auth.SystemUserVO;
 import com.iwhalecloud.consumercenter.mvc.service.AuthService;
 import com.iwhalecloud.consumercenter.mvc.service.LoginSessionService;
-import org.springframework.beans.BeanUtils;
+import com.iwhalecloud.consumercenter.mvc.service.SsoAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
 /**
- * 认证服务实现（本地账号密码通道）
- * <p>门户SSO等外部认证通道待协议确认后扩展：身份校验通过后，
- * 同样委托 {@link LoginSessionService} 签发双token，令牌机制保持不变。
+ * 认证服务实现（本地账号密码及OAuth2 SSO通道）
+ * <p>不同认证通道完成身份校验后，统一委托会话服务签发双token，
+ * 令牌机制保持不变。
  */
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -36,6 +38,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private LoginSessionService loginSessionService;
 
+    @Autowired
+    private SsoAuthenticationService ssoAuthenticationService;
+
     @Override
     public LoginVO login(LoginDTO loginDTO) {
         SystemUser user = systemUserMapper.selectOne(new LambdaQueryWrapper<SystemUser>()
@@ -47,6 +52,11 @@ public class AuthServiceImpl implements AuthService {
             throw new BusinessException(ErrorMessageEnum.AUTH_USER_DISABLED);
         }
         return loginSessionService.issueTokens(user.getId());
+    }
+
+    @Override
+    public LoginVO ssoLogin(SsoLoginDTO ssoLoginDTO) {
+        return ssoAuthenticationService.login(ssoLoginDTO.getExternalToken());
     }
 
     @Override
@@ -73,9 +83,6 @@ public class AuthServiceImpl implements AuthService {
      * 用户实体转用户信息VO（不含密码及外部平台标识）
      */
     private SystemUserVO convertToUserVO(SystemUser user) {
-        SystemUserVO userVO = new SystemUserVO();
-        BeanUtils.copyProperties(user, userVO, "password", "externalId", "source", "deleted", "updateTime");
-        userVO.setStatus(user.getStatus() == null ? null : user.getStatus().intValue());
-        return userVO;
+        return SystemUserConvert.entity2vo(user);
     }
 }

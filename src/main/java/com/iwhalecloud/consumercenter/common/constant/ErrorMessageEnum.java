@@ -20,7 +20,11 @@ public enum ErrorMessageEnum {
     AUTH_TOKEN_INVALID(4004, "认证令牌无效"),
     AUTH_REFRESH_TOKEN_INVALID(4005, "刷新令牌无效"),
     AUTH_REFRESH_TOKEN_EXPIRED(4006, "刷新令牌已过期"),
-    AUTH_USER_DISABLED(4007, "账号已被禁用");
+    AUTH_USER_DISABLED(4007, "账号已被禁用"),
+    AUTH_SSO_TOKEN_INVALID(4008, "SSO令牌无效"),
+    AUTH_SSO_USER_NOT_FOUND(4009, "SSO用户未绑定"),
+    AUTH_SSO_NOT_CONFIGURED(4010, "SSO未配置"),
+    AUTH_SSO_PROVIDER_UNAVAILABLE(4011, "SSO服务不可用");
 
     private final int code;
 

@@ -86,6 +86,9 @@ export default {
     submit: 'Sign In',
     forgotHint: 'Forgot password? Contact the system administrator',
     failDefault: 'Login failed, please try again',
+    ssoWaiting: 'Waiting for the portal OAuth2 access token',
+    ssoNoToken: 'Portal OAuth2 access token was not provided',
+    ssoFail: 'SSO login failed. Please contact the portal administrator',
   },
   dashboard: {
     desc: 'Key account scale, management progress and distribution',

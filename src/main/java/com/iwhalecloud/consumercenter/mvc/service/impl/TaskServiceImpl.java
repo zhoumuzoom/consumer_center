@@ -3,6 +3,7 @@ package com.iwhalecloud.consumercenter.mvc.service.impl;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerMapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerTreeNodeMapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.TaskMapper;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.TaskConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.profile.TaskCreateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.Customer;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.CustomerTreeNode;
@@ -10,7 +11,6 @@ import com.iwhalecloud.consumercenter.mvc.pojo.entity.Task;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.task.TaskVO;
 import com.iwhalecloud.consumercenter.mvc.service.OperationLogService;
 import com.iwhalecloud.consumercenter.mvc.service.TaskService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +34,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskVO createTask(TaskCreateDTO createDTO) {
-        Task task = new Task();
-        BeanUtils.copyProperties(createDTO, task);
+        Task task = TaskConvert.dto2entity(createDTO);
         task.setStatus("待处理");
 
         taskMapper.insert(task);
@@ -59,8 +58,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private TaskVO convertToVO(Task task) {
-        TaskVO vo = new TaskVO();
-        BeanUtils.copyProperties(task, vo);
+        TaskVO vo = TaskConvert.entity2vo(task);
 
         if (task.getCustomerId() != null) {
             Customer customer = customerMapper.selectById(task.getCustomerId());

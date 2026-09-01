@@ -3,6 +3,7 @@ package com.iwhalecloud.consumercenter.mvc.controller;
 import com.iwhalecloud.consumercenter.common.constant.AuthConstant;
 import com.iwhalecloud.consumercenter.common.result.Result;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.auth.LoginDTO;
+import com.iwhalecloud.consumercenter.mvc.pojo.dto.auth.SsoLoginDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.auth.LoginVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.auth.SystemUserVO;
 import com.iwhalecloud.consumercenter.mvc.service.AuthService;
@@ -32,6 +33,12 @@ public class AuthController {
     @PostMapping("/login")
     public Result<LoginVO> login(@Valid @RequestBody LoginDTO loginDTO) {
         return Result.success(authService.login(loginDTO));
+    }
+
+    @Operation(summary = "OAuth2 SSO登录", description = "远程校验门户OAuth2访问令牌后换取本系统令牌")
+    @PostMapping("/sso-login")
+    public Result<LoginVO> ssoLogin(@Valid @RequestBody SsoLoginDTO ssoLoginDTO) {
+        return Result.success(authService.ssoLogin(ssoLoginDTO));
     }
 
     @Operation(summary = "刷新accessToken", description = "通过请求头refresh-token携带刷新令牌")

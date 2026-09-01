@@ -8,13 +8,13 @@ import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerCreateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerQueryDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerStatusUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerUpdateDTO;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.Customer;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerDetailVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerVO;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerService;
 import com.iwhalecloud.consumercenter.mvc.service.OperationLogService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -69,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
         Page<Customer> result = customerMapper.selectPage(page, wrapper);
 
         List<CustomerVO> voList = result.getRecords().stream()
-                .map(this::convertToVO)
+                .map(CustomerConvert::entity2vo)
                 .collect(Collectors.toList());
 
         PageResult<CustomerVO> pageResult = new PageResult<>();
@@ -89,11 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RuntimeException("客户不存在");
         }
 
-        CustomerDetailVO detailVO = new CustomerDetailVO();
-        BeanUtils.copyProperties(convertToVO(customer), detailVO);
-        detailVO.setContactEmail(customer.getContactEmail());
-        detailVO.setAddress(customer.getAddress());
-        detailVO.setRemark(customer.getRemark());
+        CustomerDetailVO detailVO = CustomerConvert.entity2detailVO(customer);
         // Demo阶段设置模拟数据
         detailVO.setBranchCount(3);
         detailVO.setDecisionMakerCount(2);
@@ -104,8 +100,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerVO create(CustomerCreateDTO createDTO) {
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(createDTO, customer);
+        Customer customer = CustomerConvert.dto2entity(createDTO);
 
         // 生成客户编号
         customer.setCustomerCode(generateCustomerCode());
@@ -118,7 +113,7 @@ public class CustomerServiceImpl implements CustomerService {
         operationLogService.log(customer.getId(), "customer", "CREATE",
                 "新增客户: " + customer.getCustomerName());
 
-        return convertToVO(customer);
+        return CustomerConvert.entity2vo(customer);
     }
 
     @Override
@@ -129,13 +124,13 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         String beforeData = customer.toString();
-        BeanUtils.copyProperties(updateDTO, customer);
+        CustomerConvert.dto2entity(updateDTO, customer);
         customerMapper.updateById(customer);
 
         operationLogService.log(customer.getId(), "customer", "UPDATE",
                 "修改客户: " + customer.getCustomerName(), beforeData, customer.toString());
 
-        return convertToVO(customer);
+        return CustomerConvert.entity2vo(customer);
     }
 
     @Override
@@ -167,14 +162,7 @@ public class CustomerServiceImpl implements CustomerService {
                 "客户状态变更: " + getStatusDesc(oldStatus) + " -> " + statusDesc
                         + (statusDTO.getReason() != null ? ", 原因: " + statusDTO.getReason() : ""));
 
-        return convertToVO(customer);
-    }
-
-    private CustomerVO convertToVO(Customer customer) {
-        CustomerVO vo = new CustomerVO();
-        BeanUtils.copyProperties(customer, vo);
-        vo.setStatusDesc(getStatusDesc(customer.getStatus()));
-        return vo;
+        return CustomerConvert.entity2vo(customer);
     }
 
     private String getStatusDesc(Byte status) {

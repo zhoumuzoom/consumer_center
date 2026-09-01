@@ -2,6 +2,7 @@ package com.iwhalecloud.consumercenter.mvc.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerTreeNodeMapper;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerTreeNodeConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.tree.CustomerTreeNodeCreateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.tree.CustomerTreeNodeUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.tree.CustomerTreeHierarchyDTO;
@@ -11,7 +12,6 @@ import com.iwhalecloud.consumercenter.mvc.pojo.vo.tree.CustomerTreeNodeVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.tree.CustomerTreeStatisticsVO;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerTreeService;
 import com.iwhalecloud.consumercenter.mvc.service.OperationLogService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -89,8 +89,7 @@ public class CustomerTreeServiceImpl implements CustomerTreeService {
 
     @Override
     public CustomerTreeNodeVO createNode(CustomerTreeNodeCreateDTO createDTO) {
-        CustomerTreeNode node = new CustomerTreeNode();
-        BeanUtils.copyProperties(createDTO, node);
+        CustomerTreeNode node = CustomerTreeNodeConvert.dto2entity(createDTO);
 
         // 计算层级
         if (createDTO.getParentId() != null && createDTO.getParentId() > 0) {
@@ -105,7 +104,7 @@ public class CustomerTreeServiceImpl implements CustomerTreeService {
         operationLogService.log(node.getId(), "customer_tree_node", "CREATE",
                 "新增客户树节点: " + node.getNodeName());
 
-        return convertToVO(node);
+        return CustomerTreeNodeConvert.entity2vo(node);
     }
 
     @Override
@@ -115,13 +114,13 @@ public class CustomerTreeServiceImpl implements CustomerTreeService {
             throw new RuntimeException("节点不存在");
         }
 
-        BeanUtils.copyProperties(updateDTO, node);
+        CustomerTreeNodeConvert.dto2entity(updateDTO, node);
         customerTreeNodeMapper.updateById(node);
 
         operationLogService.log(node.getId(), "customer_tree_node", "UPDATE",
                 "修改客户树节点: " + node.getNodeName());
 
-        return convertToVO(node);
+        return CustomerTreeNodeConvert.entity2vo(node);
     }
 
     @Override
@@ -163,7 +162,7 @@ public class CustomerTreeServiceImpl implements CustomerTreeService {
         operationLogService.log(id, "customer_tree_node", "UPDATE",
                 "调整客户树层级关系，新父节点ID: " + hierarchyDTO.getNewParentId());
 
-        return convertToVO(node);
+        return CustomerTreeNodeConvert.entity2vo(node);
     }
 
     @Override
@@ -181,16 +180,11 @@ public class CustomerTreeServiceImpl implements CustomerTreeService {
         return allNodes.stream()
                 .filter(n -> parentId.equals(n.getParentId()))
                 .map(n -> {
-                    CustomerTreeNodeVO vo = convertToVO(n);
+                    CustomerTreeNodeVO vo = CustomerTreeNodeConvert.entity2vo(n);
                     vo.setChildren(buildTree(allNodes, n.getId()));
                     return vo;
                 })
                 .collect(Collectors.toList());
     }
 
-    private CustomerTreeNodeVO convertToVO(CustomerTreeNode node) {
-        CustomerTreeNodeVO vo = new CustomerTreeNodeVO();
-        BeanUtils.copyProperties(node, vo);
-        return vo;
-    }
 }

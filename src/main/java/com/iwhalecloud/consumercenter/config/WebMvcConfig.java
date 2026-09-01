@@ -40,7 +40,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/**")
                 .excludePathPatterns(
                         "/api/auth/login",
-                        "/api/auth/refresh"
+                        "/api/auth/refresh",
+                        "/api/auth/sso-login"
                 );
     }
 

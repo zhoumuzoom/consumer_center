@@ -86,6 +86,9 @@ export default {
     submit: '登 录',
     forgotHint: '忘记密码？请联系系统管理员',
     failDefault: '登录失败，请重试',
+    ssoWaiting: '等待门户发送OAuth2访问令牌',
+    ssoNoToken: '未获取到门户OAuth2访问令牌',
+    ssoFail: 'SSO登录失败，请联系门户管理员',
   },
   dashboard: {
     desc: '要客规模、看管进度与行业区域分布',

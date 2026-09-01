@@ -6,6 +6,8 @@ import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerMapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.DecisionChainMapper;
 import com.iwhalecloud.consumercenter.mvc.mapper.DecisionMakerMapper;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.DecisionChainConvert;
+import com.iwhalecloud.consumercenter.mvc.pojo.convert.DecisionMakerConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.decision.*;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.Customer;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.DecisionChain;
@@ -14,7 +16,6 @@ import com.iwhalecloud.consumercenter.mvc.pojo.vo.decision.DecisionChainVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.decision.DecisionMakerVO;
 import com.iwhalecloud.consumercenter.mvc.service.DecisionMakerService;
 import com.iwhalecloud.consumercenter.mvc.service.OperationLogService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -96,14 +97,13 @@ public class DecisionMakerServiceImpl implements DecisionMakerService {
 
     @Override
     public DecisionMakerVO createDecisionMaker(DecisionMakerCreateDTO createDTO) {
-        DecisionMaker maker = new DecisionMaker();
-        BeanUtils.copyProperties(createDTO, maker);
+        DecisionMaker maker = DecisionMakerConvert.dto2entity(createDTO);
         decisionMakerMapper.insert(maker);
 
         operationLogService.log(maker.getId(), "decision_maker", "CREATE",
                 "新增决策人: " + maker.getName());
 
-        return convertToMakerVO(maker);
+        return DecisionMakerConvert.entity2vo(maker);
     }
 
     @Override
@@ -112,13 +112,13 @@ public class DecisionMakerServiceImpl implements DecisionMakerService {
         if (maker == null) {
             throw new RuntimeException("决策人不存在");
         }
-        BeanUtils.copyProperties(updateDTO, maker);
+        DecisionMakerConvert.dto2entity(updateDTO, maker);
         decisionMakerMapper.updateById(maker);
 
         operationLogService.log(maker.getId(), "decision_maker", "UPDATE",
                 "修改决策人: " + maker.getName());
 
-        return convertToMakerVO(maker);
+        return DecisionMakerConvert.entity2vo(maker);
     }
 
     @Override
@@ -129,8 +129,7 @@ public class DecisionMakerServiceImpl implements DecisionMakerService {
 
     @Override
     public DecisionChainVO createDecisionChain(DecisionChainCreateDTO createDTO) {
-        DecisionChain chain = new DecisionChain();
-        BeanUtils.copyProperties(createDTO, chain);
+        DecisionChain chain = DecisionChainConvert.dto2entity(createDTO);
         decisionChainMapper.insert(chain);
 
         operationLogService.log(chain.getId(), "decision_chain", "CREATE",
@@ -145,7 +144,7 @@ public class DecisionMakerServiceImpl implements DecisionMakerService {
         if (chain == null) {
             throw new RuntimeException("决策链不存在");
         }
-        BeanUtils.copyProperties(updateDTO, chain);
+        DecisionChainConvert.dto2entity(updateDTO, chain);
         decisionChainMapper.updateById(chain);
 
         operationLogService.log(chain.getId(), "decision_chain", "UPDATE", "更新决策链关系");
@@ -165,8 +164,7 @@ public class DecisionMakerServiceImpl implements DecisionMakerService {
     }
 
     private DecisionChainVO convertToChainVO(DecisionChain chain) {
-        DecisionChainVO vo = new DecisionChainVO();
-        BeanUtils.copyProperties(chain, vo);
+        DecisionChainVO vo = DecisionChainConvert.entity2vo(chain);
 
         Customer customer = customerMapper.selectById(chain.getCustomerId());
         if (customer != null) {
@@ -182,9 +180,4 @@ public class DecisionMakerServiceImpl implements DecisionMakerService {
         return vo;
     }
 
-    private DecisionMakerVO convertToMakerVO(DecisionMaker maker) {
-        DecisionMakerVO vo = new DecisionMakerVO();
-        BeanUtils.copyProperties(maker, vo);
-        return vo;
-    }
 }
