@@ -15,6 +15,7 @@
     "dependencies": {
       "@ant-design/icons": "^6.0.0",
       "@ant-design/pro-components": "3.1.14-7",
+      "@antv/g6": "^5.1.1",
       "@tanstack/react-query": "^5.90.0",
       "@umijs/max": "^4.6.49",
       "antd": "^6.0.0",
@@ -36,7 +37,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "preset",
@@ -49,7 +50,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 7
+        "register": 3
       },
       "enableBy": "register",
       "type": "preset",
@@ -62,7 +63,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "register",
       "type": "preset",
@@ -93,10 +94,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            2
+            1
           ]
         },
-        "register": 3
+        "register": 2
       },
       "enableBy": "register",
       "type": "plugin",
@@ -140,10 +141,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            13
+            14
           ]
         },
-        "register": 15
+        "register": 14
       },
       "enableBy": "register",
       "type": "plugin",
@@ -156,7 +157,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -190,7 +191,7 @@
       "time": {
         "hooks": {
           "onCheck": [
-            0
+            1
           ]
         },
         "register": 0
@@ -206,7 +207,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -223,7 +224,7 @@
             0
           ]
         },
-        "register": 6
+        "register": 5
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1075,7 +1076,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1092,7 +1093,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1105,7 +1106,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1118,7 +1119,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 56
+        "register": 61
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1131,7 +1132,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 26
+        "register": 25
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1158,7 +1159,7 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            0
+            1
           ]
         },
         "register": 1
@@ -1254,7 +1255,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1268,10 +1269,10 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            1
+            0
           ]
         },
-        "register": 1
+        "register": 0
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/polyfill/polyfill.js",
@@ -1283,7 +1284,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1296,7 +1297,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1309,7 +1310,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1322,7 +1323,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1361,7 +1362,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1374,7 +1375,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/routeProps/routeProps.js",
@@ -1386,7 +1387,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1399,7 +1400,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1412,7 +1413,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1463,7 +1464,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 15
+        "register": 14
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1476,7 +1477,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/test/test.js",
@@ -1488,7 +1489,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1501,7 +1502,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 425
+        "register": 359
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1618,7 +1619,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian.js",
@@ -1630,7 +1631,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 18
+        "register": 17
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad.js",
@@ -1668,7 +1669,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 22
+        "register": 21
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1682,10 +1683,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            8
+            7
           ]
         },
-        "register": 27
+        "register": 20
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/commands/dev/dev.js",
@@ -1697,7 +1698,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1957,7 +1958,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2032,7 +2033,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2047,7 +2048,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2060,7 +2061,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2099,7 +2100,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2112,7 +2113,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2192,7 +2193,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2205,7 +2206,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2222,7 +2223,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2256,7 +2257,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2269,7 +2270,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -3462,7 +3463,7 @@
       "parentId": "3",
       "id": "8",
       "absPath": "/customer-tree",
-      "__content": "import React, { useEffect, useState } from 'react'\nimport { Button, Card, Col, Descriptions, Empty, Form, Input, InputNumber, Modal, Row, Select, Space, Tag, Tree, message } from 'antd'\nimport PageHeader from '../../components/PageHeader'\nimport { useLocale } from '../../locales'\nimport { createTreeNode, deleteTreeNode, getCustomerTree, updateTreeNode } from '../../api/customerTree'\n\nexport default function CustomerTree() {\n  const { t } = useLocale(); const [tree, setTree] = useState([]); const [selected, setSelected] = useState(null); const [open, setOpen] = useState(false); const [editing, setEditing] = useState(null); const [form] = Form.useForm()\n  const load = () => getCustomerTree().then((res) => setTree(res.data || [])); useEffect(() => { load() }, [])\n  const save = async () => { const values = await form.validateFields(); if (editing) await updateTreeNode(editing.id, values); else await createTreeNode(values); message.success(t('customerTree.saveSuccess')); setOpen(false); load() }\n  const edit = (node) => { setEditing(node); form.setFieldsValue(node); setOpen(true) }\n  const remove = (node) => Modal.confirm({ title: t('customerTree.deleteConfirm'), okText: t('common.confirm'), cancelText: t('common.cancel'), onOk: async () => { await deleteTreeNode(node.id); message.success(t('common.deleteSuccess')); load() } })\n  const title = (node) => <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16 }}><span>{node.nodeName} <Tag>{node.nodeType}</Tag></span><Space size={0}><Button type=\"link\" size=\"small\" onClick={(e) => { e.stopPropagation(); edit(node) }}>{t('common.edit')}</Button><Button type=\"link\" danger size=\"small\" onClick={(e) => { e.stopPropagation(); remove(node) }}>{t('common.delete')}</Button></Space></div>\n  return <><PageHeader eyebrow=\"CUSTOMER TREE\" title={t('menu.customerTree')} actions={<Button type=\"primary\" onClick={() => { setEditing(null); form.resetFields(); form.setFieldsValue({ parentId: 0 }); setOpen(true) }}>{t('customerTree.addNode')}</Button>} /><Card><Row gutter={20}><Col span={10}><Tree treeData={tree} fieldNames={{ key: 'id', title: 'nodeName', children: 'children' }} titleRender={title} defaultExpandAll onSelect={(_, info) => setSelected(info.node)} /></Col><Col span={14}>{selected ? <Card title={`${t('customerTree.nodeDetail')} - ${selected.nodeName}`}><Descriptions column={2}><Descriptions.Item label={t('customerTree.nodeName')}>{selected.nodeName}</Descriptions.Item><Descriptions.Item label={t('customerTree.nodeType')}>{selected.nodeType}</Descriptions.Item><Descriptions.Item label={t('customerTree.level')}>{selected.level}</Descriptions.Item><Descriptions.Item label={t('customerTree.managerName')}>{selected.managerName}</Descriptions.Item><Descriptions.Item span={2} label={t('customerTree.responsibility')}>{selected.responsibility}</Descriptions.Item><Descriptions.Item label={t('customerTree.customerCount')}>{selected.customerCount}</Descriptions.Item></Descriptions></Card> : <Empty description={t('customerTree.selectNodeTip')} />}</Col></Row><Modal open={open} title={editing ? t('customerTree.editNode') : t('customerTree.addNode')} onCancel={() => setOpen(false)} onOk={save}><Form form={form} layout=\"vertical\"><Form.Item name=\"nodeName\" label={t('customerTree.nodeName')} rules={[{ required: true }]}><Input /></Form.Item><Form.Item name=\"parentId\" label={t('customerTree.parentId')}><InputNumber min={0} style={{ width: '100%' }} /></Form.Item><Form.Item name=\"nodeType\" label={t('customerTree.nodeType')}><Select options={[['集团', 'typeGroup'], ['区域', 'typeRegion'], ['部门', 'typeDepartment']].map(([value, key]) => ({ value, label: t(`customerTree.${key}`) }))} /></Form.Item><Form.Item name=\"managerName\" label={t('customerTree.managerName')}><Input /></Form.Item><Form.Item name=\"responsibility\" label={t('customerTree.responsibility')}><Input.TextArea rows={3} /></Form.Item></Form></Modal></Card></>\n}\n",
+      "__content": "import { useCallback, useEffect, useRef, useState } from 'react'\nimport { Button, Card, Col, Descriptions, Empty, Form, Input, InputNumber, Modal, Row, Select, Space, Statistic, Tag, message } from 'antd'\nimport PageHeader from '../../components/PageHeader'\nimport G6TreeCanvas from '../../components/G6TreeCanvas'\nimport { useLocale } from '../../locales'\nimport { createTreeNode, deleteTreeNode, getCustomerTree, getNodeStatistics, updateTreeNode } from '../../api/customerTree'\n\nfunction findNode(nodes, id) {\n  for (const node of nodes) {\n    if (String(node.id) === String(id)) return node\n    if (node.children) {\n      const child = findNode(node.children, id)\n      if (child) return child\n    }\n  }\n  return null\n}\n\nexport default function CustomerTree() {\n  const { t } = useLocale()\n  const [tree, setTree] = useState([])\n  const [selected, setSelected] = useState(null)\n  const [statistics, setStatistics] = useState(null)\n  const [loadingStatistics, setLoadingStatistics] = useState(false)\n  const [open, setOpen] = useState(false)\n  const [editing, setEditing] = useState(null)\n  const [form] = Form.useForm()\n  const statisticsRequestRef = useRef(0)\n  const getNodeLabel = useCallback((node) => node.nodeName, [])\n  const getNodeCaption = useCallback((node) => `${t('customerTree.customerCount')} ${node.customerCount || 0}`, [t])\n\n  const load = async () => {\n    try {\n      const res = await getCustomerTree()\n      const nextTree = res.data || []\n      setTree(nextTree)\n      if (selected) {\n        const nextSelected = findNode(nextTree, selected.id)\n        setSelected(nextSelected)\n        if (!nextSelected) setStatistics(null)\n      }\n    } catch {\n      // 请求错误已由统一请求拦截器提示\n    }\n  }\n\n  // biome-ignore lint/correctness/useExhaustiveDependencies: load is intentionally called once on mount\n  useEffect(() => {\n    void load()\n  }, [])\n\n  const selectNode = async (node) => {\n    const requestId = ++statisticsRequestRef.current\n    setSelected(node)\n    setStatistics(null)\n    setLoadingStatistics(true)\n    try {\n      const res = await getNodeStatistics(node.id)\n      if (requestId === statisticsRequestRef.current) setStatistics(res.data || null)\n    } catch {\n      if (requestId === statisticsRequestRef.current) setStatistics(null)\n    } finally {\n      if (requestId === statisticsRequestRef.current) setLoadingStatistics(false)\n    }\n  }\n\n  const save = async () => {\n    const values = await form.validateFields()\n    if (editing) await updateTreeNode(editing.id, values)\n    else await createTreeNode(values)\n    message.success(t('customerTree.saveSuccess'))\n    setOpen(false)\n    await load()\n  }\n\n  const edit = (node) => {\n    setEditing(node)\n    form.setFieldsValue(node)\n    setOpen(true)\n  }\n\n  const remove = (node) => Modal.confirm({\n    title: t('customerTree.deleteConfirm'),\n    okText: t('common.confirm'),\n    cancelText: t('common.cancel'),\n    onOk: async () => {\n      await deleteTreeNode(node.id)\n      message.success(t('common.deleteSuccess'))\n      if (String(selected?.id) === String(node.id)) {\n        setSelected(null)\n        setStatistics(null)\n      }\n      await load()\n    }\n  })\n\n  const openCreate = () => {\n    setEditing(null)\n    form.resetFields()\n    form.setFieldsValue({ parentId: 0 })\n    setOpen(true)\n  }\n\n  return (\n    <>\n      <PageHeader\n        eyebrow=\"CUSTOMER TREE\"\n        title={t('menu.customerTree')}\n        description={t('customerTree.canvasHint')}\n        actions={<Button type=\"primary\" onClick={openCreate}>{t('customerTree.addNode')}</Button>}\n      />\n      <Card className=\"tree-workspace-card\" styles={{ body: { padding: 0 } }}>\n        <Row gutter={0}>\n          <Col xs={24} lg={15} className=\"tree-canvas-column\">\n            <G6TreeCanvas\n              treeData={tree}\n              selectedId={selected?.id}\n              onNodeClick={selectNode}\n              getNodeLabel={getNodeLabel}\n              getNodeCaption={getNodeCaption}\n              emptyDescription={t('common.noData')}\n            />\n          </Col>\n          <Col xs={24} lg={9} className=\"tree-detail-column\">\n            {selected ? (\n              <Card\n                variant=\"borderless\"\n                className=\"tree-detail-card\"\n                title={`${t('customerTree.nodeDetail')} · ${selected.nodeName}`}\n                extra={(\n                  <Space size={4}>\n                    <Button type=\"link\" size=\"small\" onClick={() => edit(selected)}>{t('common.edit')}</Button>\n                    <Button type=\"link\" danger size=\"small\" onClick={() => remove(selected)}>{t('common.delete')}</Button>\n                  </Space>\n                )}\n              >\n                <Descriptions column={1} size=\"small\">\n                  <Descriptions.Item label={t('customerTree.nodeName')}>{selected.nodeName}</Descriptions.Item>\n                  <Descriptions.Item label={t('customerTree.nodeType')}><Tag color=\"blue\">{selected.nodeType}</Tag></Descriptions.Item>\n                  <Descriptions.Item label={t('customerTree.level')}>{selected.level}</Descriptions.Item>\n                  <Descriptions.Item label={t('customerTree.managerName')}>{selected.managerName || '-'}</Descriptions.Item>\n                  <Descriptions.Item label={t('customerTree.responsibility')}>{selected.responsibility || '-'}</Descriptions.Item>\n                </Descriptions>\n                <div className=\"tree-stat-grid\">\n                  <Statistic title={t('customerTree.customerCount')} value={statistics?.customerCount ?? selected.customerCount ?? 0} loading={loadingStatistics} />\n                  <Statistic title={t('customerTree.childNodeCount')} value={statistics?.childNodeCount ?? selected.children?.length ?? 0} loading={loadingStatistics} />\n                  <Statistic title={t('customerTree.managementRate')} value={statistics?.managementRate ?? 0} suffix=\"%\" loading={loadingStatistics} />\n                </div>\n              </Card>\n            ) : (\n              <div className=\"tree-detail-empty\"><Empty description={t('customerTree.selectNodeTip')} /></div>\n            )}\n          </Col>\n        </Row>\n      </Card>\n      <Modal open={open} title={editing ? t('customerTree.editNode') : t('customerTree.addNode')} onCancel={() => setOpen(false)} onOk={save}>\n        <Form form={form} layout=\"vertical\">\n          <Form.Item name=\"nodeName\" label={t('customerTree.nodeName')} rules={[{ required: true }]}><Input /></Form.Item>\n          <Form.Item name=\"parentId\" label={t('customerTree.parentId')}><InputNumber min={0} style={{ width: '100%' }} /></Form.Item>\n          <Form.Item name=\"nodeType\" label={t('customerTree.nodeType')}>\n            <Select options={[['集团', 'typeGroup'], ['区域', 'typeRegion'], ['部门', 'typeDepartment']].map(([value, key]) => ({ value, label: t(`customerTree.${key}`) }))} />\n          </Form.Item>\n          <Form.Item name=\"managerName\" label={t('customerTree.managerName')}><Input /></Form.Item>\n          <Form.Item name=\"responsibility\" label={t('customerTree.responsibility')}><Input.TextArea rows={3} /></Form.Item>\n        </Form>\n      </Modal>\n    </>\n  )\n}\n",
       "__isJSFile": true,
       "__absFile": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/src/pages/customerTree/CustomerTree.jsx"
     },
@@ -3472,7 +3473,7 @@
       "parentId": "3",
       "id": "9",
       "absPath": "/industry-tree",
-      "__content": "import React, { useEffect, useState } from 'react'\nimport { Card, Col, Divider, Empty, Row, Statistic, Tag, Tree } from 'antd'\nimport PageHeader from '../../components/PageHeader'\nimport { useLocale } from '../../locales'\nimport { getIndustryTree, getNodeAggregation } from '../../api/industryTree'\n\nexport default function IndustryTree() {\n  const { t } = useLocale(); const [tree, setTree] = useState([]); const [selected, setSelected] = useState(null); const [aggregation, setAggregation] = useState(null)\n  useEffect(() => { getIndustryTree().then((res) => setTree(res.data || [])) }, [])\n  const select = (_, info) => { setSelected(info.node); getNodeAggregation(info.node.id).then((res) => setAggregation(res.data)) }\n  return <><PageHeader eyebrow=\"INDUSTRY TREE\" title={t('menu.industryTree')} /><Card><Row gutter={20}><Col span={10}><Tree treeData={tree} fieldNames={{ key: 'id', title: 'nodeName', children: 'children' }} titleRender={(node) => <span>{node.nodeName} <Tag>{t('industryTree.companyUnit', { n: node.customerCount || 0 })}</Tag></span>} defaultExpandAll onSelect={select} /></Col><Col span={14}>{selected ? <Card title={`${selected.nodeName} - ${t('industryTree.aggregation')}`}><Row gutter={20}>{[['customerCount', 'customerCount'], ['managementRate', 'managementRate'], ['groupCount', 'groupCount']].map(([key, label]) => <Col span={8} key={key}><Statistic title={t(`industryTree.${label}`)} value={aggregation?.[key] || 0} suffix={key === 'managementRate' ? '%' : ''} /></Col>)}</Row><Divider /><Row gutter={20}>{[['strategicCount', 'strategicCount'], ['keyCount', 'keyCount']].map(([key, label]) => <Col span={12} key={key}><Statistic title={t(`industryTree.${label}`)} value={aggregation?.[key] || 0} /></Col>)}</Row></Card> : <Empty description={t('industryTree.selectNodeTip')} />}</Col></Row></Card></>\n}\n",
+      "__content": "import { useCallback, useEffect, useRef, useState } from 'react'\nimport { Button, Card, Col, Divider, Empty, Row, Statistic, Tag, message } from 'antd'\nimport PageHeader from '../../components/PageHeader'\nimport G6TreeCanvas from '../../components/G6TreeCanvas'\nimport { useLocale } from '../../locales'\nimport { drillDown, getIndustryTree, getNodeAggregation } from '../../api/industryTree'\n\nexport default function IndustryTree() {\n  const { t } = useLocale()\n  const [tree, setTree] = useState([])\n  const [fullTree, setFullTree] = useState([])\n  const [selected, setSelected] = useState(null)\n  const [aggregation, setAggregation] = useState(null)\n  const [drilled, setDrilled] = useState(false)\n  const aggregationRequestRef = useRef(0)\n  const getNodeLabel = useCallback((node) => node.nodeName, [])\n  const getNodeCaption = useCallback((node) => t('industryTree.companyUnit', { n: node.customerCount || 0 }), [t])\n\n  useEffect(() => {\n    const load = async () => {\n      try {\n        const res = await getIndustryTree()\n        const nextTree = res.data || []\n        setTree(nextTree)\n        setFullTree(nextTree)\n      } catch {\n        // 请求错误已由统一请求拦截器提示\n      }\n    }\n    void load()\n  }, [])\n\n  const selectNode = async (node) => {\n    const requestId = ++aggregationRequestRef.current\n    setSelected(node)\n    setAggregation(null)\n    try {\n      const res = await getNodeAggregation(node.id)\n      if (requestId === aggregationRequestRef.current) setAggregation(res.data || null)\n    } catch {\n      if (requestId === aggregationRequestRef.current) setAggregation(null)\n    }\n  }\n\n  const handleDrillDown = async () => {\n    if (!selected) return\n    try {\n      const res = await drillDown(selected.id)\n      if (!res.data?.length) {\n        message.info(t('industryTree.drillDownEmpty'))\n        return\n      }\n      setTree(res.data)\n      setSelected(null)\n      setAggregation(null)\n      setDrilled(true)\n    } catch {\n      // 请求错误已由统一请求拦截器提示\n    }\n  }\n\n  const restoreTree = () => {\n    setTree(fullTree)\n    setSelected(null)\n    setAggregation(null)\n    setDrilled(false)\n  }\n\n  return (\n    <>\n      <PageHeader\n        eyebrow=\"INDUSTRY TREE\"\n        title={t('menu.industryTree')}\n        description={t('industryTree.canvasHint')}\n        actions={drilled && <Button onClick={restoreTree}>{t('industryTree.backToTree')}</Button>}\n      />\n      <Card className=\"tree-workspace-card\" styles={{ body: { padding: 0 } }}>\n        <Row gutter={0}>\n          <Col xs={24} lg={15} className=\"tree-canvas-column\">\n            <G6TreeCanvas\n              treeData={tree}\n              selectedId={selected?.id}\n              onNodeClick={selectNode}\n              getNodeLabel={getNodeLabel}\n              getNodeCaption={getNodeCaption}\n              emptyDescription={t('common.noData')}\n            />\n          </Col>\n          <Col xs={24} lg={9} className=\"tree-detail-column\">\n            {selected ? (\n              <Card\n                variant=\"borderless\"\n                className=\"tree-detail-card\"\n                title={`${selected.nodeName} · ${t('industryTree.aggregation')}`}\n                extra={<Button type=\"link\" size=\"small\" onClick={handleDrillDown}>{t('industryTree.drillDown')}</Button>}\n              >\n                <DescriptionsBlock node={selected} aggregation={aggregation} t={t} />\n              </Card>\n            ) : (\n              <div className=\"tree-detail-empty\"><Empty description={t('industryTree.selectNodeTip')} /></div>\n            )}\n          </Col>\n        </Row>\n      </Card>\n    </>\n  )\n}\n\nfunction DescriptionsBlock({ node, aggregation, t }) {\n  return (\n    <>\n      <div className=\"tree-detail-meta\">\n        <span className=\"tree-detail-code\">{node.nodeCode || '-'}</span>\n        <Tag color=\"blue\">{t('industryTree.companyUnit', { n: node.customerCount || 0 })}</Tag>\n      </div>\n      {node.description && <p className=\"tree-detail-description\">{node.description}</p>}\n      <Row gutter={[12, 20]}>\n        {[\n          ['customerCount', 'customerCount'],\n          ['managementRate', 'managementRate'],\n          ['groupCount', 'groupCount']\n        ].map(([key, label]) => (\n          <Col span={8} key={key}>\n            <Statistic title={t(`industryTree.${label}`)} value={aggregation?.[key] ?? 0} suffix={key === 'managementRate' ? '%' : ''} />\n          </Col>\n        ))}\n      </Row>\n      <Divider />\n      <Row gutter={[12, 20]}>\n        {[\n          ['strategicCount', 'strategicCount'],\n          ['keyCount', 'keyCount']\n        ].map(([key, label]) => (\n          <Col span={12} key={key}>\n            <Statistic title={t(`industryTree.${label}`)} value={aggregation?.[key] ?? 0} />\n          </Col>\n        ))}\n      </Row>\n    </>\n  )\n}\n",
       "__isJSFile": true,
       "__absFile": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/src/pages/industryTree/IndustryTree.jsx"
     },

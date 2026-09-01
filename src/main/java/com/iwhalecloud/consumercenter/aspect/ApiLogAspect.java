@@ -77,8 +77,8 @@ public class ApiLogAspect {
         log.info("请求时间: {}", startTime.format(DATE_TIME_FORMATTER));
         log.info("客户端IP: {}", clientIp);
         log.info("服务器IP: {}", serverIp);
-        log.info("请求路径: {}", requestPath);
         log.info("请求方式: {}", requestMethod);
+        log.info("请求路径: {}", requestPath);
         log.info("请求接口: {}", requestInterface);
         log.info("请求参数: {}", params);
 
