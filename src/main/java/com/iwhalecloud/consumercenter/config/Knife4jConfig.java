@@ -17,9 +17,9 @@ import java.util.List;
 @Configuration
 public class Knife4jConfig {
 
-    private static final String TITLE = "浩鲸科技客户中心模块 API文档";
+    private static final String TITLE = "CMI中移国际要客平台-客户中心模块 API文档";
 
-    private static final String DESCRIPTION = "浩鲸科技-客户中心模块。除登录与刷新令牌接口外，其余接口均需在token请求头携带accessToken";
+    private static final String DESCRIPTION = "CMI中移国际要客平台-客户中心模块 。除登录与刷新令牌接口外，其余接口均需在token请求头携带accessToken";
 
     private static final String CONTACT_NAME = "iwhalecloud";
 
