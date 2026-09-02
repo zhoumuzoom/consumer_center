@@ -1,43 +1,43 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文件为 Claude Code（claude.ai/code）提供本仓库的开发指南。
 
-## Repository instructions
+## 仓库规范
 
-Follow `AGENTS.md`; it is the repository's authoritative development guide. Important constraints include:
+请遵循 `AGENTS.md`；它是本仓库的权威开发指南。重要约束包括：
 
-- Never perform database/table deletion operations or delete Git branches.
-- Backend code uses Java 17, Spring Boot 3.5.16, MyBatis-Plus 3.5.17, MySQL, Redis, Sa-Token, Nacos, Knife4j, and XXL-Job.
-- Business code belongs under `com.iwhalecloud.consumercenter.mvc`, using controller → service → mapper layering. Controllers accept DTOs and return VOs wrapped with `Result` static factory methods; they must not expose entities.
-- Throw `BusinessException` for business failures and let `GlobalExceptionHandler` produce responses.
-- Service interfaces do not extend MyBatis-Plus `IService`; mapper interfaces extend `BaseMapper`. Prefer `BaseMapper` single-table operations, using XML SQL only when necessary.
-- Use field injection with `@Autowired`, `java.time` types, explicit imports, Swagger/OpenAPI annotations, and the existing conversion classes under `mvc/pojo/convert`.
-- Do not hand-create generated entities or mappers. Update the `TABLES` array and run `MyBatisCommentGenerator.main`.
+- 绝不执行数据库/数据表删除操作，也不要删除 Git 分支。
+- 后端使用 Java 17、Spring Boot 3.5.16、MyBatis-Plus 3.5.17、MySQL、Redis、Sa-Token、Nacos、Knife4j 和 XXL-Job。
+- 业务代码应放在 `com.iwhalecloud.consumercenter.mvc` 下，并遵循 controller → service → mapper 分层。Controller 接收 DTO，返回由 `Result` 静态工厂方法包装的 VO；不得直接暴露实体。
+- 业务失败时抛出 `BusinessException`，由 `GlobalExceptionHandler` 统一生成响应。
+- Service 接口不继承 MyBatis-Plus 的 `IService`；Mapper 接口继承 `BaseMapper`。优先使用 `BaseMapper` 的单表操作，仅在必要时使用 XML SQL。
+- 使用字段注入配合 `@Autowired`、`java.time` 类型、显式导入、Swagger/OpenAPI 注解，以及 `mvc/pojo/convert` 下现有的转换类。
+- 不要手动创建生成的实体或 Mapper。请更新 `TABLES` 数组，然后运行 `MyBatisCommentGenerator.main`。
 
-## Commands
+## 命令
 
-### Backend (repository root)
+### 后端（仓库根目录）
 
 ```bash
-# Run the Spring Boot application (the default profile is dev)
+# 运行 Spring Boot 应用（默认 profile 为 dev）
 ./mvnw spring-boot:run
 
-# Compile/package
+# 编译/打包
 ./mvnw clean package
 
-# Run all tests
+# 运行全部测试
 ./mvnw test
 
-# Run one test class
+# 运行单个测试类
 ./mvnw -Dtest=CustomerServiceImplTest test
 
-# Run one test method
+# 运行单个测试方法
 ./mvnw -Dtest=CustomerServiceImplTest#methodName test
 ```
 
-No backend lint or formatter plugin is configured in `pom.xml`.
+`pom.xml` 中未配置后端 lint 或格式化插件。
 
-### Frontend (`frontend/`)
+### 前端（`frontend/`）
 
 ```bash
 npm install
@@ -47,31 +47,31 @@ npm run lint
 npm run format
 ```
 
-The frontend has no test script configured. It is a React 19 application built with Umi Max 4, Ant Design 6, ProComponents, React Query, Axios, G6, Tailwind CSS, and Biome. Despite the stale `AGENTS.md` reference to Vue, the checked-in frontend is React.
+前端未配置测试脚本。它是一个 React 19 应用，使用 Umi Max 4、Ant Design 6、ProComponents、React Query、Axios、G6、Tailwind CSS 和 Biome。尽管过时的 `AGENTS.md` 仍引用 Vue，但仓库中实际提交的前端是 React。
 
-## Architecture
+## 架构
 
-This repository contains a Spring Boot API and a separate frontend application.
+本仓库包含一个 Spring Boot API 和一个独立的前端应用。
 
-### Backend
+### 后端
 
-- `CustomerCenterApplication` is the application entry point.
-- `mvc/controller` exposes REST APIs for authentication, customers and overview dashboards, customer profiles, customer and industry trees, decision makers/chains, and group reports.
-- `mvc/service` and `mvc/service/impl` contain business orchestration. Services generally combine mapper calls, convert persistence entities through `mvc/pojo/convert`, and return DTO/VO models.
-- `mvc/mapper` contains MyBatis-Plus `BaseMapper` data access interfaces; `mvc/pojo/entity` maps database tables, while `dto` and `vo` define API boundaries.
-- `common/result` defines uniform `Result` and `PageResult` responses. `common/error` and `common/constant/ErrorMessageEnum` define centralized business error handling.
-- `AuthInterceptor` protects API requests through Sa-Token. Authentication supports local credentials and optional OAuth2 token introspection; access/refresh sessions are managed separately and persisted through Redis-backed Sa-Token state.
-- `ApiLogAspect` records API operations, while `SqlCostInterceptor` observes SQL execution time.
-- `config` wires MVC interception, MyBatis-Plus pagination, Redis serialization, and Knife4j/OpenAPI.
-- `application.yaml` activates `dev`, builds the datasource from `mysql.*`, configures logical deletion, Sa-Token, Swagger/Knife4j, and optional SSO. `application-dev.yaml` supplies local defaults and imports optional Nacos configuration. Treat its checked-in connection values as environment-specific; do not copy them into new code or documentation.
-- Tests include Spring context coverage plus controller tests and service implementation unit tests under matching package paths.
+- `CustomerCenterApplication` 是应用入口。
+- `mvc/controller` 对外提供认证、客户和概览看板、客户画像、客户树和行业树、决策者/决策链以及集团报告等 REST API。
+- `mvc/service` 和 `mvc/service/impl` 负责业务编排。Service 通常会组合 Mapper 调用，通过 `mvc/pojo/convert` 转换持久化实体，并返回 DTO/VO 模型。
+- `mvc/mapper` 包含 MyBatis-Plus 的 `BaseMapper` 数据访问接口；`mvc/pojo/entity` 映射数据库表，`dto` 和 `vo` 定义 API 边界。
+- `common/result` 定义统一的 `Result` 和 `PageResult` 响应；`common/error` 与 `common/constant/ErrorMessageEnum` 定义集中式业务错误处理。
+- `AuthInterceptor` 通过 Sa-Token 保护 API 请求。认证支持本地凭据和可选的 OAuth2 令牌 introspection；访问/刷新会话分开管理，并通过 Redis 支持的 Sa-Token 状态持久化。
+- `ApiLogAspect` 记录 API 操作，`SqlCostInterceptor` 观察 SQL 执行耗时。
+- `config` 负责配置 MVC 拦截、MyBatis-Plus 分页、Redis 序列化和 Knife4j/OpenAPI。
+- `application.yaml` 激活 `dev`，根据 `mysql.*` 配置数据源，配置逻辑删除、Sa-Token、Swagger/Knife4j 以及可选的 SSO。`application-dev.yaml` 提供本地默认值并导入可选的 Nacos 配置。请将其中已提交的连接配置视为特定环境的配置；不要将其复制到新的代码或文档中。
+- 测试包括 Spring 上下文覆盖测试，以及位于对应包路径下的 Controller 测试和 Service 实现单元测试。
 
-### Frontend
+### 前端
 
-- `frontend/src/app.jsx` provides application runtime setup; `layouts/BasicLayout.jsx` is the main authenticated shell.
-- `pages/` contains route-level screens grouped by the same business domains as the backend.
-- `api/` contains domain-specific backend clients. Shared Axios behavior is in `utils/request.js`, token persistence is in `utils/token.js`, and authentication state is exposed through `hooks/useAuth.js`.
-- `components/G6TreeCanvas.jsx` is the shared graph/tree visualization component. Locale resources live under `locales/`.
-- Umi configuration is under `frontend/config/`. Do not treat generated `frontend/src/.umi/` or installed `frontend/node_modules/` content as source code to edit.
+- `frontend/src/app.jsx` 提供应用运行时配置；`layouts/BasicLayout.jsx` 是主要的已认证应用外壳。
+- `pages/` 包含按业务领域分组的路由级页面，与后端业务领域保持对应。
+- `api/` 包含按业务领域划分的后端客户端。共享 Axios 行为位于 `utils/request.js`，令牌持久化位于 `utils/token.js`，认证状态通过 `hooks/useAuth.js` 暴露。
+- `components/G6TreeCanvas.jsx` 是共享的图/树可视化组件。语言环境资源位于 `locales/` 下。
+- Umi 配置位于 `frontend/config/`。不要将生成的 `frontend/src/.umi/` 或已安装的 `frontend/node_modules/` 内容当作源代码进行编辑。
 
-The usual end-to-end flow is: page → domain API module → Axios request/token handling → Spring controller → service → mapper/MySQL → converter/VO → uniform `Result` response.
+通常的端到端流程为：页面 → 业务领域 API 模块 → Axios 请求/令牌处理 → Spring Controller → Service → Mapper/MySQL → 转换器/VO → 统一的 `Result` 响应。
