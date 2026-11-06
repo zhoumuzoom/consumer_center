@@ -127,6 +127,11 @@ export default {
     branchCount: 'Branches',
     decisionMakerCount: 'Decision Makers',
     interactionCount: 'Interactions',
+    export: 'Export',
+    exporting: 'Exporting…',
+    exportSuccess: 'Exported {count} customers',
+    exportEmpty: 'No customer data to export',
+    exportFileName: 'customer-list',
   },
   customerTree: {
     addNode: 'Add Node',
