@@ -1,0 +1,55 @@
+name: Auto-merge agent PRs
+
+# 自动合并 dsh-superagent 从 `agent/*` 分支创建、且未标记 `hold` 的 PR。
+# 用定时任务而不是 pull_request 事件，是为了给 worker 留出完成 PR 内容与验证的时间，
+# 避免 PR 刚打开、worker 还在补充证据时就被合并。
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: auto-merge-agent-prs
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+      # 只合并该账号创建的分支，避免人工开的 agent/* 分支被误合
+      AGENT_LOGIN: zhoumuzoom
+      # PR 最后一次更新后至少等待的秒数，给 worker 收尾
+      MIN_AGE_SECONDS: '180'
+    steps:
+      - name: Merge ready agent pull requests
+        run: |
+          set -euo pipefail
+          now=$(date +%s)
+
+          gh pr list --repo "$REPO" --state open --limit 50 \
+            --json number,headRefName,isDraft,mergeable,author,updatedAt,labels \
+            --jq '.[]
+              | select(.headRefName | startswith("agent/"))
+              | select(.isDraft == false)
+              | select(.mergeable == "MERGEABLE")
+              | select(.author.login == env.AGENT_LOGIN)
+              | select(([.labels[].name] | index("hold")) == null)
+              | [.number, .updatedAt] | @tsv' |
+          while IFS=$'\t' read -r pr updated; do
+            [ -n "$pr" ] || continue
+            ts=$(date -d "$updated" +%s 2>/dev/null || echo 0)
+            age=$((now - ts))
+            if [ "$age" -lt "$MIN_AGE_SECONDS" ]; then
+              echo "skip #$pr: updated ${age}s ago"
+              continue
+            fi
+            echo "merging #$pr"
+            gh pr merge "$pr" --squash --delete-branch --repo "$REPO" \
+              || echo "merge failed for #$pr (leaving it open)"
+          done
