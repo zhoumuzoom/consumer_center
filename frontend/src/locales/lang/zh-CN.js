@@ -127,6 +127,11 @@ export default {
     branchCount: '分支机构',
     decisionMakerCount: '关联决策人',
     interactionCount: '交互记录',
+    export: '导出',
+    exporting: '导出中…',
+    exportSuccess: '已导出 {count} 条客户数据',
+    exportEmpty: '暂无可导出的客户数据',
+    exportFileName: '客户列表',
   },
   customerTree: {
     addNode: '新增节点',
