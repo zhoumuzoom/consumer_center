@@ -61,6 +61,14 @@ function setRequestToken(config, token) {
 // 响应拦截：业务码处理 + 令牌过期自动刷新重试
 request.interceptors.response.use(
   async response => {
+    // 文件下载接口返回二进制流；若后端以 JSON 返回业务错误，则转成普通响应继续处理
+    if (response.config.responseType === 'blob') {
+      const contentType = response.headers['content-type'] || ''
+      if (!contentType.includes('application/json')) {
+        return response
+      }
+      response.data = JSON.parse(await response.data.text())
+    }
     const res = response.data
     if (res.code === 200) {
       return res

@@ -5,13 +5,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerMapper;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerCreateDTO;
+import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerExportDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerQueryDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerStatusUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.Customer;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerDetailVO;
+import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerExportVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerVO;
 import com.iwhalecloud.consumercenter.mvc.service.OperationLogService;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,11 +26,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -555,6 +563,71 @@ class CustomerServiceImplTest {
             CustomerDetailVO result = customerService.getDetail(5L);
 
             assertEquals("未知", result.getStatusDesc());
+        }
+    }
+
+    // ==================== export ====================
+
+    @Nested
+    @DisplayName("客户导出测试")
+    class ExportTest {
+
+        @Test
+        @DisplayName("导出-有数据生成XLSX文件")
+        void export_withData() throws Exception {
+            when(customerMapper.selectList(any(LambdaQueryWrapper.class)))
+                    .thenReturn(List.of(buildCustomer(1L, (byte) 1)));
+
+            CustomerExportVO result = customerService.export(new CustomerExportDTO());
+
+            assertEquals(1, result.getTotal());
+            assertTrue(result.getFilename().startsWith("客户列表_"));
+            assertTrue(result.getFilename().endsWith(".xlsx"));
+            assertTrue(result.getContent().length > 0);
+            try (XSSFWorkbook workbook = new XSSFWorkbook(new ByteArrayInputStream(result.getContent()))) {
+                Sheet sheet = workbook.getSheetAt(0);
+                assertEquals("客户列表", sheet.getSheetName());
+                assertEquals(1, sheet.getLastRowNum());
+                assertEquals("客户编号", sheet.getRow(0).getCell(0).getStringCellValue());
+                assertEquals("CUS20260703120000ABCD", sheet.getRow(1).getCell(0).getStringCellValue());
+                assertEquals("测试客户", sheet.getRow(1).getCell(1).getStringCellValue());
+                assertEquals("已看管", sheet.getRow(1).getCell(5).getStringCellValue());
+                assertTrue(((XSSFCellStyle) sheet.getRow(0).getCell(0).getCellStyle()).getFont().getBold());
+                assertNotNull(sheet.getPaneInformation());
+                assertTrue(sheet.getPaneInformation().isFreezePane());
+            }
+        }
+
+        @Test
+        @DisplayName("导出-无数据返回空内容")
+        void export_empty() {
+            when(customerMapper.selectList(any(LambdaQueryWrapper.class))).thenReturn(List.of());
+
+            CustomerExportVO result = customerService.export(new CustomerExportDTO());
+
+            assertEquals(0, result.getTotal());
+            assertEquals(0, result.getContent().length);
+            assertTrue(result.getFilename().startsWith("客户列表_"));
+        }
+
+        @Test
+        @DisplayName("导出-英文语言使用英文表头")
+        void export_english() throws Exception {
+            when(customerMapper.selectList(any(LambdaQueryWrapper.class)))
+                    .thenReturn(List.of(buildCustomer(1L, (byte) 0)));
+
+            CustomerExportDTO exportDTO = new CustomerExportDTO();
+            exportDTO.setLang("en-US");
+            CustomerExportVO result = customerService.export(exportDTO);
+
+            assertEquals(1, result.getTotal());
+            assertTrue(result.getFilename().startsWith("customer-list_"));
+            try (XSSFWorkbook workbook = new XSSFWorkbook(new ByteArrayInputStream(result.getContent()))) {
+                Sheet sheet = workbook.getSheetAt(0);
+                assertEquals("Customer List", sheet.getSheetName());
+                assertEquals("Customer Code", sheet.getRow(0).getCell(0).getStringCellValue());
+                assertEquals("未看管", sheet.getRow(1).getCell(5).getStringCellValue());
+            }
         }
     }
 }

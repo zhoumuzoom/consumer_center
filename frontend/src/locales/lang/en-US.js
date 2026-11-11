@@ -130,6 +130,7 @@ export default {
     export: 'Export',
     exporting: 'Exporting…',
     exportSuccess: 'Exported {count} customers',
+    exportSuccessGeneric: 'Exported successfully',
     exportEmpty: 'No customer data to export',
     exportFail: 'Export failed, please try again',
     exportFileName: 'customer-list',
