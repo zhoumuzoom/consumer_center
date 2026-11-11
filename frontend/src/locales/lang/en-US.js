@@ -131,6 +131,7 @@ export default {
     exporting: 'Exporting…',
     exportSuccess: 'Exported {count} customers',
     exportEmpty: 'No customer data to export',
+    exportFail: 'Export failed, please try again',
     exportFileName: 'customer-list',
   },
   customerTree: {
