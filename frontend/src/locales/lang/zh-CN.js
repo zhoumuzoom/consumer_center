@@ -131,6 +131,7 @@ export default {
     exporting: '导出中…',
     exportSuccess: '已导出 {count} 条客户数据',
     exportEmpty: '暂无可导出的客户数据',
+    exportFail: '导出失败，请重试',
     exportFileName: '客户列表',
   },
   customerTree: {
