@@ -3,10 +3,12 @@ package com.iwhalecloud.consumercenter.mvc.controller;
 import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.common.result.Result;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerCreateDTO;
+import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerExportDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerQueryDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerStatusUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerDetailVO;
+import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerExportVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerVO;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +16,14 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * 客户档案管理
@@ -31,6 +40,25 @@ public class CustomerController {
     @GetMapping
     public Result<PageResult<CustomerVO>> pageList(CustomerQueryDTO queryDTO) {
         return Result.success(customerService.pageList(queryDTO));
+    }
+
+    @Operation(summary = "客户列表导出")
+    @GetMapping("/export")
+    public ResponseEntity<byte[]> export(CustomerExportDTO exportDTO) {
+        CustomerExportVO exportVO = customerService.export(exportDTO);
+        if (exportVO.getTotal() == null || exportVO.getTotal() == 0) {
+            return ResponseEntity.noContent().build();
+        }
+        String contentDisposition = ContentDisposition.attachment()
+                .filename(exportVO.getFilename(), StandardCharsets.UTF_8)
+                .build()
+                .toString();
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                .header("X-Export-Count", String.valueOf(exportVO.getTotal()))
+                .cacheControl(CacheControl.noStore())
+                .body(exportVO.getContent());
     }
 
     @Operation(summary = "客户详情查询")

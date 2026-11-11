@@ -5,23 +5,36 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.mvc.mapper.CustomerMapper;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerCreateDTO;
+import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerExportDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerQueryDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerStatusUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.convert.CustomerConvert;
 import com.iwhalecloud.consumercenter.mvc.pojo.entity.Customer;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerDetailVO;
+import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerExportVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerVO;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerService;
 import com.iwhalecloud.consumercenter.mvc.service.OperationLogService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.fesod.sheet.FesodSheet;
+import org.apache.fesod.sheet.write.handler.SheetWriteHandler;
+import org.apache.fesod.sheet.write.handler.context.SheetWriteHandlerContext;
+import org.apache.fesod.sheet.write.metadata.style.WriteCellStyle;
+import org.apache.fesod.sheet.write.metadata.style.WriteFont;
+import org.apache.fesod.sheet.write.style.HorizontalCellStyleStrategy;
+import org.apache.fesod.sheet.write.style.column.SimpleColumnWidthStyleStrategy;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -38,9 +51,76 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private OperationLogService operationLogService;
 
+    private static final List<String> CHINESE_HEADERS = List.of("客户编号", "客户名称", "行业", "区域", "规模", "状态", "客户经理");
+    private static final List<String> ENGLISH_HEADERS = List.of("Customer Code", "Customer Name", "Industry", "Region", "Scale", "Status", "Manager");
+    private static final int COLUMN_WIDTH = 18;
+    private static final SheetWriteHandler FREEZE_HEADER_HANDLER = new SheetWriteHandler() {
+        @Override
+        public void afterSheetCreate(SheetWriteHandlerContext context) {
+            context.getWriteSheetHolder().getSheet().createFreezePane(0, 1);
+        }
+    };
+
     @Override
     public PageResult<CustomerVO> pageList(CustomerQueryDTO queryDTO) {
         Page<Customer> page = new Page<>(queryDTO.getPage(), queryDTO.getSize());
+        Page<Customer> result = customerMapper.selectPage(page, buildQueryWrapper(queryDTO));
+
+        List<CustomerVO> voList = result.getRecords().stream()
+                .map(CustomerConvert::entity2vo)
+                .collect(Collectors.toList());
+
+        PageResult<CustomerVO> pageResult = new PageResult<>();
+        pageResult.setTotal(result.getTotal());
+        pageResult.setPages(result.getPages());
+        pageResult.setCurrent(result.getCurrent());
+        pageResult.setSize(result.getSize());
+        pageResult.setRecords(voList);
+
+        return pageResult;
+    }
+
+    @Override
+    public CustomerExportVO export(CustomerExportDTO exportDTO) {
+        List<Customer> customers = customerMapper.selectList(buildQueryWrapper(exportDTO));
+        boolean english = isEnglish(exportDTO.getLang());
+
+        CustomerExportVO exportVO = new CustomerExportVO();
+        exportVO.setTotal(customers.size());
+        exportVO.setFilename(buildExportFilename(english));
+        if (customers.isEmpty()) {
+            exportVO.setContent(new byte[0]);
+            return exportVO;
+        }
+
+        List<String> headers = english ? ENGLISH_HEADERS : CHINESE_HEADERS;
+        List<List<String>> head = headers.stream().map(header -> List.of(header)).collect(Collectors.toList());
+        List<List<Object>> rows = customers.stream()
+                .map(CustomerConvert::entity2vo)
+                .map(vo -> List.<Object>of(
+                        defaultString(vo.getCustomerCode()),
+                        defaultString(vo.getCustomerName()),
+                        defaultString(vo.getIndustry()),
+                        defaultString(vo.getRegion()),
+                        defaultString(vo.getScale()),
+                        defaultString(vo.getStatusDesc()),
+                        defaultString(vo.getManagerName())))
+                .collect(Collectors.toList());
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        FesodSheet.write(outputStream)
+                .head(head)
+                .registerWriteHandler(buildHeaderStyleStrategy())
+                .registerWriteHandler(new SimpleColumnWidthStyleStrategy(COLUMN_WIDTH))
+                .registerWriteHandler(FREEZE_HEADER_HANDLER)
+                .sheet(english ? "Customer List" : "客户列表")
+                .doWrite(rows);
+
+        exportVO.setContent(outputStream.toByteArray());
+        return exportVO;
+    }
+
+    private LambdaQueryWrapper<Customer> buildQueryWrapper(CustomerQueryDTO queryDTO) {
         LambdaQueryWrapper<Customer> wrapper = new LambdaQueryWrapper<>();
 
         // 构建查询条件
@@ -65,21 +145,31 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         wrapper.orderByDesc(Customer::getCreateTime);
+        return wrapper;
+    }
 
-        Page<Customer> result = customerMapper.selectPage(page, wrapper);
+    private boolean isEnglish(String lang) {
+        return lang != null && lang.toLowerCase(Locale.ROOT).startsWith("en");
+    }
 
-        List<CustomerVO> voList = result.getRecords().stream()
-                .map(CustomerConvert::entity2vo)
-                .collect(Collectors.toList());
+    private String buildExportFilename(boolean english) {
+        String prefix = english ? "customer-list" : "客户列表";
+        return prefix + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + ".xlsx";
+    }
 
-        PageResult<CustomerVO> pageResult = new PageResult<>();
-        pageResult.setTotal(result.getTotal());
-        pageResult.setPages(result.getPages());
-        pageResult.setCurrent(result.getCurrent());
-        pageResult.setSize(result.getSize());
-        pageResult.setRecords(voList);
+    private String defaultString(String value) {
+        return value == null ? "" : value;
+    }
 
-        return pageResult;
+    private HorizontalCellStyleStrategy buildHeaderStyleStrategy() {
+        WriteCellStyle headerStyle = new WriteCellStyle();
+        headerStyle.setFillPatternType(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        WriteFont headerFont = new WriteFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 11);
+        headerStyle.setWriteFont(headerFont);
+        return new HorizontalCellStyleStrategy(headerStyle, new WriteCellStyle());
     }
 
     @Override

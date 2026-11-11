@@ -5,15 +5,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iwhalecloud.consumercenter.common.error.GlobalExceptionHandler;
 import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerCreateDTO;
+import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerExportDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerStatusUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerUpdateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerDetailVO;
+import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerExportVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerVO;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,16 +30,20 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -331,5 +339,43 @@ class CustomerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(5001))
                 .andExpect(jsonPath("$.message").value("系统异常"));
+    }
+
+    // ==================== export ====================
+
+    @Test
+    @DisplayName("客户导出-正常返回XLSX文件")
+    void export_success() throws Exception {
+        CustomerExportVO exportVO = new CustomerExportVO();
+        exportVO.setContent(new byte[]{1, 2, 3});
+        exportVO.setTotal(2);
+        exportVO.setFilename("客户列表_20261111180000.xlsx");
+        when(customerService.export(any(CustomerExportDTO.class))).thenReturn(exportVO);
+
+        mockMvc.perform(get("/api/customers/export").param("lang", "en-US"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("X-Export-Count", "2"))
+                .andExpect(header().string("Content-Disposition", Matchers.containsString("attachment")))
+                .andExpect(header().string("Content-Disposition", Matchers.containsString("filename")))
+                .andExpect(content().contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                .andExpect(content().bytes(new byte[]{1, 2, 3}));
+
+        ArgumentCaptor<CustomerExportDTO> captor = ArgumentCaptor.forClass(CustomerExportDTO.class);
+        verify(customerService).export(captor.capture());
+        assertEquals("en-US", captor.getValue().getLang());
+    }
+
+    @Test
+    @DisplayName("客户导出-无数据返回204")
+    void export_empty() throws Exception {
+        CustomerExportVO exportVO = new CustomerExportVO();
+        exportVO.setContent(new byte[0]);
+        exportVO.setTotal(0);
+        exportVO.setFilename("客户列表_20261111180000.xlsx");
+        when(customerService.export(any(CustomerExportDTO.class))).thenReturn(exportVO);
+
+        mockMvc.perform(get("/api/customers/export"))
+                .andExpect(status().isNoContent())
+                .andExpect(header().doesNotExist("X-Export-Count"));
     }
 }
