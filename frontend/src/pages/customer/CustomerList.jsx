@@ -6,13 +6,12 @@ import { useNavigate } from '@umijs/max'
 import dayjs from 'dayjs'
 import PageHeader from '../../components/PageHeader'
 import { useLocale } from '../../locales'
-import { createCustomer, deleteCustomer, getCustomerList, updateCustomer } from '../../api/customer'
-import { downloadXlsx } from '../../utils/exportXlsx'
+import { createCustomer, deleteCustomer, exportCustomers, getCustomerList, updateCustomer } from '../../api/customer'
+import { downloadBlob } from '../../utils/download'
 
 const EMPTY = { customerName: '', customerNameEn: '', industry: '', region: '', scale: '', contactPerson: '', contactPhone: '', remark: '' }
-const EXPORT_PAGE_SIZE = 10
 export default function CustomerList() {
-  const { t } = useLocale(); const actionRef = useRef(); const navigate = useNavigate(); const [modal, setModal] = useState(false); const [editing, setEditing] = useState(null); const [exporting, setExporting] = useState(false); const [form] = Form.useForm(); const exportFiltersRef = useRef({})
+  const { t, locale } = useLocale(); const actionRef = useRef(); const navigate = useNavigate(); const [modal, setModal] = useState(false); const [editing, setEditing] = useState(null); const [exporting, setExporting] = useState(false); const [form] = Form.useForm(); const exportFiltersRef = useRef({})
   const columns = [
     { title: t('customer.keyword'), dataIndex: 'keyword', hideInTable: true, fieldProps: { placeholder: t('customer.keywordPlaceholder') } },
     { title: t('customer.code'), dataIndex: 'customerCode', width: 180, search: false },
@@ -26,30 +25,21 @@ export default function CustomerList() {
   const openCreate = () => { setEditing(null); form.setFieldsValue(EMPTY); setModal(true) }
   const confirmDelete = (row) => Modal.confirm({ title: t('customer.deleteConfirm'), okText: t('common.confirm'), cancelText: t('common.cancel'), onOk: async () => { await deleteCustomer(row.id); message.success(t('common.deleteSuccess')); actionRef.current?.reload() } })
   const save = async () => { const values = await form.validateFields(); if (editing) { await updateCustomer(editing.id, values); message.success(t('common.updateSuccess')) } else { await createCustomer(values); message.success(t('common.addSuccess')) } setModal(false); actionRef.current?.reload() }
-  // 导出当前筛选条件下的全部客户为 XLSX，文件在浏览器本地生成，不经过后端
+  // 调用后端接口导出当前筛选条件下的全部客户为 XLSX
   const handleExport = async () => {
     if (exporting) return
     setExporting(true)
     try {
-      const filters = exportFiltersRef.current
-      const first = await getCustomerList({ ...filters, page: 1, size: EXPORT_PAGE_SIZE }, { skipErrorToast: true })
-      const total = first.data?.total || 0
-      if (!total) { message.info(t('customer.exportEmpty')); return }
-      const records = [...(first.data?.records || [])]
-      const pages = Math.ceil(total / EXPORT_PAGE_SIZE)
-      for (let page = 2; page <= pages; page++) {
-        const res = await getCustomerList({ ...filters, page, size: EXPORT_PAGE_SIZE }, { skipErrorToast: true })
-        records.push(...(res.data?.records || []))
+      const res = await exportCustomers({ ...exportFiltersRef.current, lang: locale })
+      if (res.status === 204 || !res.data || res.data.size === 0) { message.info(t('customer.exportEmpty')); return }
+      downloadBlob(res.data, `${t('customer.exportFileName')}_${dayjs().format('YYYYMMDD_HHmmss')}.xlsx`)
+      const count = Number(res.headers['x-export-count'])
+      if (Number.isFinite(count)) {
+        message.success(t('customer.exportSuccess', { count }))
+      } else {
+        message.success(t('customer.exportSuccessGeneric'))
       }
-      await downloadXlsx({
-        filename: `${t('customer.exportFileName')}_${dayjs().format('YYYYMMDD_HHmmss')}.xlsx`,
-        sheetName: t('menu.customers'),
-        headers: [t('customer.code'), t('common.customerName'), t('common.industry'), t('common.region'), t('common.scale'), t('common.status'), t('customer.managerName')],
-        rows: records.map((row) => [row.customerCode, row.customerName, row.industry, row.region, row.scale, row.statusDesc, row.managerName])
-      })
-      message.success(t('customer.exportSuccess', { count: records.length }))
     } catch {
-      // 导出流程关闭了全局错误提示，这里统一反馈下载或文件生成失败
       message.error(t('customer.exportFail'))
     } finally {
       setExporting(false)

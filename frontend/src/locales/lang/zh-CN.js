@@ -130,6 +130,7 @@ export default {
     export: '导出',
     exporting: '导出中…',
     exportSuccess: '已导出 {count} 条客户数据',
+    exportSuccessGeneric: '导出成功',
     exportEmpty: '暂无可导出的客户数据',
     exportFail: '导出失败，请重试',
     exportFileName: '客户列表',
