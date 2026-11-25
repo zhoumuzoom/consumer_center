@@ -10,11 +10,10 @@ spring:
   # Spring AI：OpenAI 兼容网关
   ai:
     openai:
-      base-url: ${AI_GATEWAY_BASE_URL:https://nowcoding.ai/v1}
-      api-key: ${AI_GATEWAY_API_KEY:unset}
+      base-url: ${AI_GATEWAY_BASE_URL:https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1}
+      api-key: ${AI_GATEWAY_API_KEY:sk-sp-H.EDIPE.GokD.MEYCIQCYAMt-tC-xk5KW-S23oHKZ-NcdLlH4FtjGgCLK39pYawIhAIkmYlG6cbTkko_tG034NuYXnqdEFXNtnnvT0srhKOv1}
       chat:
-        options:
-          model: ${AI_GATEWAY_MODEL:gpt-6.2-sol}
+        model: ${AI_GATEWAY_MODEL:deepseek-v4.1-flash-1017}
     retry:
       max-attempts: 2
       on-client-errors: false
