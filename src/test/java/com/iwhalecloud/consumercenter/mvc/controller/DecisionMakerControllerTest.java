@@ -1,7 +1,7 @@
 package com.iwhalecloud.consumercenter.mvc.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.iwhalecloud.consumercenter.common.error.GlobalExceptionHandler;
 import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.decision.DecisionChainCreateDTO;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;

@@ -1,6 +1,5 @@
 package com.iwhalecloud.consumercenter.common.result;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serial;
@@ -15,13 +14,10 @@ public class Result<T> implements Serializable {
     @Serial
     private static final long serialVersionUID = 4279126773454959902L;
 
-    @Schema(description = "响应码")
     private Integer code;
 
-    @Schema(description = "响应信息")
     private String message;
 
-    @Schema(description = "响应数据")
     private T data;
 
     public static <T> Result<T> success() {

@@ -1,5 +1,6 @@
 package com.iwhalecloud.consumercenter.mvc.service.impl;
 
+import com.iwhalecloud.consumercenter.common.constant.ErrorMessageEnum;
 import com.iwhalecloud.consumercenter.common.error.BusinessException;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.ai.AiChatMessageVO;
 import com.iwhalecloud.consumercenter.mvc.service.AiAssistantService;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
@@ -52,8 +54,14 @@ public class AiAssistantServiceImpl implements AiAssistantService {
     @Value("classpath:ai/prompts/copilot-system.st")
     private Resource systemPromptResource;
 
+    @Value("${spring.ai.openai.api-key:}")
+    private String apiKey;
+
     @Override
     public Flux<String> stream(String conversationId, String userMessage) {
+        if (!StringUtils.hasText(apiKey) || "unset".equals(apiKey)) {
+            return Flux.error(new BusinessException(ErrorMessageEnum.AI_NOT_CONFIGURED));
+        }
         return aiChatFacade.streamWithMemory(conversationId, readSystemPrompt(), userMessage,
                 List.of(customerQueryTools, profileQueryTools, decisionTools, reportTools));
     }

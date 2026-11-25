@@ -1,7 +1,6 @@
 package com.iwhalecloud.consumercenter.mvc.pojo.dto.report;
 
 import com.iwhalecloud.consumercenter.common.param.PageQuery;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,15 +11,11 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "上报记录查询请求")
 public class ReportQueryDTO extends PageQuery {
 
-    @Schema(description = "上报状态")
     private String status;
 
-    @Schema(description = "开始时间")
     private LocalDateTime startTime;
 
-    @Schema(description = "结束时间")
     private LocalDateTime endTime;
 }

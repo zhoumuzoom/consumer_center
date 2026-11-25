@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -32,7 +31,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * 拦截器配置
-     * 仅拦截/api/**业务接口，文档、静态资源等天然放行
+     * 仅拦截/api/**业务接口
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -45,13 +44,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 );
     }
 
-    /**
-     * 静态资源路径配置
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Knife4j静态资源
-        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
-}

@@ -2,7 +2,6 @@ package com.iwhalecloud.consumercenter.common.error;
 
 import com.iwhalecloud.consumercenter.common.constant.ErrorMessageEnum;
 import com.iwhalecloud.consumercenter.common.result.Result;
-import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 /**
  * 全局异常处理器
  */
-@Hidden // swagger配置需要隐藏全局异常处理器
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {

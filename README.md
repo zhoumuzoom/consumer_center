@@ -6,7 +6,7 @@
 
 | 模块 | 主要技术 |
 | --- | --- |
-| 后端 | Java 17、Spring Boot 3.5、MyBatis-Plus、MySQL 5.7、Redis、Sa-Token、Nacos、Knife4j |
+| 后端 | Java 21、Spring Boot 4.2、Spring AI 2.1、MyBatis-Plus 3.5、MySQL 5.7、Redis、Sa-Token |
 | 前端 | React 19、Umi Max 4、Ant Design 6、ProComponents、Tailwind CSS、Biome |
 
 ## 目录结构
@@ -28,11 +28,11 @@
 
 ### 环境要求
 
-- JDK 17+
+- JDK 21+
 - Node.js 18+ 与 npm
 - MySQL 5.7
 - Redis（Sa-Token 会话存储）
-- Nacos（配置中心与服务注册）
+- OpenAI 兼容模型网关（默认 `https://nowcoding.ai/v1`）
 
 ### 1. 初始化数据库
 
@@ -45,13 +45,14 @@
 
 ### 2. 启动后端
 
-按本地环境修改 `src/main/resources/application-dev.yaml` 中的 MySQL、Redis、Nacos 连接信息，然后启动：
+按本地环境修改 `src/main/resources/application-dev.yaml` 中的 MySQL、Redis 连接信息，并注入模型网关密钥：
 
 ```bash
+export AI_GATEWAY_API_KEY='<你的网关密钥>'
 ./mvnw spring-boot:run
 ```
 
-后端默认端口为 `8080`，接口文档（Knife4j）：<http://localhost:8080/doc.html>。
+后端默认端口为 `8080`。模型网关默认 `https://nowcoding.ai/v1`，可通过 `AI_GATEWAY_BASE_URL`、`AI_GATEWAY_MODEL` 覆盖；密钥只从 `AI_GATEWAY_API_KEY` 环境变量读取。
 
 ### 3. 启动前端
 

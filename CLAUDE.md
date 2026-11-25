@@ -7,11 +7,11 @@
 请遵循 `AGENTS.md`；它是本仓库的权威开发指南。重要约束包括：
 
 - 绝不执行数据库/数据表删除操作，也不要删除 Git 分支。
-- 后端使用 Java 17、Spring Boot 3.5.16、MyBatis-Plus 3.5.17、MySQL、Redis、Sa-Token、Nacos、Knife4j 和 XXL-Job。
+- 后端使用 Java 21、Spring Boot 4.2.0、Spring AI 2.1.0、MyBatis-Plus 3.5.18.1、MySQL、Redis、Sa-Token 和 XXL-Job。
 - 业务代码应放在 `com.iwhalecloud.consumercenter.mvc` 下，并遵循 controller → service → mapper 分层。Controller 接收 DTO，返回由 `Result` 静态工厂方法包装的 VO；不得直接暴露实体。
 - 业务失败时抛出 `BusinessException`，由 `GlobalExceptionHandler` 统一生成响应。
 - Service 接口不继承 MyBatis-Plus 的 `IService`；Mapper 接口继承 `BaseMapper`。优先使用 `BaseMapper` 的单表操作，仅在必要时使用 XML SQL。
-- 使用字段注入配合 `@Autowired`、`java.time` 类型、显式导入、Swagger/OpenAPI 注解，以及 `mvc/pojo/convert` 下现有的转换类。
+- 使用字段注入配合 `@Autowired`、`java.time` 类型、显式导入，以及 `mvc/pojo/convert` 下现有的转换类。
 - 不要手动创建生成的实体或 Mapper。请更新 `TABLES` 数组，然后运行 `MyBatisCommentGenerator.main`。
 
 ## 命令
@@ -62,8 +62,8 @@ npm run format
 - `common/result` 定义统一的 `Result` 和 `PageResult` 响应；`common/error` 与 `common/constant/ErrorMessageEnum` 定义集中式业务错误处理。
 - `AuthInterceptor` 通过 Sa-Token 保护 API 请求。认证支持本地凭据和可选的 OAuth2 令牌 introspection；访问/刷新会话分开管理，并通过 Redis 支持的 Sa-Token 状态持久化。
 - `ApiLogAspect` 记录 API 操作，`SqlCostInterceptor` 观察 SQL 执行耗时。
-- `config` 负责配置 MVC 拦截、MyBatis-Plus 分页、Redis 序列化和 Knife4j/OpenAPI。
-- `application.yaml` 激活 `dev`，根据 `mysql.*` 配置数据源，配置逻辑删除、Sa-Token、Swagger/Knife4j 以及可选的 SSO。`application-dev.yaml` 提供本地默认值并导入可选的 Nacos 配置。请将其中已提交的连接配置视为特定环境的配置；不要将其复制到新的代码或文档中。
+- `config` 负责配置 MVC 拦截、MyBatis-Plus 分页、Redis 序列化和 AI 客户端。
+- `application.yaml` 激活 `dev`，根据 `mysql.*` 配置数据源，配置逻辑删除、Sa-Token、Spring AI 以及可选的 SSO。`application-dev.yaml` 提供本地默认值。请将其中已提交的连接配置视为特定环境的配置；不要将其复制到新的代码或文档中。
 - 测试包括 Spring 上下文覆盖测试，以及位于对应包路径下的 Controller 测试和 Service 实现单元测试。
 
 ### 前端

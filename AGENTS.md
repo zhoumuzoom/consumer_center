@@ -7,7 +7,7 @@
 - 新功能的开发尽量不要影响原有功能的使用。
 
 ## 技术栈
-- 后端: Java 17 + SpringBoot 3.5.16 + MyBatis-Plus 3.5.15
+- 后端: Java 21 + Spring Boot 4.2.0 + Spring AI 2.1.0 + MyBatis-Plus 3.5.18.1
 - 数据库: MySQL 5.7.31
 - 前端: React 19
 
@@ -29,7 +29,7 @@
 
 ## 接口规范
 - 前后端分离，后端接口遵循RESTful风格。
-- 使用swagger注解进行文档生成，Controller的类和方法、入参DTO、出参VO的类和字段都需要标注swagger注解。
+- 不生成 Swagger/OpenAPI 注解与文档 UI。
 - 接口统一使用common.result.Result对象里的静态方法返回，禁止手动构造返回体。
 - 列表相关的接口返回，如果为空，数据字段返回空数组[]或空集合{}。
 - HTTP请求通过URL传递参数时，不能超过2048字节。

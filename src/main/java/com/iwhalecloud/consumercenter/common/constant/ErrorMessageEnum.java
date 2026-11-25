@@ -29,7 +29,8 @@ public enum ErrorMessageEnum {
     AI_INSIGHT_TASK_NOT_FOUND(4101, "洞察任务不存在或已过期"),
     AI_INSIGHT_NOT_CONFIGURED(4102, "AI网关未配置"),
     AI_INSIGHT_GENERATE_FAILED(4103, "AI洞察生成失败"),
-    AI_INSIGHT_BUSY(4104, "AI洞察任务繁忙，请稍后重试");
+    AI_INSIGHT_BUSY(4104, "AI洞察任务繁忙，请稍后重试"),
+    AI_NOT_CONFIGURED(4105, "AI网关未配置");
 
     private final int code;
 

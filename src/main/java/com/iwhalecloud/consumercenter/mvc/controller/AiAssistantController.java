@@ -1,12 +1,11 @@
 package com.iwhalecloud.consumercenter.mvc.controller;
 
 import com.alibaba.fastjson2.JSON;
+import com.iwhalecloud.consumercenter.common.error.BusinessException;
 import com.iwhalecloud.consumercenter.common.result.Result;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.ai.AiChatRequestDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.ai.AiChatMessageVO;
 import com.iwhalecloud.consumercenter.mvc.service.AiAssistantService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ import java.util.UUID;
  * AI助手
  */
 @Slf4j
-@Tag(name = "AI助手", description = "AI流式对话、会话历史、清空会话")
 @RestController
 @RequestMapping("/api/ai")
 public class AiAssistantController {
@@ -39,7 +37,6 @@ public class AiAssistantController {
     @Autowired
     private AiAssistantService aiAssistantService;
 
-    @Operation(summary = "AI助手流式对话")
     @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> chat(@Valid @RequestBody AiChatRequestDTO requestDTO) {
         String conversationId = StringUtils.hasText(requestDTO.getConversationId())
@@ -56,21 +53,26 @@ public class AiAssistantController {
                         .data(JSON.toJSONString(Map.of("conversationId", conversationId)))
                         .build()))
                 .onErrorResume(e -> {
-                    log.error("AI对话失败, conversationId={}", conversationId, e);
+                    if (e instanceof BusinessException) {
+                        log.warn("AI对话失败, conversationId={}, reason={}", conversationId, e.getMessage());
+                    } else {
+                        log.error("AI对话失败, conversationId={}", conversationId, e);
+                    }
+                    String errorMessage = e instanceof BusinessException
+                            ? e.getMessage()
+                            : "AI助手响应失败，请稍后重试";
                     return Mono.just(ServerSentEvent.<String>builder()
                             .event("error")
-                            .data(JSON.toJSONString(Map.of("message", "AI助手响应失败，请稍后重试")))
+                            .data(JSON.toJSONString(Map.of("message", errorMessage)))
                             .build());
                 });
     }
 
-    @Operation(summary = "获取会话历史")
     @GetMapping("/conversations/{conversationId}/messages")
     public Result<List<AiChatMessageVO>> getHistory(@PathVariable String conversationId) {
         return Result.success(aiAssistantService.getHistory(conversationId));
     }
 
-    @Operation(summary = "清空会话")
     @DeleteMapping("/conversations/{conversationId}")
     public Result<Void> clear(@PathVariable String conversationId) {
         aiAssistantService.clear(conversationId);

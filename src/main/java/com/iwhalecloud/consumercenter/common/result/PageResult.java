@@ -1,7 +1,6 @@
 package com.iwhalecloud.consumercenter.common.result;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serial;
@@ -17,19 +16,14 @@ public class PageResult<T> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1769398851949433381L;
 
-    @Schema(description = "总数")
     private Long total;
 
-    @Schema(description = "总页面")
     private Long pages;
 
-    @Schema(description = "当前页码")
     private Long current;
 
-    @Schema(description = "每页大小")
     private Long size;
 
-    @Schema(description = "数据列表")
     private List<T> records;
 
     public static <T> PageResult<T> of(IPage<T> iPage) {
