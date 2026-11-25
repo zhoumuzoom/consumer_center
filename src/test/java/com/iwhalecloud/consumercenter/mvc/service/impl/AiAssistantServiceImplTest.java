@@ -15,10 +15,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.session.SessionService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.test.util.ReflectionTestUtils;
 import reactor.core.publisher.Flux;
@@ -48,7 +48,7 @@ class AiAssistantServiceImplTest {
     private AiChatFacade aiChatFacade;
 
     @Mock
-    private ChatMemory chatMemory;
+    private SessionService sessionService;
 
     @Mock
     private CustomerQueryTools customerQueryTools;
@@ -95,9 +95,10 @@ class AiAssistantServiceImplTest {
     @Test
     @DisplayName("历史记录只保留用户和助手消息")
     void getHistory_filtersSystemMessages() {
-        when(chatMemory.get("c1")).thenReturn(List.of(
+        when(sessionService.getMessages("c1")).thenReturn(List.of(
                 new SystemMessage("系统提示"),
                 new UserMessage("你好"),
+                new AssistantMessage(""),
                 new AssistantMessage("您好")));
 
         List<AiChatMessageVO> history = aiAssistantService.getHistory("c1");
@@ -110,10 +111,10 @@ class AiAssistantServiceImplTest {
     }
 
     @Test
-    @DisplayName("清空会话委托给记忆组件")
-    void clear_delegatesToChatMemory() {
+    @DisplayName("清空会话委托给会话服务")
+    void clear_delegatesToSessionService() {
         aiAssistantService.clear("c1");
 
-        verify(chatMemory).clear("c1");
+        verify(sessionService).delete("c1");
     }
 }

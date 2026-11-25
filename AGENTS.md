@@ -7,7 +7,7 @@
 - 新功能的开发尽量不要影响原有功能的使用。
 
 ## 技术栈
-- 后端: Java 21 + Spring Boot 4.2.0 + Spring AI 2.1.0 + MyBatis-Plus 3.5.18.1
+- 后端: Java 21 + Spring Boot 4.2.0 + Spring AI 2.1.0（Session Memory JDBC） + MyBatis-Plus 3.5.18.1
 - 数据库: MySQL 5.7.31
 - 前端: React 19
 

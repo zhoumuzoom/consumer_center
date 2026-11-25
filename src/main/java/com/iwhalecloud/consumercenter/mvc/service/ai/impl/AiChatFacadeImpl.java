@@ -2,9 +2,10 @@ package com.iwhalecloud.consumercenter.mvc.service.ai.impl;
 
 import com.iwhalecloud.consumercenter.mvc.service.ai.AiChatFacade;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.client.advisor.api.Advisor;
+import org.springframework.ai.session.advisor.SessionAdvisors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
@@ -20,7 +21,8 @@ public class AiChatFacadeImpl implements AiChatFacade {
     private ChatClient chatClient;
 
     @Autowired
-    private ChatMemory chatMemory;
+    @Qualifier("aiSessionAdvisors")
+    private List<Advisor> aiSessionAdvisors;
 
     @Override
     public <T> T callForEntity(String systemPrompt, String userPrompt, Class<T> responseType) {
@@ -36,8 +38,8 @@ public class AiChatFacadeImpl implements AiChatFacade {
         ChatClient.ChatClientRequestSpec requestSpec = chatClient.prompt()
                 .system(systemPrompt)
                 .user(userMessage)
-                .advisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
-                .advisors(advisor -> advisor.param(ChatMemory.CONVERSATION_ID, conversationId));
+                .advisors(aiSessionAdvisors)
+                .advisors(SessionAdvisors.session(conversationId));
         if (tools != null && !tools.isEmpty()) {
             requestSpec.tools(tools.toArray());
         }

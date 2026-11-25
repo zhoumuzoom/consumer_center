@@ -6,7 +6,7 @@
 
 | 模块 | 主要技术 |
 | --- | --- |
-| 后端 | Java 21、Spring Boot 4.2、Spring AI 2.1、MyBatis-Plus 3.5、MySQL 5.7、Redis、Sa-Token |
+| 后端 | Java 21、Spring Boot 4.2、Spring AI 2.1（Session Memory JDBC）、MyBatis-Plus 3.5、MySQL 5.7、Redis、Sa-Token |
 | 前端 | React 19、Umi Max 4、Ant Design 6、ProComponents、Tailwind CSS、Biome |
 
 ## 目录结构
@@ -30,9 +30,9 @@
 
 - JDK 21+
 - Node.js 18+ 与 npm
-- MySQL 5.7
+- MySQL 5.7（业务数据 + AI 会话记忆）
 - Redis（Sa-Token 会话存储）
-- OpenAI 兼容模型网关（默认 `https://nowcoding.ai/v1`）
+- OpenAI 兼容模型网关（默认 `https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1`）
 
 ### 1. 初始化数据库
 
@@ -41,6 +41,7 @@
 - `create-tables.sql`：客户、客户树、行业树、决策者、任务等核心业务表
 - `system_user.sql`：登录用户表
 - `migrate-profile-enhancement.sql`：客户画像相关表与字段
+- `ai-session-tables.sql`：Spring AI Session Memory 会话表（应用默认会自动建表，此脚本用于手动初始化/生产环境）
 - `init-data.sql`：演示数据（可选）
 
 ### 2. 启动后端
@@ -52,7 +53,7 @@ export AI_GATEWAY_API_KEY='<你的网关密钥>'
 ./mvnw spring-boot:run
 ```
 
-后端默认端口为 `8080`。模型网关默认 `https://nowcoding.ai/v1`，可通过 `AI_GATEWAY_BASE_URL`、`AI_GATEWAY_MODEL` 覆盖；密钥只从 `AI_GATEWAY_API_KEY` 环境变量读取。
+后端默认端口为 `8080`。模型网关默认 `https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1`，可通过 `AI_GATEWAY_BASE_URL`、`AI_GATEWAY_MODEL` 覆盖；密钥只从 `AI_GATEWAY_API_KEY` 环境变量读取。
 
 ### 3. 启动前端
 
@@ -80,4 +81,5 @@ npm run build   # 生产构建
 
 - 应用默认激活 `dev` profile，配置入口为 `src/main/resources/application.yaml` 和 `application-dev.yaml`。
 - `application-dev.yaml` 中已提交的连接信息仅用于当前开发环境，请按本地环境调整，不要提交个人或生产凭据。
+- AI 会话记忆使用 Spring AI Session Memory JDBC。默认 `spring.ai.session.repository.jdbc.initialize-schema=always` 会自动建表；生产环境可改为 `never`，并手动执行 `docs/sql/ai-session-tables.sql`。
 - 后端开发规范见 `AGENTS.md` 与 `CLAUDE.md`；前端说明见 `frontend/README.md`。

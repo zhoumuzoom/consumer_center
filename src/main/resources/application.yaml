@@ -11,12 +11,16 @@ spring:
   ai:
     openai:
       base-url: ${AI_GATEWAY_BASE_URL:https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1}
-      api-key: ${AI_GATEWAY_API_KEY:sk-sp-H.EDIPE.GokD.MEYCIQCYAMt-tC-xk5KW-S23oHKZ-NcdLlH4FtjGgCLK39pYawIhAIkmYlG6cbTkko_tG034NuYXnqdEFXNtnnvT0srhKOv1}
+      api-key: ${AI_GATEWAY_API_KEY:unset}
       chat:
         model: ${AI_GATEWAY_MODEL:deepseek-v4.1-flash-1017}
     retry:
       max-attempts: 2
       on-client-errors: false
+    session:
+      repository:
+        jdbc:
+          initialize-schema: always
 
   http:
     client:
@@ -33,9 +37,6 @@ ai:
   insight:
     task-ttl-hours: 2
     lock-ttl-seconds: 180
-  copilot:
-    memory-max-messages: 20
-    memory-ttl-hours: 24
 
 # MyBatis配置
 mybatis-plus:

@@ -10,9 +10,9 @@ import com.iwhalecloud.consumercenter.mvc.service.ai.tool.DecisionTools;
 import com.iwhalecloud.consumercenter.mvc.service.ai.tool.ProfileQueryTools;
 import com.iwhalecloud.consumercenter.mvc.service.ai.tool.ReportTools;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.MessageType;
+import org.springframework.ai.session.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -37,7 +37,7 @@ public class AiAssistantServiceImpl implements AiAssistantService {
     private AiChatFacade aiChatFacade;
 
     @Autowired
-    private ChatMemory chatMemory;
+    private SessionService sessionService;
 
     @Autowired
     private CustomerQueryTools customerQueryTools;
@@ -68,7 +68,7 @@ public class AiAssistantServiceImpl implements AiAssistantService {
 
     @Override
     public List<AiChatMessageVO> getHistory(String conversationId) {
-        List<Message> messages = chatMemory.get(conversationId);
+        List<Message> messages = sessionService.getMessages(conversationId);
         List<AiChatMessageVO> history = new ArrayList<>();
         if (messages == null) {
             return history;
@@ -77,9 +77,13 @@ public class AiAssistantServiceImpl implements AiAssistantService {
             if (message.getMessageType() != MessageType.USER && message.getMessageType() != MessageType.ASSISTANT) {
                 continue;
             }
+            String content = message.getText();
+            if (content == null || content.isBlank()) {
+                continue;
+            }
             AiChatMessageVO item = new AiChatMessageVO();
             item.setRole(message.getMessageType().getValue());
-            item.setContent(message.getText());
+            item.setContent(content);
             history.add(item);
         }
         return history;
@@ -87,7 +91,7 @@ public class AiAssistantServiceImpl implements AiAssistantService {
 
     @Override
     public void clear(String conversationId) {
-        chatMemory.clear(conversationId);
+        sessionService.delete(conversationId);
     }
 
     private String readSystemPrompt() {

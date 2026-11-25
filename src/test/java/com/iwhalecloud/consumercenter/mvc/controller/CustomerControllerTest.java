@@ -3,6 +3,7 @@ package com.iwhalecloud.consumercenter.mvc.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import tools.jackson.databind.ObjectMapper;
 import com.iwhalecloud.consumercenter.common.error.GlobalExceptionHandler;
+import com.iwhalecloud.consumercenter.config.AsyncConfig;
 import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerCreateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.customer.CustomerExportDTO;
@@ -51,7 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 客户控制器测试
  */
 @WebMvcTest(CustomerController.class)
-@Import(GlobalExceptionHandler.class)
+@Import({GlobalExceptionHandler.class, AsyncConfig.class})
 class CustomerControllerTest {
 
     @Autowired

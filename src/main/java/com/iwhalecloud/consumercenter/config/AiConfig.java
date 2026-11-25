@@ -1,14 +1,16 @@
 package com.iwhalecloud.consumercenter.config;
 
-import com.iwhalecloud.consumercenter.mvc.service.ai.memory.RedisChatMemoryRepository;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.chat.memory.MessageWindowChatMemory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ai.chat.client.advisor.api.Advisor;
+import org.springframework.ai.session.SessionService;
+import org.springframework.ai.session.advisor.SessionAdvisors;
+import org.springframework.ai.session.compaction.TurnCountTrigger;
+import org.springframework.ai.session.compaction.WindowCompactionStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -17,19 +19,16 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class AiConfig {
 
-    @Value("${ai.copilot.memory-max-messages:20}")
-    private int memoryMaxMessages;
-
     @Bean
     public ChatClient chatClient(ChatClient.Builder chatClientBuilder) {
         return chatClientBuilder.build();
     }
 
-    @Bean
-    public ChatMemory chatMemory(RedisChatMemoryRepository chatMemoryRepository) {
-        return MessageWindowChatMemory.builder()
-                .chatMemoryRepository(chatMemoryRepository)
-                .maxMessages(memoryMaxMessages)
+    @Bean("aiSessionAdvisors")
+    public List<Advisor> aiSessionAdvisors(SessionService sessionService) {
+        return SessionAdvisors.builder(sessionService)
+                .compaction(new TurnCountTrigger(20), WindowCompactionStrategy.builder().lastTurns(10).build())
+                .asyncCompaction(true)
                 .build();
     }
 

@@ -3,6 +3,7 @@ package com.iwhalecloud.consumercenter.mvc.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import tools.jackson.databind.ObjectMapper;
 import com.iwhalecloud.consumercenter.common.error.GlobalExceptionHandler;
+import com.iwhalecloud.consumercenter.config.AsyncConfig;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.CustomerStatisticsVO;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.customer.DrillDownVO;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerOverviewService;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 客户规模总览控制器测试
  */
 @WebMvcTest(CustomerOverviewController.class)
-@Import(GlobalExceptionHandler.class)
+@Import({GlobalExceptionHandler.class, AsyncConfig.class})
 class CustomerOverviewControllerTest {
 
     @Autowired

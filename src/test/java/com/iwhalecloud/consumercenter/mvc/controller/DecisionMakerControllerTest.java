@@ -3,6 +3,7 @@ package com.iwhalecloud.consumercenter.mvc.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import tools.jackson.databind.ObjectMapper;
 import com.iwhalecloud.consumercenter.common.error.GlobalExceptionHandler;
+import com.iwhalecloud.consumercenter.config.AsyncConfig;
 import com.iwhalecloud.consumercenter.common.result.PageResult;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.decision.DecisionChainCreateDTO;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.decision.DecisionChainUpdateDTO;
@@ -43,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 决策关键人控制器测试
  */
 @WebMvcTest(DecisionMakerController.class)
-@Import(GlobalExceptionHandler.class)
+@Import({GlobalExceptionHandler.class, AsyncConfig.class})
 class DecisionMakerControllerTest {
 
     @Autowired
