@@ -4,6 +4,7 @@ import com.iwhalecloud.consumercenter.common.result.Result;
 import com.iwhalecloud.consumercenter.mvc.pojo.dto.profile.*;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.profile.*;
 import com.iwhalecloud.consumercenter.mvc.pojo.vo.task.TaskVO;
+import com.iwhalecloud.consumercenter.mvc.service.AIInsightService;
 import com.iwhalecloud.consumercenter.mvc.service.CustomerProfileService;
 import com.iwhalecloud.consumercenter.mvc.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,6 +25,9 @@ public class CustomerProfileController {
 
     @Autowired
     private CustomerProfileService customerProfileService;
+
+    @Autowired
+    private AIInsightService aiInsightService;
 
     @Autowired
     private TaskService taskService;
@@ -150,12 +154,12 @@ public class CustomerProfileController {
     @Operation(summary = "AI生成行业客户洞察手册")
     @PostMapping("/{customerId}/ai-insight")
     public Result<AIInsightResultVO> generateAIInsight(@PathVariable Long customerId) {
-        return Result.success(customerProfileService.generateAIInsight(customerId));
+        return Result.success(aiInsightService.generateAIInsight(customerId));
     }
 
     @Operation(summary = "获取AI洞察结果")
     @GetMapping("/{customerId}/ai-insight/{taskId}")
     public Result<AIInsightResultVO> getAIInsightResult(@PathVariable Long customerId, @PathVariable String taskId) {
-        return Result.success(customerProfileService.getAIInsightResult(customerId, taskId));
+        return Result.success(aiInsightService.getAIInsightResult(customerId, taskId));
     }
 }

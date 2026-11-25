@@ -30,3 +30,4 @@ export const createTask = (customerId, data) => request.post(`/customer-profiles
 
 // AI 洞察
 export const generateAIInsight = (customerId) => request.post(`/customer-profiles/${customerId}/ai-insight`)
+export const getAIInsightResult = (customerId, taskId) => request.get(`/customer-profiles/${customerId}/ai-insight/${taskId}`)

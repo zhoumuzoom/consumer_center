@@ -24,7 +24,12 @@ public enum ErrorMessageEnum {
     AUTH_SSO_TOKEN_INVALID(4008, "SSO令牌无效"),
     AUTH_SSO_USER_NOT_FOUND(4009, "SSO用户未绑定"),
     AUTH_SSO_NOT_CONFIGURED(4010, "SSO未配置"),
-    AUTH_SSO_PROVIDER_UNAVAILABLE(4011, "SSO服务不可用");
+    AUTH_SSO_PROVIDER_UNAVAILABLE(4011, "SSO服务不可用"),
+
+    AI_INSIGHT_TASK_NOT_FOUND(4101, "洞察任务不存在或已过期"),
+    AI_INSIGHT_NOT_CONFIGURED(4102, "AI网关未配置"),
+    AI_INSIGHT_GENERATE_FAILED(4103, "AI洞察生成失败"),
+    AI_INSIGHT_BUSY(4104, "AI洞察任务繁忙，请稍后重试");
 
     private final int code;
 

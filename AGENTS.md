@@ -11,6 +11,13 @@
 - 数据库: MySQL 5.7.31
 - 前端: React 19
 
+## 前端页面修改（强制）
+- 【重要】凡是修改 `frontend/` 下的页面、布局、组件、样式、主题、图表，动手前必须先用 `skill` 工具加载 `frontend-design`、`design-taste-frontend`、`ui-ux-pro-max` 三个 skill，三个都要加载，缺一不可。
+- 顺序：先 `frontend-design` 定视觉方向与文案纪律，再 `design-taste-frontend` 守住反套路/真实内容/等边距/浏览器自检，最后用 `ui-ux-pro-max` 查样式/配色/字体/交互/可访问性规则，然后编码。
+- 本项目是 Ant Design 后台系统：`design-taste-frontend` 只取原则（真实数据、克制动效、布局校验），不套用它的 company-site 起始模板与单屏分节布局。
+- 样式遵循现有技术栈（React 19 + Umi Max 4 + Ant Design 6 + ProComponents + Tailwind CSS），复用已有设计令牌与组件，不擅自引入新的 UI 库。
+- 纯逻辑、接口、数据改动且无界面变化时可不加载，但需在回复中说明原因。
+
 ## 数据库实体生成
 - 【重要】不要手动生成任何数据库实体类和对应Mapper，请运行com.iwhalecloud.consumercenter.config.MyBatisCommentGenerator中的main方法，将TABLES数组的值改为需要生成的表名。
 

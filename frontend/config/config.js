@@ -4,6 +4,7 @@ export default defineConfig({
   antd: {},
   dva: false,
   hash: true,
+  esbuildMinifyIIFE: true,
   npmClient: 'npm',
   locale: { antd: true, default: 'zh-CN', baseNavigator: true },
   routes: [

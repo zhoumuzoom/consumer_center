@@ -37,7 +37,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "preset",
@@ -97,7 +97,7 @@
             1
           ]
         },
-        "register": 2
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -114,7 +114,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -127,7 +127,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -141,10 +141,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            14
+            42
           ]
         },
-        "register": 14
+        "register": 12
       },
       "enableBy": "register",
       "type": "plugin",
@@ -177,7 +177,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -191,10 +191,10 @@
       "time": {
         "hooks": {
           "onCheck": [
-            1
+            0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -224,7 +224,7 @@
             0
           ]
         },
-        "register": 5
+        "register": 4
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1076,7 +1076,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1090,10 +1090,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            0
+            1
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1106,7 +1106,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1119,7 +1119,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 61
+        "register": 50
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1132,7 +1132,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 25
+        "register": 18
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1162,7 +1162,7 @@
             1
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1175,7 +1175,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1202,10 +1202,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            1
+            0
           ]
         },
-        "register": 23
+        "register": 31
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/mock/mock.js",
@@ -1217,7 +1217,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 3
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1255,7 +1255,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 3
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1272,7 +1272,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 2
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/polyfill/polyfill.js",
@@ -1284,7 +1284,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 3
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1297,7 +1297,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 3
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1310,7 +1310,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1323,7 +1323,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1336,7 +1336,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1349,7 +1349,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 9
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1362,7 +1362,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 5
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1375,7 +1375,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 3
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/routeProps/routeProps.js",
@@ -1387,7 +1387,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 4
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1400,7 +1400,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 3
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1413,7 +1413,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 5
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1439,7 +1439,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1452,7 +1452,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 5
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/apiRoute/apiRoute.js",
@@ -1464,7 +1464,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 14
+        "register": 19
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1502,7 +1502,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 359
+        "register": 831
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1541,7 +1541,7 @@
       "time": {
         "hooks": {
           "addOnDemandDeps": [
-            0
+            1
           ]
         },
         "register": 0
@@ -1557,7 +1557,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 3
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/ui/ui.js",
@@ -1595,7 +1595,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/reactCompiler/reactCompiler.js",
@@ -1607,7 +1607,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/utoopack/utoopack.js",
@@ -1619,7 +1619,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian.js",
@@ -1631,7 +1631,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 17
+        "register": 19
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad.js",
@@ -1656,7 +1656,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1669,7 +1669,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 21
+        "register": 25
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1683,7 +1683,7 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            7
+            11
           ]
         },
         "register": 20
@@ -1698,7 +1698,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1711,7 +1711,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1724,7 +1724,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1737,7 +1737,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 2
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1750,7 +1750,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1763,7 +1763,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 6
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1776,7 +1776,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1815,7 +1815,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1828,7 +1828,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1854,7 +1854,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 2
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1880,7 +1880,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1893,7 +1893,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1932,7 +1932,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 4
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1945,7 +1945,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1958,7 +1958,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1986,7 +1986,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/plugins/dist/analytics.js",
@@ -2008,7 +2008,7 @@
             0
           ]
         },
-        "register": 6
+        "register": 16
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/plugins/dist/antd.js",
@@ -2020,7 +2020,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 6
+        "register": 9
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2033,7 +2033,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2048,7 +2048,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 4
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2061,7 +2061,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 11
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2087,7 +2087,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2100,7 +2100,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2113,7 +2113,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2138,7 +2138,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 3
       },
       "type": "plugin",
       "path": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/@umijs/plugins/dist/qiankun/slave.js",
@@ -2150,7 +2150,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2176,7 +2176,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2206,7 +2206,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2223,7 +2223,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2289,6 +2289,7 @@
     "antd": {},
     "dva": false,
     "hash": true,
+    "esbuildMinifyIIFE": true,
     "npmClient": "npm",
     "locale": {
       "antd": true,
@@ -2398,6 +2399,7 @@
     "antd": {},
     "dva": false,
     "hash": true,
+    "esbuildMinifyIIFE": true,
     "npmClient": "npm",
     "locale": {
       "antd": true,
@@ -3416,7 +3418,7 @@
       "file": "@/layouts/BasicLayout.jsx",
       "id": "3",
       "absPath": "/",
-      "__content": "import React, { useEffect, useMemo, useState } from 'react'\nimport { AppstoreOutlined, ApartmentOutlined, CloudUploadOutlined, DashboardOutlined, DeploymentUnitOutlined, MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons'\nimport { Avatar, Breadcrumb, Button, Dropdown, Layout, Space, theme } from 'antd'\nimport { ProLayout } from '@ant-design/pro-components'\nimport { Outlet, useLocation, useNavigate } from '@umijs/max'\nimport { useLocale } from '../locales'\nimport { useAuth } from '../hooks/useAuth'\nimport LangSwitcher from '../components/LangSwitcher'\n\nconst { Content } = Layout\n\nexport default function BasicLayout() {\n  const { token } = theme.useToken()\n  const { t } = useLocale()\n  const location = useLocation()\n  const navigate = useNavigate()\n  const auth = useAuth()\n  const [collapsed, setCollapsed] = useState(false)\n\n  useEffect(() => {\n    if (!auth.isLoggedIn) navigate(`/login?redirect=${encodeURIComponent(location.pathname)}`, { replace: true })\n    else if (!auth.userInfo) auth.fetchUserInfo().catch(() => null)\n  }, [auth.isLoggedIn, location.pathname])\n\n  const menuItems = useMemo(() => [\n    { path: '/dashboard', icon: <DashboardOutlined />, name: t('menu.dashboard') },\n    { path: '/customers', icon: <UserOutlined />, name: t('menu.customers') },\n    { path: '/customer-tree', icon: <ApartmentOutlined />, name: t('menu.customerTree') },\n    { path: '/industry-tree', icon: <AppstoreOutlined />, name: t('menu.industryTree') },\n    { path: '/decision-makers', icon: <TeamOutlined />, name: t('menu.decisionMakers') },\n    { path: '/decision-chains', icon: <DeploymentUnitOutlined />, name: t('menu.decisionChains') },\n    { path: '/group-report', icon: <CloudUploadOutlined />, name: t('menu.groupReport') }\n  ], [t])\n\n  if (!auth.isLoggedIn) return null\n  const title = menuItems.find((item) => location.pathname.startsWith(item.path))?.name || t('common.page')\n  return (\n    <ProLayout\n      title={t('app.name')}\n      logo={<div className=\"logo-icon\">C</div>}\n      collapsed={collapsed}\n      onCollapse={setCollapsed}\n      location={{ pathname: location.pathname }}\n      menu={{ request: async () => menuItems }}\n      menuItemRender={(item, dom) => <a onClick={() => navigate(item.path)}>{dom}</a>}\n      headerRender={() => (\n        <div className=\"app-header\">\n          <Space>\n            <Button type=\"text\" icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} onClick={() => setCollapsed(!collapsed)} />\n            <Breadcrumb items={[{ title: t('common.home'), onClick: () => navigate('/') }, { title }]} />\n          </Space>\n          <Space>\n            <LangSwitcher showLabel />\n            <Dropdown menu={{ items: [{ key: 'logout', icon: <LogoutOutlined />, label: t('common.logout') }], onClick: ({ key }) => key === 'logout' && auth.logout().then(() => navigate('/login')) }}>\n              <Button type=\"text\"><Avatar size=\"small\" icon={<UserOutlined />} /> {auth.displayName || t('common.currentUser')}</Button>\n            </Dropdown>\n          </Space>\n        </div>\n      )}\n      token={{ colorPrimary: token.colorPrimary }}\n    >\n      <Content className=\"app-content\"><Outlet /></Content>\n    </ProLayout>\n  )\n}\n",
+      "__content": "import React, { useEffect, useMemo, useState } from 'react'\nimport { AppstoreOutlined, ApartmentOutlined, CloudUploadOutlined, DashboardOutlined, DeploymentUnitOutlined, MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons'\nimport { Avatar, Breadcrumb, Button, Dropdown, Layout, Space, theme } from 'antd'\nimport { ProLayout } from '@ant-design/pro-components'\nimport { Outlet, useLocation, useNavigate } from '@umijs/max'\nimport { useLocale } from '../locales'\nimport { useAuth } from '../hooks/useAuth'\nimport LangSwitcher from '../components/LangSwitcher'\nimport AiAssistant from '../components/AiAssistant'\n\nconst { Content } = Layout\n\nexport default function BasicLayout() {\n  const { token } = theme.useToken()\n  const { t } = useLocale()\n  const location = useLocation()\n  const navigate = useNavigate()\n  const auth = useAuth()\n  const [collapsed, setCollapsed] = useState(false)\n\n  useEffect(() => {\n    if (!auth.isLoggedIn) navigate(`/login?redirect=${encodeURIComponent(location.pathname)}`, { replace: true })\n    else if (!auth.userInfo) auth.fetchUserInfo().catch(() => null)\n  }, [auth.isLoggedIn, location.pathname])\n\n  const menuItems = useMemo(() => [\n    { path: '/dashboard', icon: <DashboardOutlined />, name: t('menu.dashboard') },\n    { path: '/customers', icon: <UserOutlined />, name: t('menu.customers') },\n    { path: '/customer-tree', icon: <ApartmentOutlined />, name: t('menu.customerTree') },\n    { path: '/industry-tree', icon: <AppstoreOutlined />, name: t('menu.industryTree') },\n    { path: '/decision-makers', icon: <TeamOutlined />, name: t('menu.decisionMakers') },\n    { path: '/decision-chains', icon: <DeploymentUnitOutlined />, name: t('menu.decisionChains') },\n    { path: '/group-report', icon: <CloudUploadOutlined />, name: t('menu.groupReport') }\n  ], [t])\n\n  if (!auth.isLoggedIn) return null\n  const title = menuItems.find((item) => location.pathname.startsWith(item.path))?.name || t('common.page')\n  return (\n    <ProLayout\n      title={t('app.name')}\n      logo={<div className=\"logo-icon\">C</div>}\n      collapsed={collapsed}\n      onCollapse={setCollapsed}\n      location={{ pathname: location.pathname }}\n      menu={{ request: async () => menuItems }}\n      menuItemRender={(item, dom) => <a onClick={() => navigate(item.path)}>{dom}</a>}\n      headerRender={() => (\n        <div className=\"app-header\">\n          <Space>\n            <Button type=\"text\" icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} onClick={() => setCollapsed(!collapsed)} />\n            <Breadcrumb items={[{ title: t('common.home'), onClick: () => navigate('/') }, { title }]} />\n          </Space>\n          <Space>\n            <LangSwitcher showLabel />\n            <Dropdown menu={{ items: [{ key: 'logout', icon: <LogoutOutlined />, label: t('common.logout') }], onClick: ({ key }) => key === 'logout' && auth.logout().then(() => navigate('/login')) }}>\n              <Button type=\"text\"><Avatar size=\"small\" icon={<UserOutlined />} /> {auth.displayName || t('common.currentUser')}</Button>\n            </Dropdown>\n          </Space>\n        </div>\n      )}\n      token={{ colorPrimary: token.colorPrimary }}\n    >\n      <Content className=\"app-content\"><Outlet /></Content>\n      <AiAssistant />\n    </ProLayout>\n  )\n}\n",
       "__isJSFile": true,
       "__absFile": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/src/layouts/BasicLayout.jsx"
     },
@@ -3443,7 +3445,7 @@
       "parentId": "3",
       "id": "6",
       "absPath": "/customers",
-      "__content": "import React, { useRef, useState } from 'react'\nimport { Button, Form, Input, Modal, Select, Space, Tag, message } from 'antd'\nimport { ProTable } from '@ant-design/pro-components'\nimport { useNavigate } from '@umijs/max'\nimport PageHeader from '../../components/PageHeader'\nimport { useLocale } from '../../locales'\nimport { createCustomer, deleteCustomer, getCustomerList, updateCustomer } from '../../api/customer'\n\nconst EMPTY = { customerName: '', customerNameEn: '', industry: '', region: '', scale: '', contactPerson: '', contactPhone: '', remark: '' }\nexport default function CustomerList() {\n  const { t } = useLocale(); const actionRef = useRef(); const navigate = useNavigate(); const [modal, setModal] = useState(false); const [editing, setEditing] = useState(null); const [form] = Form.useForm()\n  const columns = [\n    { title: t('customer.keyword'), dataIndex: 'keyword', hideInTable: true, fieldProps: { placeholder: t('customer.keywordPlaceholder') } },\n    { title: t('customer.code'), dataIndex: 'customerCode', width: 180, search: false },\n    { title: t('common.customerName'), dataIndex: 'customerName', width: 200, render: (_, row) => <a onClick={() => navigate(`/customers/${row.id}`)}>{row.customerName}</a> },\n    { title: t('common.industry'), dataIndex: 'industry' }, { title: t('common.region'), dataIndex: 'region' }, { title: t('common.scale'), dataIndex: 'scale' },\n    { title: t('common.status'), dataIndex: 'status', valueType: 'select', valueEnum: { 0: { text: t('customer.statusUnmanaged') }, 1: { text: t('customer.statusManaged') }, 2: { text: t('customer.statusRemoved') } }, render: (_, row) => <Tag color={row.status === 1 ? 'success' : row.status === 2 ? 'error' : 'default'}>{row.statusDesc}</Tag> },\n    { title: t('customer.managerName'), dataIndex: 'managerName', search: false },\n    { title: t('common.action'), valueType: 'option', render: (_, row) => <Space><Button size=\"small\" onClick={() => window.open(`/customers/${row.id}`, '_blank')}>{t('common.detail')}</Button><Button size=\"small\" type=\"primary\" onClick={() => openEdit(row)}>{t('common.edit')}</Button><Button size=\"small\" danger onClick={() => confirmDelete(row)}>{t('common.delete')}</Button></Space> }\n  ]\n  const openEdit = (row) => { setEditing(row); form.setFieldsValue(row); setModal(true) }\n  const openCreate = () => { setEditing(null); form.setFieldsValue(EMPTY); setModal(true) }\n  const confirmDelete = (row) => Modal.confirm({ title: t('customer.deleteConfirm'), okText: t('common.confirm'), cancelText: t('common.cancel'), onOk: async () => { await deleteCustomer(row.id); message.success(t('common.deleteSuccess')); actionRef.current?.reload() } })\n  const save = async () => { const values = await form.validateFields(); if (editing) { await updateCustomer(editing.id, values); message.success(t('common.updateSuccess')) } else { await createCustomer(values); message.success(t('common.addSuccess')) } setModal(false); actionRef.current?.reload() }\n  return <><PageHeader eyebrow=\"CUSTOMER\" title={t('menu.customers')} actions={<Button type=\"primary\" onClick={openCreate}>{t('customer.add')}</Button>} />\n    <ProTable rowKey=\"id\" actionRef={actionRef} columns={columns} scroll={{ x: 1200 }} search={{ labelWidth: 'auto' }} request={async (params) => { const res = await getCustomerList({ ...params, page: params.current, size: params.pageSize }); return { data: res.data?.records || [], total: res.data?.total || 0, success: true } }} pagination={{ showSizeChanger: true }} />\n    <Modal open={modal} title={editing ? t('customer.editTitle') : t('customer.addTitle')} onCancel={() => setModal(false)} onOk={save}><Form form={form} layout=\"vertical\"><Form.Item name=\"customerName\" label={t('common.customerName')} rules={[{ required: true }]}><Input /></Form.Item><Form.Item name=\"customerNameEn\" label={t('customer.nameEn')}><Input /></Form.Item><Form.Item name=\"industry\" label={t('common.industry')}><Input /></Form.Item><Form.Item name=\"region\" label={t('common.region')}><Input /></Form.Item><Form.Item name=\"scale\" label={t('common.scale')}><Select options={[['大型', 'scaleLarge'], ['中型', 'scaleMedium'], ['小型', 'scaleSmall']].map(([value, key]) => ({ value, label: t(`customer.${key}`) }))} /></Form.Item><Form.Item name=\"contactPerson\" label={t('customer.contactPerson')}><Input /></Form.Item><Form.Item name=\"contactPhone\" label={t('customer.contactPhone')}><Input /></Form.Item><Form.Item name=\"remark\" label={t('common.remark')}><Input.TextArea rows={3} /></Form.Item></Form></Modal>\n  </>\n}\n",
+      "__content": "import React, { useRef, useState } from 'react'\nimport { DownloadOutlined } from '@ant-design/icons'\nimport { Button, Form, Input, Modal, Select, Space, Tag, message } from 'antd'\nimport { ProTable } from '@ant-design/pro-components'\nimport { useNavigate } from '@umijs/max'\nimport dayjs from 'dayjs'\nimport PageHeader from '../../components/PageHeader'\nimport { useLocale } from '../../locales'\nimport { createCustomer, deleteCustomer, exportCustomers, getCustomerList, updateCustomer } from '../../api/customer'\nimport { downloadBlob } from '../../utils/download'\n\nconst EMPTY = { customerName: '', customerNameEn: '', industry: '', region: '', scale: '', contactPerson: '', contactPhone: '', remark: '' }\nexport default function CustomerList() {\n  const { t, locale } = useLocale(); const actionRef = useRef(); const navigate = useNavigate(); const [modal, setModal] = useState(false); const [editing, setEditing] = useState(null); const [exporting, setExporting] = useState(false); const [form] = Form.useForm(); const exportFiltersRef = useRef({})\n  const columns = [\n    { title: t('customer.keyword'), dataIndex: 'keyword', hideInTable: true, fieldProps: { placeholder: t('customer.keywordPlaceholder') } },\n    { title: t('customer.code'), dataIndex: 'customerCode', width: 180, search: false },\n    { title: t('common.customerName'), dataIndex: 'customerName', width: 200, render: (_, row) => <a onClick={() => navigate(`/customers/${row.id}`)}>{row.customerName}</a> },\n    { title: t('common.industry'), dataIndex: 'industry' }, { title: t('common.region'), dataIndex: 'region' }, { title: t('common.scale'), dataIndex: 'scale' },\n    { title: t('common.status'), dataIndex: 'status', valueType: 'select', valueEnum: { 0: { text: t('customer.statusUnmanaged') }, 1: { text: t('customer.statusManaged') }, 2: { text: t('customer.statusRemoved') } }, render: (_, row) => <Tag color={row.status === 1 ? 'success' : row.status === 2 ? 'error' : 'default'}>{row.statusDesc}</Tag> },\n    { title: t('customer.managerName'), dataIndex: 'managerName', search: false },\n    { title: t('common.action'), valueType: 'option', render: (_, row) => <Space><Button size=\"small\" onClick={() => window.open(`/customers/${row.id}`, '_blank')}>{t('common.detail')}</Button><Button size=\"small\" type=\"primary\" onClick={() => openEdit(row)}>{t('common.edit')}</Button><Button size=\"small\" danger onClick={() => confirmDelete(row)}>{t('common.delete')}</Button></Space> }\n  ]\n  const openEdit = (row) => { setEditing(row); form.setFieldsValue(row); setModal(true) }\n  const openCreate = () => { setEditing(null); form.setFieldsValue(EMPTY); setModal(true) }\n  const confirmDelete = (row) => Modal.confirm({ title: t('customer.deleteConfirm'), okText: t('common.confirm'), cancelText: t('common.cancel'), onOk: async () => { await deleteCustomer(row.id); message.success(t('common.deleteSuccess')); actionRef.current?.reload() } })\n  const save = async () => { const values = await form.validateFields(); if (editing) { await updateCustomer(editing.id, values); message.success(t('common.updateSuccess')) } else { await createCustomer(values); message.success(t('common.addSuccess')) } setModal(false); actionRef.current?.reload() }\n  // 调用后端接口导出当前筛选条件下的全部客户为 XLSX\n  const handleExport = async () => {\n    if (exporting) return\n    setExporting(true)\n    try {\n      const res = await exportCustomers({ ...exportFiltersRef.current, lang: locale })\n      if (res.status === 204 || !res.data || res.data.size === 0) { message.info(t('customer.exportEmpty')); return }\n      downloadBlob(res.data, `${t('customer.exportFileName')}_${dayjs().format('YYYYMMDD_HHmmss')}.xlsx`)\n      const count = Number(res.headers['x-export-count'])\n      if (Number.isFinite(count)) {\n        message.success(t('customer.exportSuccess', { count }))\n      } else {\n        message.success(t('customer.exportSuccessGeneric'))\n      }\n    } catch {\n      message.error(t('customer.exportFail'))\n    } finally {\n      setExporting(false)\n    }\n  }\n  return <><PageHeader eyebrow=\"CUSTOMER\" title={t('menu.customers')} actions={<><Button icon={<DownloadOutlined />} loading={exporting} onClick={handleExport}>{exporting ? t('customer.exporting') : t('customer.export')}</Button><Button type=\"primary\" onClick={openCreate}>{t('customer.add')}</Button></>} />\n    <ProTable rowKey=\"id\" actionRef={actionRef} columns={columns} scroll={{ x: 1200 }} search={{ labelWidth: 'auto' }} request={async (params) => { const { current, pageSize, ...filters } = params; exportFiltersRef.current = filters; const res = await getCustomerList({ ...params, page: current, size: pageSize }); return { data: res.data?.records || [], total: res.data?.total || 0, success: true } }} pagination={{ showSizeChanger: true }} />\n    <Modal open={modal} title={editing ? t('customer.editTitle') : t('customer.addTitle')} onCancel={() => setModal(false)} onOk={save}><Form form={form} layout=\"vertical\"><Form.Item name=\"customerName\" label={t('common.customerName')} rules={[{ required: true }]}><Input /></Form.Item><Form.Item name=\"customerNameEn\" label={t('customer.nameEn')}><Input /></Form.Item><Form.Item name=\"industry\" label={t('common.industry')}><Input /></Form.Item><Form.Item name=\"region\" label={t('common.region')}><Input /></Form.Item><Form.Item name=\"scale\" label={t('common.scale')}><Select options={[['大型', 'scaleLarge'], ['中型', 'scaleMedium'], ['小型', 'scaleSmall']].map(([value, key]) => ({ value, label: t(`customer.${key}`) }))} /></Form.Item><Form.Item name=\"contactPerson\" label={t('customer.contactPerson')}><Input /></Form.Item><Form.Item name=\"contactPhone\" label={t('customer.contactPhone')}><Input /></Form.Item><Form.Item name=\"remark\" label={t('common.remark')}><Input.TextArea rows={3} /></Form.Item></Form></Modal>\n  </>\n}\n",
       "__isJSFile": true,
       "__absFile": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/src/pages/customer/CustomerList.jsx"
     },
@@ -3503,7 +3505,7 @@
       "parentId": "3",
       "id": "12",
       "absPath": "/profile/:id",
-      "__content": "import React, { useEffect, useState } from 'react'\nimport { Button, Card, Descriptions, Empty, Form, Input, InputNumber, Modal, Select, Spin, Statistic, Table, Tabs, Tag, Timeline, message } from 'antd'\nimport { useParams } from '@umijs/max'\nimport PageHeader from '../../components/PageHeader'\nimport { useLocale } from '../../locales'\nimport { createOrder, createPolicy, createProduct, createTask, deleteOrder, deletePolicy, deleteProduct, generateAIInsight, getProfile } from '../../api/customerProfile'\n\nconst field = (name, label, node = <Input />) => <Form.Item key={name} name={name} label={label}>{node}</Form.Item>\nexport default function ProfileDashboard() {\n  const { id } = useParams(); const { t } = useLocale(); const [profile, setProfile] = useState(null); const [loading, setLoading] = useState(true); const [modal, setModal] = useState(null); const [insight, setInsight] = useState(null); const [generating, setGenerating] = useState(false); const [form] = Form.useForm(); const [taskForm] = Form.useForm()\n  const load = () => { setLoading(true); return getProfile(id).then((res) => setProfile(res.data)).finally(() => setLoading(false)) }; useEffect(() => { load() }, [id])\n  const openModal = (type) => { form.resetFields(); setModal(type) }\n  const saveModal = async () => { const values = await form.validateFields(); const actions = { policy: createPolicy, order: createOrder, product: createProduct }; await actions[modal](id, values); message.success(t('common.saveSuccess')); setModal(null); load() }\n  const remove = (type, row) => Modal.confirm({ title: t('common.deleteConfirm'), onOk: async () => { await ({ policy: deletePolicy, order: deleteOrder, product: deleteProduct }[type])(id, row.id); message.success(t('common.deleteSuccess')); load() } })\n  const createNewTask = async () => { const values = await taskForm.validateFields(); await createTask(id, values); taskForm.resetFields(); message.success(t('profile.taskCreated')) }\n  const generate = async () => { setGenerating(true); try { const res = await generateAIInsight(id); setInsight(res.data); message.success(t('profile.insightGenerated')) } finally { setGenerating(false) } }\n  const policyColumns = [{ title: t('profile.policyTitle'), dataIndex: 'policyTitle' }, { title: t('common.type'), dataIndex: 'policyType' }, { title: t('profile.policyLevel'), dataIndex: 'policyLevel' }, { title: t('profile.issuingAuthority'), dataIndex: 'issuingAuthority' }, { title: t('common.status'), dataIndex: 'status', render: (v) => <Tag color={v === '有效' ? 'success' : 'default'}>{v}</Tag> }, { title: t('common.action'), render: (_, row) => <Button type=\"link\" danger onClick={() => remove('policy', row)}>{t('common.delete')}</Button> }]\n  const orderColumns = [{ title: t('common.projectName'), dataIndex: 'projectName' }, { title: t('common.type'), dataIndex: 'projectType' }, { title: t('profile.amount'), dataIndex: 'orderAmount' }, { title: t('common.status'), dataIndex: 'orderStatus' }, { title: t('common.action'), render: (_, row) => <Button type=\"link\" danger onClick={() => remove('order', row)}>{t('common.delete')}</Button> }]\n  const productColumns = [{ title: t('common.name'), dataIndex: 'productName' }, { title: t('common.type'), dataIndex: 'productType' }, { title: t('profile.category'), dataIndex: 'category' }, { title: t('common.status'), dataIndex: 'usageStatus' }, { title: t('profile.annualFee'), dataIndex: 'annualFee' }, { title: t('common.action'), render: (_, row) => <Button type=\"link\" danger onClick={() => remove('product', row)}>{t('common.delete')}</Button> }]\n  if (!profile && loading) return <Spin spinning fullscreen />\n  const basic = profile?.basicInfo || {}; const business = profile?.businessInfo || {}; const management = profile?.managementInfo || {}\n  return <Spin spinning={loading}><PageHeader back eyebrow=\"PROFILE\" title={t('profile.title')} /><Card title={`${t('profile.basicInfo')} - ${basic.customerName}`} style={{ marginBottom: 20 }}><Descriptions column={{ xs: 1, sm: 2, md: 3 }}><Descriptions.Item label={t('customer.code')}>{basic.customerCode}</Descriptions.Item><Descriptions.Item label={t('common.customerName')}>{basic.customerName}</Descriptions.Item><Descriptions.Item label={t('customer.nameEn')}>{basic.customerNameEn}</Descriptions.Item><Descriptions.Item label={t('common.industry')}>{basic.industry}</Descriptions.Item><Descriptions.Item label={t('common.region')}>{basic.region}</Descriptions.Item><Descriptions.Item label={t('common.scale')}>{basic.scale}</Descriptions.Item><Descriptions.Item label={t('common.status')}>{management.statusDesc}</Descriptions.Item><Descriptions.Item label={t('customer.managerName')}>{management.managerName}</Descriptions.Item><Descriptions.Item label={t('profile.joinTime')}>{management.joinTime}</Descriptions.Item></Descriptions></Card><Card title={t('profile.businessOverview')} style={{ marginBottom: 20 }}><div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 16 }}>{[['bidCount', 'bidCount'], ['bidAmount', 'bidAmount'], ['itBidCount', 'itBidCount'], ['orderCount', 'orderCount'], ['revenueContribution', 'revenueContribution'], ['productCount', 'productCount']].map(([key, label]) => <Statistic key={key} title={t(`profile.${label}`)} value={business[key] || 0} />)}</div></Card><Card><Tabs items={[{ key: 'branches', label: t('profile.tabBranches'), children: profile.branches?.length ? <Table rowKey=\"id\" dataSource={profile.branches} pagination={false} columns={[{ title: t('customerTree.nodeName'), dataIndex: 'branchName' }, { title: t('customerTree.nodeType'), dataIndex: 'branchType' }, { title: t('common.region'), dataIndex: 'region' }]} /> : <Empty description={t('profile.noBranches')} /> }, { key: 'policies', label: t('profile.tabPolicies'), children: <><Button type=\"primary\" onClick={() => openModal('policy')} style={{ marginBottom: 12 }}>{t('profile.addPolicy')}</Button><Table rowKey=\"id\" dataSource={profile.policies || []} columns={policyColumns} pagination={false} /></> }, { key: 'orders', label: t('profile.tabOrders'), children: <><Button type=\"primary\" onClick={() => openModal('order')} style={{ marginBottom: 12 }}>{t('profile.addOrder')}</Button><Table rowKey=\"id\" dataSource={profile.orders || []} columns={orderColumns} pagination={false} /></> }, { key: 'products', label: t('profile.tabProducts'), children: <><Button type=\"primary\" onClick={() => openModal('product')} style={{ marginBottom: 12 }}>{t('profile.addProduct')}</Button><Table rowKey=\"id\" dataSource={profile.products || []} columns={productColumns} pagination={false} /></> }, { key: 'decisions', label: t('profile.tabDecisions'), children: profile.decisionChains?.length ? <Table rowKey=\"id\" dataSource={profile.decisionChains} pagination={false} columns={[{ title: t('common.projectName'), dataIndex: 'projectName' }, { title: t('decisionChain.decisionMakerName'), dataIndex: 'decisionMakerName' }, { title: t('common.position'), dataIndex: 'decisionMakerPosition' }, { title: t('decisionChain.decisionStage'), dataIndex: 'decisionStage' }, { title: t('decisionChain.influenceLevel'), dataIndex: 'influenceLevel' }]} /> : <Empty description={t('profile.noDecisionChains')} /> }, { key: 'interactions', label: t('profile.tabInteractions'), children: profile.interactionRecords?.length ? <Timeline items={profile.interactionRecords.map((record) => ({ children: <Card size=\"small\"><Tag>{record.type}</Tag> <span>{record.time}</span><p>{record.content}</p></Card> }))} /> : <Empty description={t('profile.noInteractions')} /> }, { key: 'tasks', label: t('profile.tabTasks'), children: <Form form={taskForm} layout=\"inline\"><Form.Item name=\"taskName\" label={t('profile.taskName')} rules={[{ required: true, message: t('profile.taskNameRequired') }]}><Input placeholder={t('profile.taskNamePlaceholder')} /></Form.Item><Form.Item name=\"taskType\" label={t('profile.taskType')} initialValue=\"营销\"><Select options={[{ value: '营销', label: t('profile.taskTypeMarketing') }, { value: '运营', label: t('profile.taskTypeOperation') }]} /></Form.Item><Form.Item name=\"assigneeName\" label={t('profile.assignee')}><Input /></Form.Item><Button type=\"primary\" onClick={createNewTask}>{t('profile.createTask')}</Button></Form> }, { key: 'ai', label: t('profile.tabAI'), children: <><Button type=\"primary\" loading={generating} onClick={generate}>{t('profile.generateInsight')}</Button>{insight ? <div style={{ marginTop: 16 }}>{['industryOverview', 'customerAnalysis', 'competitiveLandscape', 'opportunitiesAndSuggestions', 'riskAlerts'].map((key) => <Card size=\"small\" title={t(`profile.${key === 'opportunitiesAndSuggestions' ? 'opportunities' : key}`)} style={{ marginBottom: 8 }} key={key}>{insight[key]}</Card>)}</div> : <Empty description={t('profile.aiTip')} />}</> }]} /></Card><Modal open={Boolean(modal)} title={modal === 'policy' ? t('profile.policyDialogTitle') : modal === 'order' ? t('profile.orderDialogTitle') : t('profile.productDialogTitle')} onCancel={() => setModal(null)} onOk={saveModal}><Form form={form} layout=\"vertical\">{modal === 'policy' && <>{field('policyTitle', t('profile.policyTitle'))}{field('policyType', t('profile.policyType'), <Select options={['产业', '财税', '贸易', '金融', '其他'].map((value) => ({ value, label: value }))} />)}{field('policyLevel', t('profile.policyLevel'), <Select options={['国家', '省级', '市级', '行业'].map((value) => ({ value, label: value }))} />)}{field('issuingAuthority', t('profile.issuingAuthority'))}{field('policySummary', t('profile.policySummary'), <Input.TextArea rows={3} />)}{field('impactAnalysis', t('profile.impactAnalysis'), <Input.TextArea rows={2} />)}</>}{modal === 'order' && <>{field('projectName', t('common.projectName'))}{field('projectType', t('profile.projectType'), <Select options={['信息化', '基建', '咨询', '运维', '其他'].map((value) => ({ value, label: value }))} />)}{field('orderAmount', t('profile.orderAmount'), <InputNumber min={0} style={{ width: '100%' }} />)}{field('orderStatus', t('profile.orderStatus'), <Select options={['洽谈中', '已签约', '执行中', '已交付', '已验收', '已终止'].map((value) => ({ value, label: value }))} />)}{field('description', t('common.description'), <Input.TextArea rows={3} />)}</>}{modal === 'product' && <>{field('productName', t('common.name'))}{field('productType', t('profile.productType'), <Select options={['产品', '解决方案'].map((value) => ({ value, label: value }))} />)}{field('category', t('profile.category'), <Input />)}{field('usageStatus', t('profile.usageStatus'), <Select options={['使用中', '已停用', '评估中'].map((value) => ({ value, label: value }))} />)}{field('annualFee', t('profile.annualFee'), <InputNumber min={0} style={{ width: '100%' }} />)}{field('description', t('common.description'), <Input.TextArea rows={2} />)}</>}</Form></Modal></Spin>\n}\n",
+      "__content": "import React, { useEffect, useState } from 'react'\nimport { Button, Card, Descriptions, Empty, Form, Input, InputNumber, Modal, Select, Spin, Statistic, Table, Tabs, Tag, Timeline, message } from 'antd'\nimport { useParams } from '@umijs/max'\nimport PageHeader from '../../components/PageHeader'\nimport { useLocale } from '../../locales'\nimport { createOrder, createPolicy, createProduct, createTask, deleteOrder, deletePolicy, deleteProduct, generateAIInsight, getAIInsightResult, getProfile } from '../../api/customerProfile'\n\nconst field = (name, label, node = <Input />) => <Form.Item key={name} name={name} label={label}>{node}</Form.Item>\nexport default function ProfileDashboard() {\n  const { id } = useParams(); const { t } = useLocale(); const [profile, setProfile] = useState(null); const [loading, setLoading] = useState(true); const [modal, setModal] = useState(null); const [insight, setInsight] = useState(null); const [generating, setGenerating] = useState(false); const [form] = Form.useForm(); const [taskForm] = Form.useForm()\n  const load = () => { setLoading(true); return getProfile(id).then((res) => setProfile(res.data)).finally(() => setLoading(false)) }; useEffect(() => { load() }, [id])\n  const openModal = (type) => { form.resetFields(); setModal(type) }\n  const saveModal = async () => { const values = await form.validateFields(); const actions = { policy: createPolicy, order: createOrder, product: createProduct }; await actions[modal](id, values); message.success(t('common.saveSuccess')); setModal(null); load() }\n  const remove = (type, row) => Modal.confirm({ title: t('common.deleteConfirm'), onOk: async () => { await ({ policy: deletePolicy, order: deleteOrder, product: deleteProduct }[type])(id, row.id); message.success(t('common.deleteSuccess')); load() } })\n  const createNewTask = async () => { const values = await taskForm.validateFields(); await createTask(id, values); taskForm.resetFields(); message.success(t('profile.taskCreated')) }\n  const generate = async () => {\n    setGenerating(true)\n    try {\n      const res = await generateAIInsight(id)\n      let current = res.data\n      if (current?.status === 'generating') {\n        const taskId = current.taskId\n        const deadline = Date.now() + 120000\n        while (Date.now() < deadline) {\n          await new Promise((resolve) => setTimeout(resolve, 3000))\n          const poll = await getAIInsightResult(id, taskId)\n          current = poll.data\n          if (current?.status === 'completed') break\n          if (current?.status === 'failed') {\n            message.error(current.errorMessage || t('profile.insightFailed'))\n            return\n          }\n        }\n        if (current?.status !== 'completed') {\n          message.error(t('profile.insightTimeout'))\n          return\n        }\n      }\n      if (current?.status === 'completed') {\n        setInsight(current)\n        message.success(t('profile.insightGenerated'))\n      }\n    } finally {\n      setGenerating(false)\n    }\n  }\n  const policyColumns = [{ title: t('profile.policyTitle'), dataIndex: 'policyTitle' }, { title: t('common.type'), dataIndex: 'policyType' }, { title: t('profile.policyLevel'), dataIndex: 'policyLevel' }, { title: t('profile.issuingAuthority'), dataIndex: 'issuingAuthority' }, { title: t('common.status'), dataIndex: 'status', render: (v) => <Tag color={v === '有效' ? 'success' : 'default'}>{v}</Tag> }, { title: t('common.action'), render: (_, row) => <Button type=\"link\" danger onClick={() => remove('policy', row)}>{t('common.delete')}</Button> }]\n  const orderColumns = [{ title: t('common.projectName'), dataIndex: 'projectName' }, { title: t('common.type'), dataIndex: 'projectType' }, { title: t('profile.amount'), dataIndex: 'orderAmount' }, { title: t('common.status'), dataIndex: 'orderStatus' }, { title: t('common.action'), render: (_, row) => <Button type=\"link\" danger onClick={() => remove('order', row)}>{t('common.delete')}</Button> }]\n  const productColumns = [{ title: t('common.name'), dataIndex: 'productName' }, { title: t('common.type'), dataIndex: 'productType' }, { title: t('profile.category'), dataIndex: 'category' }, { title: t('common.status'), dataIndex: 'usageStatus' }, { title: t('profile.annualFee'), dataIndex: 'annualFee' }, { title: t('common.action'), render: (_, row) => <Button type=\"link\" danger onClick={() => remove('product', row)}>{t('common.delete')}</Button> }]\n  if (!profile && loading) return <Spin spinning fullscreen />\n  const basic = profile?.basicInfo || {}; const business = profile?.businessInfo || {}; const management = profile?.managementInfo || {}\n  return <Spin spinning={loading}><PageHeader back eyebrow=\"PROFILE\" title={t('profile.title')} /><Card title={`${t('profile.basicInfo')} - ${basic.customerName}`} style={{ marginBottom: 20 }}><Descriptions column={{ xs: 1, sm: 2, md: 3 }}><Descriptions.Item label={t('customer.code')}>{basic.customerCode}</Descriptions.Item><Descriptions.Item label={t('common.customerName')}>{basic.customerName}</Descriptions.Item><Descriptions.Item label={t('customer.nameEn')}>{basic.customerNameEn}</Descriptions.Item><Descriptions.Item label={t('common.industry')}>{basic.industry}</Descriptions.Item><Descriptions.Item label={t('common.region')}>{basic.region}</Descriptions.Item><Descriptions.Item label={t('common.scale')}>{basic.scale}</Descriptions.Item><Descriptions.Item label={t('common.status')}>{management.statusDesc}</Descriptions.Item><Descriptions.Item label={t('customer.managerName')}>{management.managerName}</Descriptions.Item><Descriptions.Item label={t('profile.joinTime')}>{management.joinTime}</Descriptions.Item></Descriptions></Card><Card title={t('profile.businessOverview')} style={{ marginBottom: 20 }}><div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 16 }}>{[['bidCount', 'bidCount'], ['bidAmount', 'bidAmount'], ['itBidCount', 'itBidCount'], ['orderCount', 'orderCount'], ['revenueContribution', 'revenueContribution'], ['productCount', 'productCount']].map(([key, label]) => <Statistic key={key} title={t(`profile.${label}`)} value={business[key] || 0} />)}</div></Card><Card><Tabs items={[{ key: 'branches', label: t('profile.tabBranches'), children: profile.branches?.length ? <Table rowKey=\"id\" dataSource={profile.branches} pagination={false} columns={[{ title: t('customerTree.nodeName'), dataIndex: 'branchName' }, { title: t('customerTree.nodeType'), dataIndex: 'branchType' }, { title: t('common.region'), dataIndex: 'region' }]} /> : <Empty description={t('profile.noBranches')} /> }, { key: 'policies', label: t('profile.tabPolicies'), children: <><Button type=\"primary\" onClick={() => openModal('policy')} style={{ marginBottom: 12 }}>{t('profile.addPolicy')}</Button><Table rowKey=\"id\" dataSource={profile.policies || []} columns={policyColumns} pagination={false} /></> }, { key: 'orders', label: t('profile.tabOrders'), children: <><Button type=\"primary\" onClick={() => openModal('order')} style={{ marginBottom: 12 }}>{t('profile.addOrder')}</Button><Table rowKey=\"id\" dataSource={profile.orders || []} columns={orderColumns} pagination={false} /></> }, { key: 'products', label: t('profile.tabProducts'), children: <><Button type=\"primary\" onClick={() => openModal('product')} style={{ marginBottom: 12 }}>{t('profile.addProduct')}</Button><Table rowKey=\"id\" dataSource={profile.products || []} columns={productColumns} pagination={false} /></> }, { key: 'decisions', label: t('profile.tabDecisions'), children: profile.decisionChains?.length ? <Table rowKey=\"id\" dataSource={profile.decisionChains} pagination={false} columns={[{ title: t('common.projectName'), dataIndex: 'projectName' }, { title: t('decisionChain.decisionMakerName'), dataIndex: 'decisionMakerName' }, { title: t('common.position'), dataIndex: 'decisionMakerPosition' }, { title: t('decisionChain.decisionStage'), dataIndex: 'decisionStage' }, { title: t('decisionChain.influenceLevel'), dataIndex: 'influenceLevel' }]} /> : <Empty description={t('profile.noDecisionChains')} /> }, { key: 'interactions', label: t('profile.tabInteractions'), children: profile.interactionRecords?.length ? <Timeline items={profile.interactionRecords.map((record) => ({ children: <Card size=\"small\"><Tag>{record.type}</Tag> <span>{record.time}</span><p>{record.content}</p></Card> }))} /> : <Empty description={t('profile.noInteractions')} /> }, { key: 'tasks', label: t('profile.tabTasks'), children: <Form form={taskForm} layout=\"inline\"><Form.Item name=\"taskName\" label={t('profile.taskName')} rules={[{ required: true, message: t('profile.taskNameRequired') }]}><Input placeholder={t('profile.taskNamePlaceholder')} /></Form.Item><Form.Item name=\"taskType\" label={t('profile.taskType')} initialValue=\"营销\"><Select options={[{ value: '营销', label: t('profile.taskTypeMarketing') }, { value: '运营', label: t('profile.taskTypeOperation') }]} /></Form.Item><Form.Item name=\"assigneeName\" label={t('profile.assignee')}><Input /></Form.Item><Button type=\"primary\" onClick={createNewTask}>{t('profile.createTask')}</Button></Form> }, { key: 'ai', label: t('profile.tabAI'), children: <><Button type=\"primary\" loading={generating} onClick={generate}>{t('profile.generateInsight')}</Button>{insight ? <div style={{ marginTop: 16 }}>{['industryOverview', 'customerAnalysis', 'competitiveLandscape', 'opportunitiesAndSuggestions', 'riskAlerts'].map((key) => <Card size=\"small\" title={t(`profile.${key === 'opportunitiesAndSuggestions' ? 'opportunities' : key}`)} style={{ marginBottom: 8 }} key={key}>{insight[key]}</Card>)}</div> : <Empty description={t('profile.aiTip')} />}</> }]} /></Card><Modal open={Boolean(modal)} title={modal === 'policy' ? t('profile.policyDialogTitle') : modal === 'order' ? t('profile.orderDialogTitle') : t('profile.productDialogTitle')} onCancel={() => setModal(null)} onOk={saveModal}><Form form={form} layout=\"vertical\">{modal === 'policy' && <>{field('policyTitle', t('profile.policyTitle'))}{field('policyType', t('profile.policyType'), <Select options={['产业', '财税', '贸易', '金融', '其他'].map((value) => ({ value, label: value }))} />)}{field('policyLevel', t('profile.policyLevel'), <Select options={['国家', '省级', '市级', '行业'].map((value) => ({ value, label: value }))} />)}{field('issuingAuthority', t('profile.issuingAuthority'))}{field('policySummary', t('profile.policySummary'), <Input.TextArea rows={3} />)}{field('impactAnalysis', t('profile.impactAnalysis'), <Input.TextArea rows={2} />)}</>}{modal === 'order' && <>{field('projectName', t('common.projectName'))}{field('projectType', t('profile.projectType'), <Select options={['信息化', '基建', '咨询', '运维', '其他'].map((value) => ({ value, label: value }))} />)}{field('orderAmount', t('profile.orderAmount'), <InputNumber min={0} style={{ width: '100%' }} />)}{field('orderStatus', t('profile.orderStatus'), <Select options={['洽谈中', '已签约', '执行中', '已交付', '已验收', '已终止'].map((value) => ({ value, label: value }))} />)}{field('description', t('common.description'), <Input.TextArea rows={3} />)}</>}{modal === 'product' && <>{field('productName', t('common.name'))}{field('productType', t('profile.productType'), <Select options={['产品', '解决方案'].map((value) => ({ value, label: value }))} />)}{field('category', t('profile.category'), <Input />)}{field('usageStatus', t('profile.usageStatus'), <Select options={['使用中', '已停用', '评估中'].map((value) => ({ value, label: value }))} />)}{field('annualFee', t('profile.annualFee'), <InputNumber min={0} style={{ width: '100%' }} />)}{field('description', t('common.description'), <Input.TextArea rows={2} />)}</>}</Form></Modal></Spin>\n}\n",
       "__isJSFile": true,
       "__absFile": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/src/pages/customerProfile/ProfileDashboard.jsx"
     },
@@ -3531,7 +3533,7 @@
       "id": "customerProfile",
       "file": "customerProfile.js",
       "absPath": "/customerProfile",
-      "__content": "import request from '../utils/request'\n\n// 画像\nexport const getProfile = (customerId) => request.get(`/customer-profiles/${customerId}`)\n\n// 分支\nexport const getBranchTree = (customerId) => request.get(`/customer-profiles/${customerId}/branches`)\nexport const createBranch = (customerId, data) => request.post(`/customer-profiles/${customerId}/branches`, data)\nexport const updateBranch = (customerId, branchId, data) => request.put(`/customer-profiles/${customerId}/branches/${branchId}`, data)\nexport const deleteBranch = (customerId, branchId) => request.delete(`/customer-profiles/${customerId}/branches/${branchId}`)\nexport const branchAnalysis = (customerId, branchId) => request.get(`/customer-profiles/${customerId}/branches/${branchId}/analysis`)\n\n// 政策动态\nexport const listPolicies = (customerId) => request.get(`/customer-profiles/${customerId}/policies`)\nexport const createPolicy = (customerId, data) => request.post(`/customer-profiles/${customerId}/policies`, data)\nexport const deletePolicy = (customerId, policyId) => request.delete(`/customer-profiles/${customerId}/policies/${policyId}`)\n\n// 历史订单/项目\nexport const listOrders = (customerId) => request.get(`/customer-profiles/${customerId}/orders`)\nexport const createOrder = (customerId, data) => request.post(`/customer-profiles/${customerId}/orders`, data)\nexport const deleteOrder = (customerId, orderId) => request.delete(`/customer-profiles/${customerId}/orders/${orderId}`)\n\n// 产品与方案\nexport const listProducts = (customerId) => request.get(`/customer-profiles/${customerId}/products`)\nexport const createProduct = (customerId, data) => request.post(`/customer-profiles/${customerId}/products`, data)\nexport const deleteProduct = (customerId, productId) => request.delete(`/customer-profiles/${customerId}/products/${productId}`)\n\n// 任务\nexport const createTask = (customerId, data) => request.post(`/customer-profiles/${customerId}/tasks`, data)\n\n// AI 洞察\nexport const generateAIInsight = (customerId) => request.post(`/customer-profiles/${customerId}/ai-insight`)\n"
+      "__content": "import request from '../utils/request'\n\n// 画像\nexport const getProfile = (customerId) => request.get(`/customer-profiles/${customerId}`)\n\n// 分支\nexport const getBranchTree = (customerId) => request.get(`/customer-profiles/${customerId}/branches`)\nexport const createBranch = (customerId, data) => request.post(`/customer-profiles/${customerId}/branches`, data)\nexport const updateBranch = (customerId, branchId, data) => request.put(`/customer-profiles/${customerId}/branches/${branchId}`, data)\nexport const deleteBranch = (customerId, branchId) => request.delete(`/customer-profiles/${customerId}/branches/${branchId}`)\nexport const branchAnalysis = (customerId, branchId) => request.get(`/customer-profiles/${customerId}/branches/${branchId}/analysis`)\n\n// 政策动态\nexport const listPolicies = (customerId) => request.get(`/customer-profiles/${customerId}/policies`)\nexport const createPolicy = (customerId, data) => request.post(`/customer-profiles/${customerId}/policies`, data)\nexport const deletePolicy = (customerId, policyId) => request.delete(`/customer-profiles/${customerId}/policies/${policyId}`)\n\n// 历史订单/项目\nexport const listOrders = (customerId) => request.get(`/customer-profiles/${customerId}/orders`)\nexport const createOrder = (customerId, data) => request.post(`/customer-profiles/${customerId}/orders`, data)\nexport const deleteOrder = (customerId, orderId) => request.delete(`/customer-profiles/${customerId}/orders/${orderId}`)\n\n// 产品与方案\nexport const listProducts = (customerId) => request.get(`/customer-profiles/${customerId}/products`)\nexport const createProduct = (customerId, data) => request.post(`/customer-profiles/${customerId}/products`, data)\nexport const deleteProduct = (customerId, productId) => request.delete(`/customer-profiles/${customerId}/products/${productId}`)\n\n// 任务\nexport const createTask = (customerId, data) => request.post(`/customer-profiles/${customerId}/tasks`, data)\n\n// AI 洞察\nexport const generateAIInsight = (customerId) => request.post(`/customer-profiles/${customerId}/ai-insight`)\nexport const getAIInsightResult = (customerId, taskId) => request.get(`/customer-profiles/${customerId}/ai-insight/${taskId}`)\n"
     },
     "decisionMaker": {
       "path": "decisionMaker",
@@ -3566,7 +3568,7 @@
       "id": "customer",
       "file": "customer.js",
       "absPath": "/customer",
-      "__content": "import request from '../utils/request'\n\nexport const getCustomerList = (params) => request.get('/customers', { params })\nexport const getCustomerDetail = (id) => request.get(`/customers/${id}`)\nexport const createCustomer = (data) => request.post('/customers', data)\nexport const updateCustomer = (id, data) => request.put(`/customers/${id}`, data)\nexport const deleteCustomer = (id) => request.delete(`/customers/${id}`)\nexport const updateCustomerStatus = (id, data) => request.put(`/customers/${id}/status`, data)\nexport const getStatistics = () => request.get('/customer/overview/statistics')\nexport const getDrillDown = (params) => request.get('/customer/overview/drill-down', { params })\n"
+      "__content": "import request from '../utils/request'\n\nexport const getCustomerList = (params) => request.get('/customers', { params })\nexport const exportCustomers = (params) => request.get('/customers/export', { params, responseType: 'blob', skipErrorToast: true, timeout: 120000 })\nexport const getCustomerDetail = (id) => request.get(`/customers/${id}`)\nexport const createCustomer = (data) => request.post('/customers', data)\nexport const updateCustomer = (id, data) => request.put(`/customers/${id}`, data)\nexport const deleteCustomer = (id) => request.delete(`/customers/${id}`)\nexport const updateCustomerStatus = (id, data) => request.put(`/customers/${id}/status`, data)\nexport const getStatistics = () => request.get('/customer/overview/statistics')\nexport const getDrillDown = (params) => request.get('/customer/overview/drill-down', { params })\n"
     },
     "auth": {
       "path": "auth",
@@ -3574,6 +3576,13 @@
       "file": "auth.js",
       "absPath": "/auth",
       "__content": "import request from '../utils/request'\n\nexport const login = (data) => request.post('/auth/login', data, { skipErrorToast: true })\n\nexport const ssoLogin = (externalToken) => request.post('/auth/sso-login', { externalToken }, { skipErrorToast: true })\n\nexport const logout = (refreshToken) => request.post('/auth/logout', null, {\n  headers: refreshToken ? { 'refresh-token': refreshToken } : {},\n  skipErrorToast: true\n})\n\nexport const getUserInfo = () => request.get('/auth/userinfo')\n"
+    },
+    "ai": {
+      "path": "ai",
+      "id": "ai",
+      "file": "ai.js",
+      "absPath": "/ai",
+      "__content": "import request from '../utils/request'\nimport { getAccessToken } from '../utils/token'\n\nexport const getAIHistory = (conversationId) => request.get(`/ai/conversations/${conversationId}/messages`)\n\nexport const clearAIConversation = (conversationId) => request.delete(`/ai/conversations/${conversationId}`)\n\nfunction parseEventBlock(block) {\n  let event = 'message'\n  const dataLines = []\n  for (const line of block.split('\\n')) {\n    if (line.startsWith('event:')) event = line.slice(6).trim()\n    else if (line.startsWith('data:')) dataLines.push(line.slice(5).replace(/^ /, ''))\n  }\n  return { event, data: dataLines.join('\\n') }\n}\n\nexport async function streamAIChat({ conversationId, message, signal, onDelta, onDone, onError }) {\n  const response = await fetch('/api/ai/chat', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json', token: getAccessToken() },\n    body: JSON.stringify({ conversationId, message }),\n    signal\n  })\n  const contentType = response.headers.get('content-type') || ''\n  if (!response.ok || !contentType.includes('text/event-stream')) {\n    let errorMessage = 'AI助手响应失败，请稍后重试'\n    try {\n      const body = await response.json()\n      errorMessage = body?.message || errorMessage\n    } catch {\n      // 非JSON错误响应时保留默认提示\n    }\n    throw new Error(errorMessage)\n  }\n  if (!response.body) {\n    throw new Error('当前浏览器不支持流式响应')\n  }\n\n  const reader = response.body.getReader()\n  const decoder = new TextDecoder('utf-8')\n  let buffer = ''\n  while (true) {\n    const { done, value } = await reader.read()\n    if (done) break\n    buffer += decoder.decode(value, { stream: true }).replace(/\\r\\n/g, '\\n')\n    let boundary = buffer.indexOf('\\n\\n')\n    while (boundary >= 0) {\n      const block = buffer.slice(0, boundary).trim()\n      buffer = buffer.slice(boundary + 2)\n      if (block) {\n        const { event, data } = parseEventBlock(block)\n        const payload = data ? JSON.parse(data) : {}\n        if (event === 'delta') onDelta(payload.content || '')\n        else if (event === 'done') onDone(payload)\n        else if (event === 'error') onError(new Error(payload.message || 'AI助手响应失败'))\n      }\n      boundary = buffer.indexOf('\\n\\n')\n    }\n  }\n}"
     }
   },
   "hasSrcDir": true,
@@ -3605,13 +3614,13 @@
       "rootContainer"
     ]
   },
-  "locale": "C",
+  "locale": "zh-CN",
   "globalCSS": [],
   "globalJS": [],
   "overridesCSS": [],
   "bundler": "webpack",
   "git": {
-    "originUrl": "https://gitee.com/zhoumu0613/customer.git"
+    "originUrl": "https://github.com/zhoumuzoom/consumer_center.git"
   },
   "framework": "react",
   "typescript": {
@@ -3621,7 +3630,7 @@
   "faviconFiles": [],
   "port": 8000,
   "host": "0.0.0.0",
-  "ip": "172.20.1.245",
+  "ip": "172.20.2.132",
   "antd": {
     "pkgPath": "/Users/zhoumu/IdeaProjects/consumer_center/frontend/node_modules/antd",
     "version": "6.6.2"

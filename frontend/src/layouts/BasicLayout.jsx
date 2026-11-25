@@ -6,6 +6,7 @@ import { Outlet, useLocation, useNavigate } from '@umijs/max'
 import { useLocale } from '../locales'
 import { useAuth } from '../hooks/useAuth'
 import LangSwitcher from '../components/LangSwitcher'
+import AiAssistant from '../components/AiAssistant'
 
 const { Content } = Layout
 
@@ -60,6 +61,7 @@ export default function BasicLayout() {
       token={{ colorPrimary: token.colorPrimary }}
     >
       <Content className="app-content"><Outlet /></Content>
+      <AiAssistant />
     </ProLayout>
   )
 }

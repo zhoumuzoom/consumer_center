@@ -7,6 +7,37 @@ spring:
     username: ${mysql.username}
     password: ${mysql.password}
 
+  # Spring AI：OpenAI 兼容网关
+  ai:
+    openai:
+      base-url: ${AI_GATEWAY_BASE_URL:https://nowcoding.ai}
+      api-key: ${AI_GATEWAY_API_KEY:unset}
+      chat:
+        options:
+          model: ${AI_GATEWAY_MODEL:gpt-6.2-sol}
+    retry:
+      max-attempts: 2
+      on-client-errors: false
+
+  http:
+    client:
+      connect-timeout: 10s
+      read-timeout: 120s
+
+  # AI 流式对话为长连接，放宽 MVC 异步请求超时
+  mvc:
+    async:
+      request-timeout: 180s
+
+# AI 能力配置
+ai:
+  insight:
+    task-ttl-hours: 2
+    lock-ttl-seconds: 180
+  copilot:
+    memory-max-messages: 20
+    memory-ttl-hours: 24
+
 # MyBatis配置
 mybatis-plus:
   configuration:

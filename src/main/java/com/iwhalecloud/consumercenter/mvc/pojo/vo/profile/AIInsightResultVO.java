@@ -39,4 +39,7 @@ public class AIInsightResultVO {
 
     @Schema(description = "生成时间")
     private String generatedTime;
+
+    @Schema(description = "失败原因")
+    private String errorMessage;
 }

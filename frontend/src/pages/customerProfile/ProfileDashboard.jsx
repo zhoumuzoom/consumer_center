@@ -3,7 +3,7 @@ import { Button, Card, Descriptions, Empty, Form, Input, InputNumber, Modal, Sel
 import { useParams } from '@umijs/max'
 import PageHeader from '../../components/PageHeader'
 import { useLocale } from '../../locales'
-import { createOrder, createPolicy, createProduct, createTask, deleteOrder, deletePolicy, deleteProduct, generateAIInsight, getProfile } from '../../api/customerProfile'
+import { createOrder, createPolicy, createProduct, createTask, deleteOrder, deletePolicy, deleteProduct, generateAIInsight, getAIInsightResult, getProfile } from '../../api/customerProfile'
 
 const field = (name, label, node = <Input />) => <Form.Item key={name} name={name} label={label}>{node}</Form.Item>
 export default function ProfileDashboard() {
@@ -13,7 +13,37 @@ export default function ProfileDashboard() {
   const saveModal = async () => { const values = await form.validateFields(); const actions = { policy: createPolicy, order: createOrder, product: createProduct }; await actions[modal](id, values); message.success(t('common.saveSuccess')); setModal(null); load() }
   const remove = (type, row) => Modal.confirm({ title: t('common.deleteConfirm'), onOk: async () => { await ({ policy: deletePolicy, order: deleteOrder, product: deleteProduct }[type])(id, row.id); message.success(t('common.deleteSuccess')); load() } })
   const createNewTask = async () => { const values = await taskForm.validateFields(); await createTask(id, values); taskForm.resetFields(); message.success(t('profile.taskCreated')) }
-  const generate = async () => { setGenerating(true); try { const res = await generateAIInsight(id); setInsight(res.data); message.success(t('profile.insightGenerated')) } finally { setGenerating(false) } }
+  const generate = async () => {
+    setGenerating(true)
+    try {
+      const res = await generateAIInsight(id)
+      let current = res.data
+      if (current?.status === 'generating') {
+        const taskId = current.taskId
+        const deadline = Date.now() + 120000
+        while (Date.now() < deadline) {
+          await new Promise((resolve) => setTimeout(resolve, 3000))
+          const poll = await getAIInsightResult(id, taskId)
+          current = poll.data
+          if (current?.status === 'completed') break
+          if (current?.status === 'failed') {
+            message.error(current.errorMessage || t('profile.insightFailed'))
+            return
+          }
+        }
+        if (current?.status !== 'completed') {
+          message.error(t('profile.insightTimeout'))
+          return
+        }
+      }
+      if (current?.status === 'completed') {
+        setInsight(current)
+        message.success(t('profile.insightGenerated'))
+      }
+    } finally {
+      setGenerating(false)
+    }
+  }
   const policyColumns = [{ title: t('profile.policyTitle'), dataIndex: 'policyTitle' }, { title: t('common.type'), dataIndex: 'policyType' }, { title: t('profile.policyLevel'), dataIndex: 'policyLevel' }, { title: t('profile.issuingAuthority'), dataIndex: 'issuingAuthority' }, { title: t('common.status'), dataIndex: 'status', render: (v) => <Tag color={v === '有效' ? 'success' : 'default'}>{v}</Tag> }, { title: t('common.action'), render: (_, row) => <Button type="link" danger onClick={() => remove('policy', row)}>{t('common.delete')}</Button> }]
   const orderColumns = [{ title: t('common.projectName'), dataIndex: 'projectName' }, { title: t('common.type'), dataIndex: 'projectType' }, { title: t('profile.amount'), dataIndex: 'orderAmount' }, { title: t('common.status'), dataIndex: 'orderStatus' }, { title: t('common.action'), render: (_, row) => <Button type="link" danger onClick={() => remove('order', row)}>{t('common.delete')}</Button> }]
   const productColumns = [{ title: t('common.name'), dataIndex: 'productName' }, { title: t('common.type'), dataIndex: 'productType' }, { title: t('profile.category'), dataIndex: 'category' }, { title: t('common.status'), dataIndex: 'usageStatus' }, { title: t('profile.annualFee'), dataIndex: 'annualFee' }, { title: t('common.action'), render: (_, row) => <Button type="link" danger onClick={() => remove('product', row)}>{t('common.delete')}</Button> }]

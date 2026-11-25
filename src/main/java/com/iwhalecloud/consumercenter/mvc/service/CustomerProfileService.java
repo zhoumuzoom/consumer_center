@@ -28,12 +28,6 @@ public interface CustomerProfileService {
     /** 分支业务穿透分析 */
     BranchAnalysisVO branchAnalysis(Long customerId, Long branchId);
 
-    /** 发起AI洞察 */
-    AIInsightResultVO generateAIInsight(Long customerId);
-
-    /** 获取AI洞察结果 */
-    AIInsightResultVO getAIInsightResult(Long customerId, String taskId);
-
     // ---- 政策动态 CRUD ----
     List<PolicyVO> listPolicies(Long customerId);
     PolicyVO createPolicy(Long customerId, PolicyCreateDTO createDTO);
