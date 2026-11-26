@@ -234,13 +234,13 @@ public class MyBatisCommentGenerator extends PluginAdapter implements CommentGen
 //            field.addAnnotation("@TableId(value = \"" + columnName + "\", type = IdType.AUTO)");
 //            return;
 //        }
-//
+
         // 创建时间 - 自动填充
 //        if (CREATE_TIME_FIELD.equalsIgnoreCase(columnName)) {
 //            field.addAnnotation("@TableField(fill = FieldFill.INSERT)");
 //            return;
 //        }
-//
+
         // 更新时间 - 自动填充
 //        if (UPDATE_TIME_FIELD.equalsIgnoreCase(columnName)) {
 //            field.addAnnotation("@TableField(fill = FieldFill.INSERT_UPDATE)");
