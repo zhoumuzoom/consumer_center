@@ -1,5 +1,6 @@
 package com.iwhalecloud.consumercenter.mvc.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serial;
@@ -21,6 +22,7 @@ public class CustomerProduct implements Serializable {
     /**
      * 主键
      */
+    @TableId
     private Long id;
 
     /**

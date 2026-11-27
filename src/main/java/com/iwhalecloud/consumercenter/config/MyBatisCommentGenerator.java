@@ -217,6 +217,13 @@ public class MyBatisCommentGenerator extends PluginAdapter implements CommentGen
             field.addJavaDocLine(" */");
         }
 
+        // 主键注解
+        if ("id".equalsIgnoreCase(columnName)) {
+            imports.add(new FullyQualifiedJavaType("com.baomidou.mybatisplus.annotation.TableId"));
+            field.addAnnotation("@TableId");
+            return;
+        }
+
         // 逻辑删除字段
         if ("deleted".equalsIgnoreCase(columnName)) {
             imports.add(new FullyQualifiedJavaType("com.baomidou.mybatisplus.annotation.TableLogic"));
@@ -227,12 +234,6 @@ public class MyBatisCommentGenerator extends PluginAdapter implements CommentGen
 //        if ("version".equalsIgnoreCase(columnName)) {
 //            imports.add(new FullyQualifiedJavaType("com.baomidou.mybatisplus.annotation.Version"));
 //            field.addAnnotation("@Version");
-//        }
-
-        // 主键注解
-//        if (PRIMARY_KEY.equalsIgnoreCase(columnName)) {
-//            field.addAnnotation("@TableId(value = \"" + columnName + "\", type = IdType.AUTO)");
-//            return;
 //        }
 
         // 创建时间 - 自动填充
@@ -273,7 +274,8 @@ public class MyBatisCommentGenerator extends PluginAdapter implements CommentGen
     }
 
     // 以下方法是 MybatisGenerator 生成 Mapper 接口的基础方法
-    // 并且让生成的 Mapper 接口符合 MyBatis-Plus 规范
+    // 并且让生成的 Mapper 接口符合 MyBatis-Plus 规范（增加 @Mapper 注解,继承 BaseMapper）
+    // 并添加 Mapper 注释
 
     /**
      * 拦截 Mapper 接口的生成
@@ -321,30 +323,45 @@ public class MyBatisCommentGenerator extends PluginAdapter implements CommentGen
         return true;
     }
 
-    // 以下方法是阻止 MybatisGenerator 生成具体的 SQL 方法 (selectByPrimaryKey, insert 等)
-    // 因为 MyBatis-Plus 的 BaseMapper 已经提供了这些方法，我们不需要重复生成
+    // 以下方法是阻止 MybatisGenerator 生成具体的 SQL 方法 (selectByPrimaryKey,selectAll,insert 等)
+    // 因为 MyBatis-Plus 的 BaseMapper 已经提供了这些方法，不需要重复生成
     // 方法返回 false 表示不生成该方法
 
+    /**
+     * 阻止SelectByPrimaryKey方法生成
+     */
     @Override
     public boolean clientSelectByPrimaryKeyMethodGenerated(@NonNull Method method, @NonNull Interface interfaze, @NonNull IntrospectedTable introspectedTable) {
         return false;
     }
 
+    /**
+     * 阻止SelectAll方法生成
+     */
     @Override
     public boolean clientSelectAllMethodGenerated(@NonNull Method method, @NonNull Interface interfaze, @NonNull IntrospectedTable introspectedTable) {
         return false;
     }
 
+    /**
+     * 阻止Insert方法生成
+     */
     @Override
     public boolean clientInsertMethodGenerated(@NonNull Method method, @NonNull Interface interfaze, @NonNull IntrospectedTable introspectedTable) {
         return false;
     }
 
+    /**
+     * 阻止UpdateByPrimaryKey方法生成
+     */
     @Override
     public boolean clientUpdateByPrimaryKeyWithoutBLOBsMethodGenerated(@NonNull Method method, @NonNull Interface interfaze, @NonNull IntrospectedTable introspectedTable) {
         return false;
     }
 
+    /**
+     * 阻止DeleteByPrimaryKey方法生成
+     */
     @Override
     public boolean clientDeleteByPrimaryKeyMethodGenerated(@NonNull Method method, @NonNull Interface interfaze, @NonNull IntrospectedTable introspectedTable) {
         return false;
