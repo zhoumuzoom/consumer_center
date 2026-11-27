@@ -198,9 +198,6 @@ public class MyBatisCommentGenerator extends PluginAdapter implements CommentGen
         serialUid.setFinal(true);
         serialUid.setInitializationString("1L");
         topLevelClass.addField(serialUid);
-
-        // 添加所有可能需要的MyBatis-Plus导入
-        topLevelClass.addImportedType("com.baomidou.mybatisplus.annotation.TableLogic");
     }
 
     /**
@@ -240,7 +237,6 @@ public class MyBatisCommentGenerator extends PluginAdapter implements CommentGen
         // 创建时间 - 自动填充
 //        if (CREATE_TIME_FIELD.equalsIgnoreCase(columnName)) {
 //            field.addAnnotation("@TableField(fill = FieldFill.INSERT)");
-//            return;
 //        }
 
         // 更新时间 - 自动填充
