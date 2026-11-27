@@ -31,7 +31,8 @@ import java.util.Set;
 /**
  * MyBatisGenerator 2.0.0，适用于Java 17+
  * 启动器、注释配置、插件配置
- * 作用：自动生成实体类和Mapper接口类，自动生成表注释和字段注释，生成的实体类和Mapper接口携带MyBatis-Plus注解
+ * 作用：自动生成实体类和Mapper接口类，自动生成表注释和字段注释，
+ * 生成的实体类和Mapper接口携带MyBatis-Plus注解，并拦截了默认的实现方法
  * 使用方式：
  * 1.添加mybatis-generator依赖
  * <dependency>
